@@ -98,7 +98,7 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch {} },
 };
 const params = new URLSearchParams(location.search);
-const LOCAL = params.has('local');
+const LOCAL = params.has('local') || location.hostname.endsWith('github.io');
 
 // ---------------- data ----------------
 async function gh(path, opts = {}) {
