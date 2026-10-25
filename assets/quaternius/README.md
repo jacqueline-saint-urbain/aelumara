@@ -1,4 +1,4 @@
-# Assets low-poly (Quaternius)
+# Quaternius (CC0)
 
 Packs de [Quaternius](https://quaternius.com/) (licence CC0, libre même commercial), récupérés le 2026-10-25 depuis la [page itch.io de Quaternius](https://quaternius.itch.io/), car le Google Drive du site refuse le téléchargement (quota dépassé).
 
