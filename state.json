@@ -1,0 +1,265 @@
+{
+  "v": 2,
+  "seed": 2026,
+  "tick": 0,
+  "day": 1,
+  "time": "2026-10-25T16:00:00Z",
+  "flags": {
+    "raft_ready": false
+  },
+  "regions": [
+    {
+      "id": "home",
+      "name": "Trio Island",
+      "center": [
+        0,
+        0
+      ],
+      "radius": 20,
+      "discovered": true
+    },
+    {
+      "id": "far",
+      "name": "L'île de l'horizon",
+      "center": [
+        0,
+        -95
+      ],
+      "radius": 45,
+      "discovered": false
+    }
+  ],
+  "stores": {
+    "wood": 0,
+    "fiber": 0,
+    "food": 8
+  },
+  "nodes": [
+    {
+      "id": "stores",
+      "type": "storehouse",
+      "pos": [
+        6,
+        4
+      ],
+      "label": "Réserves"
+    },
+    {
+      "id": "hut-1",
+      "type": "hut",
+      "pos": [
+        9,
+        8
+      ],
+      "label": "Hutte de Bram"
+    },
+    {
+      "id": "hut-2",
+      "type": "hut",
+      "pos": [
+        12,
+        3
+      ],
+      "label": "Hutte de Sélie"
+    },
+    {
+      "id": "wood-1",
+      "type": "palm",
+      "resource": "wood",
+      "stock": 12,
+      "pos": [
+        -12,
+        -8
+      ]
+    },
+    {
+      "id": "wood-2",
+      "type": "palm",
+      "resource": "wood",
+      "stock": 12,
+      "pos": [
+        -15,
+        -2
+      ]
+    },
+    {
+      "id": "wood-3",
+      "type": "pine",
+      "resource": "wood",
+      "stock": 14,
+      "pos": [
+        -9,
+        -13
+      ]
+    },
+    {
+      "id": "wood-4",
+      "type": "pine",
+      "resource": "wood",
+      "stock": 14,
+      "pos": [
+        8,
+        -12
+      ]
+    },
+    {
+      "id": "wood-5",
+      "type": "palm",
+      "resource": "wood",
+      "stock": 12,
+      "pos": [
+        15,
+        -7
+      ]
+    },
+    {
+      "id": "food-1",
+      "type": "bush",
+      "resource": "food",
+      "stock": 8,
+      "pos": [
+        4,
+        11
+      ]
+    },
+    {
+      "id": "food-2",
+      "type": "bush",
+      "resource": "food",
+      "stock": 8,
+      "pos": [
+        -8,
+        9
+      ]
+    },
+    {
+      "id": "food-3",
+      "type": "bush",
+      "resource": "food",
+      "stock": 8,
+      "pos": [
+        13,
+        12
+      ]
+    },
+    {
+      "id": "fiber-1",
+      "type": "reeds",
+      "resource": "fiber",
+      "stock": 8,
+      "pos": [
+        -16,
+        6
+      ]
+    },
+    {
+      "id": "fiber-2",
+      "type": "reeds",
+      "resource": "fiber",
+      "stock": 8,
+      "pos": [
+        -4,
+        -16
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "raft",
+      "name": "radeau",
+      "type": "raft",
+      "pos": [
+        2,
+        -17
+      ],
+      "status": "building",
+      "needs": {
+        "wood": 30,
+        "fiber": 12
+      },
+      "have": {}
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc-1",
+      "name": "Bram",
+      "role": "charpentier",
+      "color": "#ef6f6c",
+      "home": "hut-1",
+      "pos": [
+        9,
+        8
+      ],
+      "talent": "wood",
+      "likes": "wood",
+      "line": "On ne parle pas d'un radeau. On le construit.",
+      "needs": {
+        "hunger": 30,
+        "energy": 80,
+        "company": 30
+      },
+      "task": "idle",
+      "carry": {},
+      "say": "",
+      "delivered": 0,
+      "shells": 0
+    },
+    {
+      "id": "npc-2",
+      "name": "Sélie",
+      "role": "cueilleuse et cuisinière",
+      "color": "#56cfe1",
+      "home": "hut-2",
+      "pos": [
+        12,
+        3
+      ],
+      "talent": "food",
+      "likes": "food",
+      "ritual": "stone",
+      "company_rate": 2,
+      "line": "La marée rapporte toujours quelque chose. Il faut être là quand elle se retire.",
+      "needs": {
+        "hunger": 40,
+        "energy": 70,
+        "company": 85
+      },
+      "task": "idle",
+      "carry": {},
+      "say": "",
+      "delivered": 0,
+      "shells": 0
+    },
+    {
+      "id": "npc-3",
+      "name": "Nilo",
+      "role": "apprenti et messager",
+      "color": "#80ed99",
+      "home": "fire",
+      "pos": [
+        -1,
+        1
+      ],
+      "speed_bonus": 3,
+      "rest_rate": 1.5,
+      "likes": "fiber",
+      "line": "C'est quoi, ça, là-bas ?",
+      "needs": {
+        "hunger": 35,
+        "energy": 50,
+        "company": 60
+      },
+      "task": "idle",
+      "carry": {},
+      "say": "",
+      "delivered": 0,
+      "shells": 0
+    }
+  ],
+  "pot": 12,
+  "today": {
+    "delivered": 0,
+    "at_fire": []
+  }
+}
