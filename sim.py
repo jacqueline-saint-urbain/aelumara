@@ -29,7 +29,7 @@ HUNGER_RATE = 5
 ENERGY_RATE = 4
 COMPANY_RATE = 1
 FIRE_HOURS = (19, 20, 21)  # le feu du soir (Toronto time)
-STONE_HOUR = 7            # la pierre du matin
+STONE_HOURS = (6, 7, 8)   # la pierre du matin: the walk starts at 06h, owner decision A
 NODE_REGROW = {"wood": 0.25, "food": 0.4, "fiber": 0.3}
 NODE_MAX = {"wood": 20, "food": 12, "fiber": 12}
 
@@ -188,7 +188,7 @@ class Sim:
         n["energy"] = max(0, n["energy"] - ENERGY_RATE * npc.get("rest_rate", 1))
 
         # La pierre du matin: the shell keeper leaves one shell on the idea stone.
-        if hour == STONE_HOUR and npc.get("ritual") == "stone" and npc.get("stone_day") != st["day"]:
+        if hour in STONE_HOURS and npc.get("ritual") == "stone" and npc.get("stone_day") != st["day"]:
             npc["pos"], arrived = step_toward(npc["pos"], self.spots["stone"], speed)
             npc["task"] = "stone"
             if arrived:
