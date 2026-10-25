@@ -1,5 +1,5 @@
-PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur 03f9fa42206092c2033f94d35b097a24cbf819b7)
-Contexte : apres fusion compagnie bcdc537 - verification spark
+PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur 030d86ed49a4b23e5e3986b30be18e00f7f4473c)
+Contexte : apres festin a63a379 - verification spark
 Course : 720 ticks = 30 jours d'île, fixture fraîche (voir en-tête de playtest_sweep.py), état vivant jamais touché.
 
 DÉCLENCHEMENTS PAR RÈGLE
@@ -20,7 +20,7 @@ DÉCLENCHEMENTS PAR RÈGLE
 - Phrase signature d'un résident (probabilité 8 % par tick) : 104
 - Faim au plafond (100) : 138
 - Énergie à zéro : 0
-- Compagnie à zéro : 363
+- Compagnie à zéro : 275
 - Nœud de ressource épuisé (stock < 1, donc ignoré par les résidents) : 1
 - Réserves de nourriture à zéro au début d'un tick : 0
 - Après le radeau : récolte de bois ou de fibre : 0
