@@ -158,6 +158,7 @@ def fire_state():
 
 def test_evening_fire_rewards_presence_and_names_the_absent():
     state, book = fire_state()
+    state["stores"]["food"] = 0  # no shared meal here: this test is about presence
     sim_obj = engine.Sim(state, book)
     # 19h, 20h, 21h Toronto.
     run_tick(sim_obj, dt.datetime(2026, 10, 25, 23, 0, tzinfo=UTC))
@@ -227,3 +228,49 @@ def test_morning_stone_walk_arrives_from_far_away_and_pays_once():
     # Later the same morning, nothing more is paid.
     run_tick(sim_obj, dt.datetime(2026, 10, 25, 13, 0, tzinfo=UTC))  # 09h
     assert state["pot"] == 13
+
+
+# ------------------------------------------------------------- food ---
+
+def test_stored_food_spoils_overnight():
+    # Owner question (2026-10-25): food is not gold to hoard. Unused stores
+    # lose 10% when a new island day starts, so holding food has a cost.
+    state, book = stone_state([0, 0])
+    state["stores"]["food"] = 20
+    state["day"] = 1
+    sim_obj = engine.Sim(state, book)
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 11, 0, tzinfo=UTC))
+    assert state["day"] == 1 or state["stores"]["food"] < 20
+    state["tick"] = 23  # next tick rolls the day over
+    run_tick(sim_obj, dt.datetime(2026, 10, 26, 3, 0, tzinfo=UTC))
+    assert state["day"] == 2
+    assert state["stores"]["food"] == pytest.approx(18.0, abs=0.01)
+
+
+def test_shared_meal_at_the_evening_fire_uses_food_and_lifts_company():
+    # Food's use: at 21h, if the stores hold at least 6 food and two or more
+    # residents are at the fire, they share a meal: 6 food is used, each
+    # present resident gains 10 company, and the Book records it.
+    state, book = stone_state(FIRE)
+    selie = state["npcs"][1]
+    bram = state["npcs"][0]
+    state["stores"]["food"] = 10
+    state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
+    bram["needs"]["company"] = 40
+    selie["needs"]["company"] = 40
+    sim_obj = engine.Sim(state, book)
+    sim_obj.evening_fire()
+    assert state["stores"]["food"] == pytest.approx(4.0, abs=0.01)
+    assert bram["needs"]["company"] == 50
+    assert selie["needs"]["company"] == 50
+    assert any("shared meal" in e["text"] for e in entries(book, "summary"))
+
+
+def test_no_shared_meal_without_enough_food_or_company():
+    state, book = stone_state(FIRE)
+    state["stores"]["food"] = 4  # below the 6 needed for a meal
+    state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
+    sim_obj = engine.Sim(state, book)
+    sim_obj.evening_fire()
+    assert state["stores"]["food"] == pytest.approx(4.0, abs=0.01)
+    assert not any("shared meal" in e["text"] for e in entries(book, "summary"))
