@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 14,
+  "tick": 15,
   "day": 1,
-  "time": "2026-10-26T06:00:00Z",
+  "time": "2026-10-26T07:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -66,7 +66,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 15.5,
+      "stock": 15.75,
       "pos": [
         -12,
         -8
@@ -76,7 +76,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 13.5,
+      "stock": 13.75,
       "pos": [
         -15,
         -2
@@ -86,7 +86,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 17.5,
+      "stock": 17.75,
       "pos": [
         -9,
         -13
@@ -96,7 +96,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 17.5,
+      "stock": 17.75,
       "pos": [
         8,
         -12
@@ -106,7 +106,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 10.5,
+      "stock": 10.75,
       "pos": [
         15,
         -7
@@ -197,9 +197,9 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 80,
-        "company": 41
+        "hunger": 55,
+        "energy": 92,
+        "company": 40
       },
       "task": "sleep",
       "carry": {
@@ -225,9 +225,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
-        "energy": 70,
-        "company": 82
+        "hunger": 65,
+        "energy": 82,
+        "company": 80
       },
       "task": "sleep",
       "carry": {},
@@ -250,9 +250,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 98.0,
-        "company": 46
+        "hunger": 60,
+        "energy": 100,
+        "company": 45
       },
       "task": "sleep",
       "carry": {},
