@@ -122,6 +122,8 @@ class Sim:
         if new_day != s["day"]:
             s["day"] = new_day
             s["today"] = {"delivered": 0, "at_fire": []}
+            # Stored food spoils: unused stores lose 10% each island day.
+            s["stores"]["food"] = round(s["stores"]["food"] * 0.9, 2)
         s.setdefault("today", {"delivered": 0, "at_fire": []})
         hour = local_hour(when)
 
@@ -155,10 +157,18 @@ class Sim:
         st = self.s
         here = st["today"]["at_fire"]
         names = [n["name"] for n in st["npcs"] if n["id"] in here]
+        meal = ""
+        # Food's use: a shared meal at the fire, when there is enough to share.
+        if len(here) >= 2 and st["stores"]["food"] >= 6:
+            st["stores"]["food"] = round(st["stores"]["food"] - 6, 2)
+            for npc in st["npcs"]:
+                if npc["id"] in here:
+                    npc["needs"]["company"] = min(100, npc["needs"]["company"] + 10)
+            meal = " A shared meal was cooked from the stores."
         missing = [n["name"] for n in st["npcs"] if n["id"] not in here]
         proj = self.active_project() or next((p for p in st["projects"] if p["id"] == "raft"), None)
         pr = 100 if proj and proj["status"] == "done" else (self.progress(proj) if proj else 0)
-        line = f"The evening fire gathers {', '.join(names) if names else 'no one'}. Today: {st['today']['delivered']} resources delivered, raft at {pr}%. Shells in the pot: {st['pot']}."
+        line = f"The evening fire gathers {', '.join(names) if names else 'no one'}. Today: {st['today']['delivered']} resources delivered, raft at {pr}%. Shells in the pot: {st['pot']}.{meal}"
         if missing:
             line += f" Absent: {', '.join(missing)}."
         st["fires"] = st.get("fires", 0) + (1 if names else 0)
