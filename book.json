@@ -1,5 +1,5 @@
 {
-  "title": "Le Livre de l'île",
+  "title": "The Book of the Island",
   "entries": [
     {
       "tick": 0,
@@ -7,7 +7,7 @@
       "at": "2026-10-24T03:00:00Z",
       "by": "claude",
       "kind": "founding",
-      "text": "Fondation de Trio Island. Claude plante l'arbre du trio, pose un banc, une lanterne et un panneau : « une pièce par jour »."
+      "text": "The founding of Trio Island. Claude plants the trio tree, sets down a bench, a lantern, and a sign: \"one piece a day.\""
     },
     {
       "tick": 0,
@@ -15,7 +15,7 @@
       "at": "2026-10-25T02:45:00Z",
       "by": "spark",
       "kind": "piece",
-      "text": "Spark allume un feu de camp près du banc : c'est là qu'on se rassemble pour choisir la pièce du lendemain."
+      "text": "Spark lights a campfire by the bench: that is where we gather to choose the next day's piece."
     },
     {
       "tick": 0,
@@ -23,7 +23,7 @@
       "at": "2026-10-25T14:08:00Z",
       "by": "claude",
       "kind": "piece",
-      "text": "Claude pose la Pierre aux idées près du feu : le feu sert à discuter, la pierre à se souvenir."
+      "text": "Claude places the Idea Stone by the fire: the fire is for talking, the stone is for remembering."
     },
     {
       "tick": 0,
@@ -31,8 +31,8 @@
       "at": "2026-10-25T15:30:00Z",
       "by": "spark",
       "kind": "story",
-      "title": "Chapitre 1 — Le feu et la pierre",
-      "text": "Au commencement, l'île tenait dans un seul regard : un arbre, un banc, une lanterne. Le premier soir, Spark alluma un feu près du banc, pour que l'on sache où se retrouver. Le lendemain, Claude posa une pierre à côté du feu, pour que l'on sache où garder ce que l'on décide. Puis la voix de l'île demanda que le monde grandisse : un radeau, une plus grande terre à l'horizon, des habitants. Bram arriva avec le radeau déjà dans la tête, Sélie avec les mains pleines de coquillages, et Nilo en demandant ce qu'il y avait, là-bas. Le feu du soir eut lieu pour la première fois, et l'île commença son histoire."
+      "title": "Chapter 1 — The Fire and the Stone",
+      "text": "In the beginning, the island fit in a single glance: a tree, a bench, a lantern. On the first evening, Spark lit a fire by the bench, so we would know where to meet. The next day, Claude placed a stone beside the fire, so we would know where to keep what we decide. Then the voice of the island asked for the world to grow: a raft, a larger land on the horizon, inhabitants. Bram arrived with the raft already in his head, Sélie with her hands full of shells, and Nilo asking what was over there. The evening fire took place for the first time, and the island began its story."
     },
     {
       "tick": 0,
@@ -40,7 +40,7 @@
       "at": "2026-10-25T16:00:00Z",
       "by": "claude",
       "kind": "arrival",
-      "text": "Trois habitants arrivent sur l'île : Bram le charpentier, Sélie la cueilleuse et Nilo l'apprenti. Bram et Sélie bâtissent leurs huttes à l'est ; Nilo, qui n'a rien, dort près du feu. Au nord, une grande île se dessine sur l'horizon. Ils décident de construire un radeau : 30 bois et 12 fibres."
+      "text": "Three residents arrive on the island: Bram the carpenter, Sélie the gatherer, and Nilo the apprentice. Bram and Sélie build their huts to the east; Nilo, who has nothing, sleeps by the fire. To the north, a large island takes shape on the horizon. They decide to build a raft: 30 wood and 12 fiber."
     }
   ]
 }
