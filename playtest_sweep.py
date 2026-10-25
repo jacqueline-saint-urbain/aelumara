@@ -34,6 +34,8 @@ sim_mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sim_mod)
 
 TICKS = 720  # 30 jours d'île
+SIM_BLOB = sys.argv[1] if len(sys.argv) > 1 else "version du dépôt"
+RUN_LABEL = sys.argv[2] if len(sys.argv) > 2 else ""
 
 
 def fresh_fixture():
@@ -243,7 +245,9 @@ def main():
     ]
 
     out = []
-    out.append("PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, commit du moteur 44f970d)")
+    out.append(f"PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur {SIM_BLOB})")
+    if RUN_LABEL:
+        out.append(f"Contexte : {RUN_LABEL}")
     out.append(f"Course : {stats['ticks']} ticks = 30 jours d'île, fixture fraîche (voir en-tête de playtest_sweep.py), état vivant jamais touché.")
     out.append("")
     out.append("DÉCLENCHEMENTS PAR RÈGLE")
