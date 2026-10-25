@@ -28,6 +28,9 @@ SPEED = 6.0  # map units per tick
 HUNGER_RATE = 5
 ENERGY_RATE = 4
 COMPANY_RATE = 1
+FIRE_COMPANY = 25  # company gained for each evening hour at the fire
+WORK_HOURS = range(7, 19)  # 07h-18h Toronto: working near someone halves company decay
+CLOSE_DIST = 4
 FIRE_HOURS = (19, 20, 21)  # le feu du soir (Toronto time)
 STONE_HOURS = (6, 7, 8)   # la pierre du matin: the walk starts at 06h, owner decision A
 NODE_REGROW = {"wood": 0.25, "food": 0.4, "fiber": 0.3}
@@ -133,6 +136,12 @@ class Sim:
                 n["stock"] = round(min(NODE_MAX[r], n.get("stock", 0) + NODE_REGROW[r]), 2)
 
         night = is_night(when)
+        # Who works close to someone else, from positions at the start of the tick.
+        self.together = set()
+        if hour in WORK_HOURS:
+            for a in s["npcs"]:
+                if any(b is not a and dist(a["pos"], b["pos"]) <= CLOSE_DIST for b in s["npcs"]):
+                    self.together.add(a["id"])
         for npc in s["npcs"]:
             self.act(npc, rng, night, hour)
             # Whoever is at the fire during the evening counts as present, asleep or not.
@@ -178,7 +187,10 @@ class Sim:
         st = self.s
         n = npc["needs"]
         n["hunger"] = min(100, n["hunger"] + HUNGER_RATE)
-        n["company"] = max(0, n["company"] - COMPANY_RATE * npc.get("company_rate", 1))
+        decay = COMPANY_RATE * npc.get("company_rate", 1)
+        if npc["id"] in getattr(self, "together", ()):
+            decay /= 2
+        n["company"] = max(0, n["company"] - decay)
         home = self.home_pos(npc)
         speed = SPEED + npc.get("speed_bonus", 0)
         if npc.get("line") and rng.random() < 0.08:
@@ -212,7 +224,7 @@ class Sim:
             npc["pos"], arrived = step_toward(npc["pos"], self.spots["fire"], speed)
             npc["task"] = "fire"
             if arrived:
-                n["company"] = min(100, n["company"] + 15)
+                n["company"] = min(100, n["company"] + FIRE_COMPANY)
                 if npc["id"] not in st["today"]["at_fire"]:
                     st["today"]["at_fire"].append(npc["id"])
             return

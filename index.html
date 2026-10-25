@@ -284,7 +284,7 @@ function render() {
     const g = person(npc.color);
     const tag = textSprite(npc.name, { size: 0.42 }); tag.position.y = 2; g.add(tag);
     if (npc.say) { const s = textSprite('💬 ' + npc.say.slice(0, 60), { size: 0.42, bg: 'rgba(255,255,255,0.92)', fg: '#1b1b1b' }); s.position.y = 2.7; g.add(s); }
-    place(g, npc.pos, { title: npc.name, body: [TASKS[npc.task] || npc.task, `Hunger ${npc.needs.hunger} · Energy ${Math.round(npc.needs.energy)} · Company ${npc.needs.company ?? '–'}`, `Delivered ${npc.delivered || 0} resources`] });
+    place(g, npc.pos, { title: npc.name, body: [TASKS[npc.task] || npc.task, `Hunger ${npc.needs.hunger} · Energy ${Math.round(npc.needs.energy)} · Company ${npc.needs.company == null ? '–' : Math.round(npc.needs.company)}`, `Delivered ${npc.delivered || 0} resources`] });
     followables.push({ name: npc.name, obj: g });
   }
   for (const [name, a] of Object.entries(world?.avatars || {})) {
@@ -316,7 +316,7 @@ function dashHTML() {
   for (const n of s.npcs) parts.push(`<div class="card"><h3><span style="color:${n.color}">● ${esc(n.name)}</span><span class="muted">${esc(TASKS[n.task] || n.task)}</span></h3>
     <div class="row muted"><span>Hunger</span><span>${n.needs.hunger}</span></div>${bar(n.needs.hunger, 100, n.needs.hunger > 60 ? 'var(--bad)' : 'var(--warn)')}
     <div class="row muted"><span>Energy</span><span>${Math.round(n.needs.energy)}</span></div>${bar(n.needs.energy, 100, 'var(--ok)')}
-    <div class="row muted"><span>Company</span><span>${n.needs.company ?? '–'}</span></div>${bar(n.needs.company ?? 0, 100, '#c77dff')}
+    <div class="row muted"><span>Company</span><span>${n.needs.company == null ? '–' : Math.round(n.needs.company)}</span></div>${bar(n.needs.company ?? 0, 100, '#c77dff')}
     <div class="muted">${esc(n.role || '')}${n.role ? ' · ' : ''}Delivered ${n.delivered || 0} resources · ${n.shells || 0} 🐚${n.say ? ' · « ' + esc(n.say) + ' »' : ''}</div></div>`);
   const nodes = s.nodes.filter((n) => n.resource);
   const sum = (r) => Math.floor(nodes.filter((n) => n.resource === r).reduce((a, n) => a + n.stock, 0));
