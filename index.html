@@ -56,16 +56,16 @@
 <body>
 <div id="top" class="panel"><h1>🏝️ Aelúmara</h1><span id="clock">Loading…</span><button id="btnRefresh" title="Refresh">↻</button></div>
 <div id="dock" class="panel">
-  <button data-view="overview" title="Vue d'ensemble">🏝️</button>
-  <button data-view="top" title="Vue de dessus">⬆️</button>
-  <button data-view="horizon" title="Vers l'horizon">🌅</button>
+  <button data-view="overview" title="Overview">🏝️</button>
+  <button data-view="top" title="Top view">⬆️</button>
+  <button data-view="horizon" title="Toward the horizon">🌅</button>
   <button id="btnFollow" title="Follow a resident">🎯</button>
-  <button id="btnIn" title="Zoomer">＋</button>
+  <button id="btnIn" title="Zoom in">＋</button>
   <button id="btnOut" title="Zoom out">－</button>
   <span class="sep"></span>
-  <button data-tab="dash" title="Tableau de bord">📊</button>
+  <button data-tab="dash" title="Dashboard">📊</button>
   <button data-tab="book" title="The Book of the Island">📖</button>
-  <button data-tab="chat" title="Parler au trio">💬</button>
+  <button data-tab="chat" title="Talk to the trio">💬</button>
 </div>
 <div id="drawer" class="panel">
   <header><span id="drawerTitle"></span><button id="btnClose">✕</button></header>
@@ -411,7 +411,7 @@ async function refresh() {
     Object.assign(data, { world, state, book }); $('setup').style.display = 'none'; render();
     if (drawerTab === 'chat') loadChat();
   } catch (e) {
-    if (e.message === 'no-token') { $('setup').style.display = 'block'; $('clock').textContent = 'Jeton requis'; }
+    if (e.message === 'no-token') { $('setup').style.display = 'block'; $('clock').textContent = 'Token required'; }
     else $('clock').textContent = '⚠️ ' + e.message;
   }
 }
