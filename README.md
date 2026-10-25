@@ -1,6 +1,6 @@
-# Aelumara
+# Aelúmara
 
-Aelumara est un petit monde simulé : un archipel, une première île, trois résidents, un radeau en construction et un Livre qui raconte tout.
+Aelúmara est un petit monde simulé : un archipel, une première île, trois résidents, un radeau en construction et un Livre qui raconte tout.
 
 Le nom fond deux mots d'une langue inventée : *Aelumë*, « la lumière qui abrite », et *Velúmara*, « là où la mer ralentit ». Il se prononce a-é-lou-MA-ra.
 
