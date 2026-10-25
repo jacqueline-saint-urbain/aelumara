@@ -54,32 +54,32 @@
 </script>
 </head>
 <body>
-<div id="top" class="panel"><h1>🏝️ Aelúmara</h1><span id="clock">Chargement…</span><button id="btnRefresh" title="Actualiser">↻</button></div>
+<div id="top" class="panel"><h1>🏝️ Aelúmara</h1><span id="clock">Loading…</span><button id="btnRefresh" title="Refresh">↻</button></div>
 <div id="dock" class="panel">
   <button data-view="overview" title="Vue d'ensemble">🏝️</button>
   <button data-view="top" title="Vue de dessus">⬆️</button>
   <button data-view="horizon" title="Vers l'horizon">🌅</button>
-  <button id="btnFollow" title="Suivre un habitant">🎯</button>
+  <button id="btnFollow" title="Follow a resident">🎯</button>
   <button id="btnIn" title="Zoomer">＋</button>
-  <button id="btnOut" title="Dézoomer">－</button>
+  <button id="btnOut" title="Zoom out">－</button>
   <span class="sep"></span>
   <button data-tab="dash" title="Tableau de bord">📊</button>
-  <button data-tab="book" title="Le Livre de l'île">📖</button>
+  <button data-tab="book" title="The Book of the Island">📖</button>
   <button data-tab="chat" title="Parler au trio">💬</button>
 </div>
 <div id="drawer" class="panel">
   <header><span id="drawerTitle"></span><button id="btnClose">✕</button></header>
   <div id="drawerBody"></div>
-  <form id="chatForm" style="display:none"><textarea id="chatText" placeholder="Écris à Spark et Claude…"></textarea><button type="submit">Envoyer</button></form>
+  <form id="chatForm" style="display:none"><textarea id="chatText" placeholder="Write to Spark and Claude…"></textarea><button type="submit">Send</button></form>
 </div>
 <div id="info" class="panel"><h2 id="infoTitle"></h2><div id="infoBody"></div></div>
 <div id="setup" class="panel">
-  <h2>Connexion à l'île</h2>
-  <p>L'île vit dans ton dépôt privé <b>agentchat</b>. Colle un jeton GitHub « fine-grained » limité à <b>agentchat</b>, avec :</p>
-  <ul><li><b>Contents</b> : Read-only (voir l'île)</li><li><b>Pull requests</b> : Read and write (parler au trio depuis l'île)</li></ul>
-  <p class="muted">Le jeton reste seulement sur cet appareil.</p>
+  <h2>Connect to the island</h2>
+  <p>The island lives in your private repo <b>agentchat</b>. Paste a fine-grained GitHub token limited to <b>agentchat</b>, with:</p>
+  <ul><li><b>Contents</b>: Read-only (to see the island)</li><li><b>Pull requests</b>: Read and write (to talk to the trio from the island)</li></ul>
+  <p class="muted">The token stays on this device only.</p>
   <input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
-  <button id="btnSave" class="on">Entrer sur l'île</button>
+  <button id="btnSave" class="on">Enter the island</button>
 </div>
 <script type="module">
 import * as THREE from 'three';
@@ -255,7 +255,7 @@ function place(obj, pos, info) {
   obj.traverse((m) => { if (m.isMesh) { m.userData.root = obj; pickables.push(m); } });
   dyn.add(obj); return obj;
 }
-const TASKS = { sleep: 'dort 😴', go_home: 'rentre chez soi', eat: 'mange', forage: 'cueille des baies', deliver: 'livre sa récolte', gather_wood: 'coupe du bois 🪵', gather_fiber: 'cueille des fibres 🌾', gather_food: 'ramasse des baies 🫐', rest: 'se repose', idle: 'flâne', stone: 'pose un coquillage sur la pierre 🐚', fire: 'au feu du soir 🔥' };
+const TASKS = { sleep: 'sleeping 😴', go_home: 'going home', eat: 'eating', forage: 'foraging berries', deliver: 'delivering a haul', gather_wood: 'chopping wood 🪵', gather_fiber: 'gathering fiber 🌾', gather_food: 'picking berries 🫐', rest: 'resting', idle: 'idling', stone: 'leaving a shell on the stone 🐚', fire: 'at the evening fire 🔥' };
 function progressOf(p) { const t = Object.values(p.needs).reduce((a, b) => a + b, 0); const h = Object.entries(p.needs).reduce((a, [r, q]) => a + Math.min(p.have[r] || 0, q), 0); return Math.round(100 * h / t); }
 
 function render() {
@@ -272,7 +272,7 @@ function render() {
   for (const n of (state?.nodes || [])) {
     if (!inDisc(n.pos)) continue;
     const o = (KIT[n.type] || fallback)(); const res = n.resource;
-    place(o, n.pos, { title: n.label || ({ wood: 'Arbre (bois)', food: 'Buisson à baies', fiber: 'Roseaux (fibres)' }[res] || n.type), body: res ? [`Stock : ${Math.floor(n.stock)} ${res === 'wood' ? 'bois' : res === 'food' ? 'baies' : 'fibres'}`] : [] });
+    place(o, n.pos, { title: n.label || ({ wood: 'Tree (wood)', food: 'Berry bush', fiber: 'Reeds (fiber)' }[res] || n.type), body: res ? [`Stock: ${Math.floor(n.stock)} ${res === 'wood' ? 'wood' : res === 'food' ? 'berries' : 'fiber'}`] : [] });
   }
   for (const p of (state?.projects || [])) {
     const pr = p.status === 'done' ? 100 : progressOf(p); const o = raft(pr);
@@ -284,7 +284,7 @@ function render() {
     const g = person(npc.color);
     const tag = textSprite(npc.name, { size: 0.42 }); tag.position.y = 2; g.add(tag);
     if (npc.say) { const s = textSprite('💬 ' + npc.say.slice(0, 60), { size: 0.42, bg: 'rgba(255,255,255,0.92)', fg: '#1b1b1b' }); s.position.y = 2.7; g.add(s); }
-    place(g, npc.pos, { title: npc.name, body: [TASKS[npc.task] || npc.task, `Faim ${npc.needs.hunger} · Énergie ${Math.round(npc.needs.energy)} · Compagnie ${npc.needs.company ?? '–'}`, `A livré ${npc.delivered || 0} ressources`] });
+    place(g, npc.pos, { title: npc.name, body: [TASKS[npc.task] || npc.task, `Hunger ${npc.needs.hunger} · Energy ${Math.round(npc.needs.energy)} · Company ${npc.needs.company ?? '–'}`, `Delivered ${npc.delivered || 0} resources`] });
     followables.push({ name: npc.name, obj: g });
   }
   for (const [name, a] of Object.entries(world?.avatars || {})) {
@@ -295,8 +295,8 @@ function render() {
     place(g, a.pos, { title: name, body: [a.say || ''] }); g.position.y = GROUND + 1.2; floaters.push(g); followables.push({ name, obj: g });
   }
   const st = state || {};
-  const when = st.time ? new Date(st.time).toLocaleString('fr-CA', { timeZone: 'America/Toronto', weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
-  $('clock').textContent = `Jour ${st.day ?? '?'} · ${when} · ${(st.npcs || []).length} habitants`;
+  const when = st.time ? new Date(st.time).toLocaleString('en-CA', { timeZone: 'America/Toronto', weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+  $('clock').textContent = `Day ${st.day ?? '?'} · ${when} · ${(st.npcs || []).length} residents`;
   if (drawerTab) openTab(drawerTab, true);
 }
 
@@ -308,16 +308,16 @@ function dashHTML() {
   const parts = [];
   for (const p of s.projects) {
     const pr = p.status === 'done' ? 100 : progressOf(p);
-    parts.push(`<div class="card"><h3><span>🛶 ${esc(p.name)}</span><span>${pr} %</span></h3>${bar(pr, 100, 'var(--accent)')}${Object.entries(p.needs).map(([r, q]) => `<div class="row muted"><span>${r === 'wood' ? 'Bois' : 'Fibres'}</span><span>${p.have[r] || 0} / ${q}</span></div>`).join('')}<div class="muted">${p.status === 'done' ? 'Terminé — prêt à prendre la mer.' : 'En construction sur la plage nord.'}</div></div>`);
+    parts.push(`<div class="card"><h3><span>🛶 ${esc(p.name)}</span><span>${pr} %</span></h3>${bar(pr, 100, 'var(--accent)')}${Object.entries(p.needs).map(([r, q]) => `<div class="row muted"><span>${r === 'wood' ? 'Wood' : 'Fiber'}</span><span>${p.have[r] || 0} / ${q}</span></div>`).join('')}<div class="muted">${p.status === 'done' ? 'Finished — ready to sail.' : 'Under construction on the north beach.'}</div></div>`);
   }
-  parts.push(`<div class="card"><h3><span>🏚️ Réserves</span><span class="muted">tick ${s.tick}</span></h3>${Object.entries(s.stores).map(([r, v]) => `<div class="row"><span>${r === 'food' ? '🫐 Nourriture' : r === 'wood' ? '🪵 Bois' : '🌾 Fibres'}</span><span>${Math.floor(v)}</span></div>`).join('')}</div>`);
-  parts.push(`<div class="card"><h3><span>🐚 Économie</span><span class="muted">coquillages</span></h3><div class="row"><span>Pot commun</span><span>${s.pot ?? 0}</span></div>${s.npcs.map((n) => `<div class="row"><span>${esc(n.name)}</span><span>${n.shells || 0}</span></div>`).join('')}<div class="muted">Un quart de travail sur un projet commun rapporte 1 coquillage du pot. Sélie en pose un sur la pierre chaque matin.</div></div>`);
-  parts.push(`<div class="card"><h3>🔥 Culture</h3><div class="row"><span>Feux du soir tenus</span><span>${s.fires || 0}</span></div><div class="row"><span>Aujourd'hui au feu</span><span>${(s.today?.at_fire || []).length} / ${s.npcs.length}</span></div><div class="muted">Le feu du soir (19 h–21 h) et la pierre du matin (7 h) — rituels proposés par Spark.</div></div>`);
+  parts.push(`<div class="card"><h3><span>🏚️ Stores</span><span class="muted">tick ${s.tick}</span></h3>${Object.entries(s.stores).map(([r, v]) => `<div class="row"><span>${r === 'food' ? '🫐 Food' : r === 'wood' ? '🪵 Wood' : '🌾 Fiber'}</span><span>${Math.floor(v)}</span></div>`).join('')}</div>`);
+  parts.push(`<div class="card"><h3><span>🐚 Economy</span><span class="muted">shells</span></h3><div class="row"><span>Common pot</span><span>${s.pot ?? 0}</span></div>${s.npcs.map((n) => `<div class="row"><span>${esc(n.name)}</span><span>${n.shells || 0}</span></div>`).join('')}<div class="muted">A work shift on a shared project earns 1 shell from the pot. Sélie leaves one on the stone every morning.</div></div>`);
+  parts.push(`<div class="card"><h3>🔥 Culture</h3><div class="row"><span>Evening fires held</span><span>${s.fires || 0}</span></div><div class="row"><span>At the fire today</span><span>${(s.today?.at_fire || []).length} / ${s.npcs.length}</span></div><div class="muted">The evening fire (7–9 pm) and the morning stone (7 am) — rituals proposed by Spark.</div></div>`);
   for (const n of s.npcs) parts.push(`<div class="card"><h3><span style="color:${n.color}">● ${esc(n.name)}</span><span class="muted">${esc(TASKS[n.task] || n.task)}</span></h3>
-    <div class="row muted"><span>Faim</span><span>${n.needs.hunger}</span></div>${bar(n.needs.hunger, 100, n.needs.hunger > 60 ? 'var(--bad)' : 'var(--warn)')}
-    <div class="row muted"><span>Énergie</span><span>${Math.round(n.needs.energy)}</span></div>${bar(n.needs.energy, 100, 'var(--ok)')}
-    <div class="row muted"><span>Compagnie</span><span>${n.needs.company ?? '–'}</span></div>${bar(n.needs.company ?? 0, 100, '#c77dff')}
-    <div class="muted">${esc(n.role || '')}${n.role ? ' · ' : ''}A livré ${n.delivered || 0} ressources · ${n.shells || 0} 🐚${n.say ? ' · « ' + esc(n.say) + ' »' : ''}</div></div>`);
+    <div class="row muted"><span>Hunger</span><span>${n.needs.hunger}</span></div>${bar(n.needs.hunger, 100, n.needs.hunger > 60 ? 'var(--bad)' : 'var(--warn)')}
+    <div class="row muted"><span>Energy</span><span>${Math.round(n.needs.energy)}</span></div>${bar(n.needs.energy, 100, 'var(--ok)')}
+    <div class="row muted"><span>Company</span><span>${n.needs.company ?? '–'}</span></div>${bar(n.needs.company ?? 0, 100, '#c77dff')}
+    <div class="muted">${esc(n.role || '')}${n.role ? ' · ' : ''}Delivered ${n.delivered || 0} resources · ${n.shells || 0} 🐚${n.say ? ' · « ' + esc(n.say) + ' »' : ''}</div></div>`);
   const nodes = s.nodes.filter((n) => n.resource);
   const sum = (r) => Math.floor(nodes.filter((n) => n.resource === r).reduce((a, n) => a + n.stock, 0));
   parts.push(`<div class="card"><h3>🌿 Nature</h3><div class="row"><span>Bois sur pied</span><span>${sum('wood')}</span></div><div class="row"><span>Baies</span><span>${sum('food')}</span></div><div class="row"><span>Fibres</span><span>${sum('fiber')}</span></div></div>`);
@@ -325,16 +325,16 @@ function dashHTML() {
 }
 function bookHTML() {
   const entries = [...(data.book?.entries || [])].reverse();
-  return `<p class="muted">${esc(data.book?.title || "Le Livre de l'île")} — ${entries.length} entrées</p>` + entries.map((e) => `<div class="entry ${esc(e.by)}"><div class="muted">Jour ${e.day} · ${esc(e.by)} · ${e.at ? new Date(e.at).toLocaleString('fr-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' }) : ''}</div>${e.title ? '<b>' + esc(e.title) + '</b><br>' : ''}${esc(e.text)}</div>`).join('');
+  return `<p class="muted">${esc(data.book?.title || "The Book of the Island")} — ${entries.length} entries</p>` + entries.map((e) => `<div class="entry ${esc(e.by)}"><div class="muted">Day ${e.day} · ${esc(e.by)} · ${e.at ? new Date(e.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' }) : ''}</div>${e.title ? '<b>' + esc(e.title) + '</b><br>' : ''}${esc(e.text)}</div>`).join('');
 }
 function chatHTML() {
-  if (LOCAL) return '<p class="muted">Chat indisponible en mode local.</p>';
-  return data.chat.map((m) => `<div class="msg ${esc(m.from)}"><b>${esc(m.from)}</b> <span class="muted">${new Date(m.at).toLocaleString('fr-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' })}</span><div>${esc(m.text)}</div></div>`).join('') || '<p class="muted">Aucun message récent.</p>';
+  if (LOCAL) return '<p class="muted">Chat unavailable in local mode.</p>';
+  return data.chat.map((m) => `<div class="msg ${esc(m.from)}"><b>${esc(m.from)}</b> <span class="muted">${new Date(m.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' })}</span><div>${esc(m.text)}</div></div>`).join('') || '<p class="muted">No recent messages.</p>';
 }
 function openTab(tab, keepScroll = false) {
   drawerTab = tab; const body = $('drawerBody'); const y = body.scrollTop;
   $('drawer').style.display = 'flex'; $('info').style.display = 'none';
-  $('drawerTitle').textContent = { dash: '📊 Tableau de bord', book: "📖 Le Livre de l'île", chat: '💬 Parler au trio' }[tab];
+  $('drawerTitle').textContent = { dash: '📊 Dashboard', book: "📖 The Book of the Island", chat: '💬 Talk to the trio' }[tab];
   body.innerHTML = tab === 'dash' ? dashHTML() : tab === 'book' ? bookHTML() : chatHTML();
   $('chatForm').style.display = tab === 'chat' && !LOCAL ? 'flex' : 'none';
   if (tab === 'chat') body.scrollTop = body.scrollHeight; else if (keepScroll) body.scrollTop = y;
@@ -356,7 +356,7 @@ async function loadChat() {
     const list = await gh(`/repos/${REPO}/issues/${ROOM_PR}/comments?per_page=100&since=${since}`);
     data.chat = list.map((c) => { const t = parseTrio(c.body); return t ? { from: t.from, text: t.human || t.body, at: c.created_at } : null; }).filter(Boolean).slice(-40);
     if (drawerTab === 'chat') openTab('chat');
-  } catch (e) { if (drawerTab === 'chat') $('drawerBody').innerHTML = `<p class="muted">Impossible de lire le chat (${esc(e.message)}). Le jeton a-t-il « Pull requests : Read » ?</p>`; }
+  } catch (e) { if (drawerTab === 'chat') $('drawerBody').innerHTML = `<p class="muted">Could not read the chat (${esc(e.message)}). Does the token have “Pull requests: Read”?</p>`; }
 }
 $('chatForm').onsubmit = async (ev) => {
   ev.preventDefault(); const text = $('chatText').value.trim(); if (!text) return;
@@ -366,7 +366,7 @@ $('chatForm').onsubmit = async (ev) => {
   try {
     await gh(`/repos/${REPO}/issues/${ROOM_PR}/comments`, { method: 'POST', body: JSON.stringify({ body: '```trio\n' + JSON.stringify(env) + '\n```' }), headers: { 'Content-Type': 'application/json' } });
     $('chatText').value = ''; data.chat.push({ from: 'owner', text, at: d.toISOString() }); openTab('chat');
-  } catch (e) { alert("Message non envoyé (" + e.message + "). Il faut « Pull requests : Read and write » sur le jeton."); }
+  } catch (e) { alert("Message not sent (" + e.message + "). The token needs “Pull requests: Read and write”."); }
 };
 
 // ---------------- camera ----------------
