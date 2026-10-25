@@ -76,7 +76,3 @@ Packs non retenus pour l'instant. Rien n'est supprimé : ils restent dans `asset
 - Mini Skate (kenney/mini-skate)
 - Mini Arena (kenney/mini-arena)
 - Tower Defense Kit (kenney/tower-defense-kit)
-
-## Arbres écartés (filtre tropical)
-
-- Textured Lowpoly Trees (quaternius/textured-lowpoly-trees)
