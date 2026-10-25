@@ -1,7 +1,7 @@
 name: Moteur d'Aelúmara
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Faire avancer le monde d'un tour
-        run: python3 sim.py
+        run: python3 sim.py --ticks 1
       - name: Enregistrer la sauvegarde du tour
         run: |
           git config user.name "jacqueline-saint-urbain"
