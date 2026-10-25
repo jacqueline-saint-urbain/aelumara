@@ -1,0 +1,36 @@
+name: Moteur d'Aelumara
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: aelumara-sim
+  cancel-in-progress: false
+jobs:
+  sim:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Faire avancer le monde d'un tour
+        run: python3 sim.py
+      - name: Enregistrer la sauvegarde du tour
+        run: |
+          git config user.name "jacqueline-saint-urbain"
+          git config user.email "jacqueline-saint-urbain@users.noreply.github.com"
+          git add state.json book.json
+          if git diff --cached --quiet; then echo "Aucun changement."; else git commit -m "Tour du moteur — sauvegarde d'Aelumara"; git push; fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+      - id: deployment
+        uses: actions/deploy-pages@v4
