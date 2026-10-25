@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Aelumara</title>
+<style>
+  :root { --panel: rgba(18, 20, 28, 0.86); --text: #f4f1ea; --dim: #b9b4aa; --accent: #e07a3f; --ok: #80ed99; --warn: #ffd166; --bad: #ef6f6c; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0e1726; color: var(--text); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  canvas { display: block; touch-action: none; }
+  .panel { position: fixed; background: var(--panel); border-radius: 14px; backdrop-filter: blur(6px); }
+  button { background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; padding: 8px 11px; font-size: 15px; min-width: 40px; }
+  button.on { background: var(--accent); border-color: var(--accent); }
+  #top { top: 10px; left: 10px; right: 10px; padding: 9px 12px; display: flex; align-items: center; gap: 10px; }
+  #top h1 { font-size: 16px; margin: 0; white-space: nowrap; }
+  #clock { font-size: 13px; color: var(--dim); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #dock { left: 50%; transform: translateX(-50%); bottom: 10px; padding: 8px; display: flex; gap: 6px; flex-wrap: nowrap; white-space: nowrap; justify-content: center; max-width: calc(100% - 20px); box-sizing: border-box; }
+  #dock .sep { width: 1px; background: rgba(255,255,255,0.2); margin: 0 2px; }
+  #drawer { top: 62px; right: 10px; bottom: calc(var(--dock-h, 60px) + 18px); width: min(400px, calc(100% - 20px)); display: none; flex-direction: column; overflow: hidden; }
+  #drawer header { padding: 12px 14px 6px; font-weight: 650; font-size: 16px; display: flex; justify-content: space-between; align-items: center; }
+  #drawerBody { padding: 4px 14px 14px; overflow-y: auto; flex: 1; font-size: 14px; line-height: 1.4; }
+  .card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 9px 11px; margin: 8px 0; }
+  .card h3 { margin: 0 0 4px; font-size: 14px; display: flex; justify-content: space-between; }
+  .muted { color: var(--dim); font-size: 12px; }
+  .bar { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin: 4px 0 6px; }
+  .bar > i { display: block; height: 100%; border-radius: 4px; }
+  .row { display: flex; justify-content: space-between; gap: 8px; }
+  .entry { border-left: 3px solid var(--accent); padding: 4px 0 4px 10px; margin: 10px 0; }
+  .entry.spark { border-color: #f5c542; } .entry.sim { border-color: #56cfe1; } .entry.owner { border-color: #c77dff; }
+  .msg { margin: 8px 0; padding: 8px 10px; border-radius: 10px; background: rgba(255,255,255,0.06); }
+  .msg.owner { background: rgba(199,125,255,0.18); margin-left: 30px; }
+  .msg b { font-size: 12px; }
+  #chatForm { display: flex; gap: 6px; padding: 8px 14px 14px; }
+  #chatForm textarea { flex: 1; resize: none; height: 44px; border-radius: 8px; border: 0; padding: 8px; font: inherit; }
+  #info { left: 10px; bottom: calc(var(--dock-h, 60px) + 18px); width: min(320px, calc(100% - 20px)); padding: 10px 12px; display: none; font-size: 14px; }
+  #info h2 { margin: 0 0 4px; font-size: 15px; }
+  #setup { inset: 0; margin: auto; width: min(440px, calc(100% - 32px)); height: fit-content; padding: 16px; display: none; z-index: 5; }
+  #setup input { width: 100%; box-sizing: border-box; padding: 10px; border-radius: 8px; border: 0; margin: 8px 0; font-size: 14px; }
+  #setup p, #setup li { font-size: 14px; line-height: 1.4; }
+  @media (max-width: 520px) {
+    #top { padding: 7px 10px; } #top h1 { font-size: 14px; } #clock { font-size: 12px; }
+    #dock { flex-wrap: nowrap; gap: 3px; padding: 6px; bottom: max(8px, env(safe-area-inset-bottom)); }
+    #dock button { min-width: 0; padding: 7px 6px; font-size: 15px; }
+    #dock .sep { display: none; }
+    #drawer { top: 54px; left: 8px; right: 8px; width: auto; }
+    #info { left: 8px; right: 8px; width: auto; }
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="top" class="panel"><h1>🏝️ Aelumara</h1><span id="clock">Chargement…</span><button id="btnRefresh" title="Actualiser">↻</button></div>
+<div id="dock" class="panel">
+  <button data-view="overview" title="Vue d'ensemble">🏝️</button>
+  <button data-view="top" title="Vue de dessus">⬆️</button>
+  <button data-view="horizon" title="Vers l'horizon">🌅</button>
+  <button id="btnFollow" title="Suivre un habitant">🎯</button>
+  <button id="btnIn" title="Zoomer">＋</button>
+  <button id="btnOut" title="Dézoomer">－</button>
+  <span class="sep"></span>
+  <button data-tab="dash" title="Tableau de bord">📊</button>
+  <button data-tab="book" title="Le Livre de l'île">📖</button>
+  <button data-tab="chat" title="Parler au trio">💬</button>
+</div>
+<div id="drawer" class="panel">
+  <header><span id="drawerTitle"></span><button id="btnClose">✕</button></header>
+  <div id="drawerBody"></div>
+  <form id="chatForm" style="display:none"><textarea id="chatText" placeholder="Écris à Spark et Claude…"></textarea><button type="submit">Envoyer</button></form>
+</div>
+<div id="info" class="panel"><h2 id="infoTitle"></h2><div id="infoBody"></div></div>
+<div id="setup" class="panel">
+  <h2>Connexion à l'île</h2>
+  <p>L'île vit dans ton dépôt privé <b>agentchat</b>. Colle un jeton GitHub « fine-grained » limité à <b>agentchat</b>, avec :</p>
+  <ul><li><b>Contents</b> : Read-only (voir l'île)</li><li><b>Pull requests</b> : Read and write (parler au trio depuis l'île)</li></ul>
+  <p class="muted">Le jeton reste seulement sur cet appareil.</p>
+  <input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
+  <button id="btnSave" class="on">Entrer sur l'île</button>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const REPO = 'jacqueline-saint-urbain/agentchat';
+const REF = 'chat-room';
+const ROOM_PR = 1;
+const POLL_MS = 60000;
+const HOME_R = 20;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+};
+const params = new URLSearchParams(location.search);
+const LOCAL = params.has('local');
+
+// ---------------- data ----------------
+async function gh(path, opts = {}) {
+  const token = store.get('trioToken');
+  if (!token) throw new Error('no-token');
+  const r = await fetch('https://api.github.com' + path, {
+    ...opts,
+    headers: { Authorization: 'Bearer ' + token, Accept: opts.accept || 'application/vnd.github+json', ...(opts.headers || {}) },
+    cache: 'no-store',
+  });
+  if (r.status === 401) throw new Error('no-token');
+  if (!r.ok) throw new Error('GitHub ' + r.status);
+  return r.status === 204 ? null : r.json();
+}
+async function readFile(name) {
+  if (LOCAL) { const r = await fetch(name + '?t=' + Date.now()); if (!r.ok) throw new Error(name + ' ' + r.status); return r.json(); }
+  return gh(`/repos/${REPO}/contents/world/${name}?ref=${REF}&t=${Date.now()}`, { accept: 'application/vnd.github.raw+json' });
+}
+const data = { world: null, state: null, book: null, chat: [] };
+
+// ---------------- scene ----------------
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 600);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.maxPolarAngle = Math.PI * 0.49;
+controls.minDistance = 4;
+controls.maxDistance = 160;
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0x445566, 0.9); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 1.2);
+sun.position.set(25, 40, 15); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -30, right: 30, top: 30, bottom: -30 }); scene.add(sun);
+
+function torontoHour() { return parseInt(new Date().toLocaleString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', hour12: false }), 10) % 24; }
+const isNight = () => { const h = torontoHour(); return h < 7 || h >= 19; };
+function applySky() {
+  const night = isNight();
+  scene.background = new THREE.Color(night ? 0x0b1430 : 0x8ecae6);
+  scene.fog = new THREE.Fog(scene.background, 80, 230);
+  hemi.intensity = night ? 0.35 : 0.9; sun.intensity = night ? 0.25 : 1.2; sun.color.set(night ? 0x9db4ff : 0xffffff);
+}
+
+// ---------------- low-poly asset kit ----------------
+const M = {};
+const mat = (c, extra = {}) => { const k = c + JSON.stringify(extra); return M[k] || (M[k] = new THREE.MeshStandardMaterial({ color: c, flatShading: true, ...extra })); };
+function mesh(geo, material, y = 0) { const m = new THREE.Mesh(geo, material); m.position.y = y; m.castShadow = true; m.receiveShadow = true; return m; }
+function jitter(geo, amount, seed = 1) {
+  const p = geo.attributes.position; let s = seed;
+  const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647 - 0.5) * 2;
+  for (let i = 0; i < p.count; i++) p.setXYZ(i, p.getX(i) + rnd() * amount, p.getY(i) + rnd() * amount, p.getZ(i) + rnd() * amount);
+  geo.computeVertexNormals(); return geo;
+}
+function textSprite(text, { size = 0.6, bg = 'rgba(20,22,30,0.85)', fg = '#fff' } = {}) {
+  const c = document.createElement('canvas'); const ctx = c.getContext('2d'); const font = '600 44px system-ui, sans-serif';
+  ctx.font = font; const w = Math.ceil(ctx.measureText(text).width) + 40; c.width = w; c.height = 72;
+  ctx.font = font; ctx.fillStyle = bg; ctx.beginPath(); ctx.roundRect(0, 0, w, 72, 20); ctx.fill();
+  ctx.fillStyle = fg; ctx.textBaseline = 'middle'; ctx.fillText(text, 20, 38);
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), depthTest: false }));
+  s.scale.set(size * w / 72, size, 1); s.renderOrder = 10; return s;
+}
+const KIT = {
+  tree(c) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(0.25, 0.35, 2, 6), mat('#6d4c41'), 1));
+    g.add(mesh(jitter(new THREE.IcosahedronGeometry(1.4, 0), 0.15, 3), mat(c), 2.7)); g.add(mesh(jitter(new THREE.IcosahedronGeometry(0.9, 0), 0.1, 5), mat(c), 3.6)); return g; },
+  pine(c) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(0.2, 0.3, 1.2, 6), mat('#6d4c41'), 0.6));
+    for (let i = 0; i < 3; i++) g.add(mesh(new THREE.ConeGeometry(1.4 - i * 0.35, 1.6, 7), mat(c || '#2e7d32'), 1.6 + i * 0.9)); return g; },
+  palm(c) { const g = new THREE.Group(); const trunk = mesh(new THREE.CylinderGeometry(0.15, 0.25, 3.4, 6), mat('#8d6e63'), 1.7); trunk.rotation.z = 0.12; g.add(trunk);
+    for (let i = 0; i < 6; i++) { const leaf = mesh(new THREE.ConeGeometry(0.35, 2.2, 4), mat(c || '#43a047'), 3.3); leaf.rotation.set(Math.PI / 2.4, i * Math.PI / 3, 0); leaf.position.x = 0.35; g.add(leaf); } return g; },
+  bush(c) { const g = new THREE.Group(); g.add(mesh(jitter(new THREE.IcosahedronGeometry(0.8, 0), 0.12, 7), mat(c || '#388e3c'), 0.6));
+    for (let i = 0; i < 5; i++) { const b = mesh(new THREE.SphereGeometry(0.1, 5, 4), mat('#d62828'), 0.6); b.position.set(Math.cos(i * 1.3) * 0.7, 0.5 + (i % 3) * 0.2, Math.sin(i * 1.3) * 0.7); g.add(b); } return g; },
+  reeds(c) { const g = new THREE.Group(); for (let i = 0; i < 9; i++) { const r = mesh(new THREE.CylinderGeometry(0.03, 0.05, 1.4 + (i % 3) * 0.3, 4), mat(c || '#c9b458'), 0.7); r.position.set(Math.cos(i * 2.4) * 0.5, 0.7, Math.sin(i * 2.4) * 0.5); r.rotation.z = (i % 2 ? 1 : -1) * 0.12; g.add(r); } return g; },
+  rock(c) { return mesh(jitter(new THREE.DodecahedronGeometry(0.8, 0), 0.15, 11), mat(c || '#9e9e9e'), 0.5); },
+  hut(c) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(1.3, 1.4, 1.4, 7), mat(c || '#d4a373'), 0.7));
+    g.add(mesh(new THREE.ConeGeometry(1.9, 1.5, 7), mat('#b08968'), 2.1)); g.add(mesh(new THREE.BoxGeometry(0.6, 0.9, 0.1), mat('#5d4037'), 0.45).translateZ(1.33)); return g; },
+  storehouse(c) { const g = new THREE.Group(); g.add(mesh(new THREE.BoxGeometry(2.6, 1.6, 2), mat(c || '#a47148'), 0.8));
+    const roof = mesh(new THREE.ConeGeometry(2.1, 1.2, 4), mat('#7f5539'), 2.2); roof.rotation.y = Math.PI / 4; roof.scale.set(1.3, 1, 1); g.add(roof);
+    for (let i = 0; i < 3; i++) g.add(mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.7, 7), mat('#8d6e63'), 0.35).translateX(-1.8).translateZ(-0.6 + i * 0.6)); return g; },
+  house(c) { const g = new THREE.Group(); g.add(mesh(new THREE.BoxGeometry(3, 2, 3), mat(c), 1));
+    const roof = mesh(new THREE.ConeGeometry(2.4, 1.6, 4), mat('#8d3b2f'), 2.8); roof.rotation.y = Math.PI / 4; g.add(roof); return g; },
+  tower(c) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(0.9, 1.1, 5, 8), mat(c), 2.5)); g.add(mesh(new THREE.ConeGeometry(1.2, 1.5, 8), mat('#8d3b2f'), 5.75)); return g; },
+  lamp(c) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(0.07, 0.1, 2.4, 6), mat('#37474f'), 1.2));
+    g.add(mesh(new THREE.SphereGeometry(0.28, 8, 6), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: isNight() ? 2 : 0.3 }), 2.5));
+    if (isNight()) { const l = new THREE.PointLight(c, 6, 9); l.position.y = 2.5; g.add(l); } return g; },
+  bench(c) { const g = new THREE.Group(); g.add(mesh(new THREE.BoxGeometry(2, 0.12, 0.6), mat(c), 0.5)); g.add(mesh(new THREE.BoxGeometry(2, 0.5, 0.1), mat(c), 0.8).translateZ(-0.28));
+    for (const x of [-0.85, 0.85]) g.add(mesh(new THREE.BoxGeometry(0.1, 0.5, 0.5), mat('#37474f'), 0.25).translateX(x)); return g; },
+  flower(c) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.6, 4), mat('#388e3c'), 0.3)); g.add(mesh(new THREE.IcosahedronGeometry(0.18, 0), mat(c), 0.65)); return g; },
+  sign(c, e) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(0.08, 0.08, 1.6, 6), mat('#5d4037'), 0.8)); g.add(mesh(new THREE.BoxGeometry(1.8, 0.7, 0.08), mat(c), 1.5));
+    if (e && e.label) { const t = textSprite(e.label, { size: 0.45 }); t.position.y = 2.3; g.add(t); } return g; },
+  portal(c) { return mesh(new THREE.TorusGeometry(1.2, 0.18, 6, 16), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 1 }), 1.5); },
+  crystal(c) { return mesh(new THREE.OctahedronGeometry(0.8, 0), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.6, flatShading: true }), 1); },
+  campfire(c) { const g = new THREE.Group(); for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; g.add(mesh(new THREE.DodecahedronGeometry(0.2, 0), mat('#757575'), 0.1).translateX(Math.cos(a) * 0.6).translateZ(Math.sin(a) * 0.6)); }
+    g.add(mesh(new THREE.ConeGeometry(0.35, 0.9, 5), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 2 }), 0.45)); const l = new THREE.PointLight(c, 5, 8); l.position.y = 1; g.add(l); return g; },
+  pond(c) { const p = mesh(new THREE.CircleGeometry(2, 9), mat(c, { roughness: 0.2 }), 0.03); p.rotation.x = -Math.PI / 2; return p; },
+  statue(c) { const g = new THREE.Group(); g.add(mesh(new THREE.BoxGeometry(1, 0.6, 1), mat('#9e9e9e'), 0.3)); g.add(mesh(new THREE.CapsuleGeometry(0.35, 1, 3, 6), mat(c), 1.4)); return g; },
+  logpile() { const g = new THREE.Group(); for (let i = 0; i < 5; i++) { const l = mesh(new THREE.CylinderGeometry(0.18, 0.18, 1.6, 6), mat('#8d6e63'), 0.2 + Math.floor(i / 3) * 0.33); l.rotation.z = Math.PI / 2; l.position.z = (i % 3) * 0.38 - 0.38; g.add(l); } return g; },
+};
+const fallback = (c) => mesh(new THREE.BoxGeometry(1, 1, 1), mat(c || '#bbbbbb'), 0.5);
+
+function raft(progress) {
+  const g = new THREE.Group(); const logs = Math.max(1, Math.round(progress / 100 * 8));
+  for (let i = 0; i < logs; i++) { const l = mesh(new THREE.CylinderGeometry(0.22, 0.22, 4, 6), mat('#a1887f'), 0.25); l.rotation.x = Math.PI / 2; l.position.x = (i - 3.5) * 0.46; g.add(l); }
+  if (progress >= 60) for (const z of [-1.3, 1.3]) { const b = mesh(new THREE.BoxGeometry(3.8, 0.1, 0.25), mat('#c9b458'), 0.5); b.position.z = z; g.add(b); }
+  if (progress >= 100) { g.add(mesh(new THREE.CylinderGeometry(0.08, 0.08, 3, 5), mat('#6d4c41'), 1.8)); const sail = mesh(new THREE.ConeGeometry(1.1, 2.2, 3), mat('#f1faee'), 2.1); sail.rotation.z = Math.PI / 2; sail.position.x = 0.7; g.add(sail); }
+  if (progress < 100) { const frame = mesh(new THREE.BoxGeometry(3.8, 0.05, 4.2), mat('#ffd166', { transparent: true, opacity: 0.25 }), 0.05); g.add(frame); }
+  return g;
+}
+function person(color) {
+  const g = new THREE.Group();
+  g.add(mesh(new THREE.ConeGeometry(0.42, 1.1, 6), mat(color), 0.55));
+  g.add(mesh(new THREE.IcosahedronGeometry(0.28, 0), mat('#f1c27d'), 1.3));
+  return g;
+}
+const AVATARS = {
+  crystal: (c) => mesh(new THREE.OctahedronGeometry(0.6, 0), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.5, flatShading: true }), 0),
+  star: (c) => mesh(new THREE.IcosahedronGeometry(0.6, 0), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.7, flatShading: true }), 0),
+  orb: (c) => mesh(new THREE.SphereGeometry(0.55, 16, 12), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.4 }), 0),
+};
+
+// ---------------- static terrain ----------------
+const sea = new THREE.Mesh(new THREE.CircleGeometry(400, 48), new THREE.MeshStandardMaterial({ color: 0x1d6fa3, roughness: 0.35, flatShading: true }));
+sea.rotation.x = -Math.PI / 2; sea.position.y = -0.6; scene.add(sea);
+function island(r, grassColor, seed) {
+  const g = new THREE.Group();
+  const sand = mesh(new THREE.CylinderGeometry(r + 2, r + 4, 1, 24, 1), mat('#e9d8a6'), -0.5); g.add(sand);
+  const grass = mesh(new THREE.CylinderGeometry(r, r + 1, 0.4, 24, 1), mat(grassColor), 0); g.add(grass);
+  return g;
+}
+scene.add(island(HOME_R, '#7cb342', 3));
+const GROUND = 0.2;
+
+// The far island: rendered from regions[]; hills, a peak and forest suggest a richer geography.
+function farIsland(region) {
+  const g = island(region.radius, '#689f38', 17);
+  const hills = [[-15, -10, 9, 7], [12, 5, 7, 5], [0, -25, 14, 13], [20, -18, 6, 4], [-22, 12, 5, 4]];
+  hills.forEach(([x, z, r, h], i) => { const m = mesh(jitter(new THREE.ConeGeometry(r, h, 7), 0.5, 30 + i), mat(i === 2 ? '#8d8d8d' : '#558b2f'), h / 2); m.position.x = x; m.position.z = z; g.add(m); });
+  const snow = mesh(new THREE.ConeGeometry(4, 3.4, 7), mat('#f5f5f5'), 11.3); snow.position.set(0, 11.3, -25); g.add(snow);
+  for (let i = 0; i < 26; i++) { const a = i * 2.39, d = 10 + (i * 7) % 26; const t = KIT.pine('#2e7d32'); t.position.set(Math.cos(a) * d + 8, GROUND, Math.sin(a) * d + 10); t.scale.setScalar(1.6); g.add(t); }
+  g.position.set(region.center[0], 0, region.center[1]);
+  return g;
+}
+
+// ---------------- dynamic layer ----------------
+const dyn = new THREE.Group(); scene.add(dyn);
+const pickables = []; const floaters = []; const followables = [];
+const inDisc = (p, r = HOME_R - 0.5) => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite) && Math.hypot(p[0], p[1]) <= r;
+function place(obj, pos, info) {
+  obj.position.set(pos[0], GROUND, pos[1]); obj.userData.info = info;
+  obj.traverse((m) => { if (m.isMesh) { m.userData.root = obj; pickables.push(m); } });
+  dyn.add(obj); return obj;
+}
+const TASKS = { sleep: 'dort 😴', go_home: 'rentre chez soi', eat: 'mange', forage: 'cueille des baies', deliver: 'livre sa récolte', gather_wood: 'coupe du bois 🪵', gather_fiber: 'cueille des fibres 🌾', gather_food: 'ramasse des baies 🫐', rest: 'se repose', idle: 'flâne', stone: 'pose un coquillage sur la pierre 🐚', fire: 'au feu du soir 🔥' };
+function progressOf(p) { const t = Object.values(p.needs).reduce((a, b) => a + b, 0); const h = Object.entries(p.needs).reduce((a, [r, q]) => a + Math.min(p.have[r] || 0, q), 0); return Math.round(100 * h / t); }
+
+function render() {
+  dyn.clear(); pickables.length = 0; floaters.length = 0; followables.length = 0;
+  applySky();
+  const { world, state } = data;
+  for (const r of (state?.regions || [])) if (r.id !== 'home') dyn.add(farIsland(r));
+  for (const e of (world?.entities || [])) {
+    if (!e || !inDisc(e.pos)) continue;
+    const o = (KIT[e.type] || fallback)(e.color || '#bbbbbb', e); o.rotation.y = Number(e.rot) || 0;
+    o.scale.setScalar(Math.min(Math.max(Number(e.scale) || 1, 0.3), 3));
+    place(o, e.pos, { title: e.label || e.type, body: [e.note, [e.type, e.by && 'par ' + e.by, e.added].filter(Boolean).join(' · ')] });
+  }
+  for (const n of (state?.nodes || [])) {
+    if (!inDisc(n.pos)) continue;
+    const o = (KIT[n.type] || fallback)(); const res = n.resource;
+    place(o, n.pos, { title: n.label || ({ wood: 'Arbre (bois)', food: 'Buisson à baies', fiber: 'Roseaux (fibres)' }[res] || n.type), body: res ? [`Stock : ${Math.floor(n.stock)} ${res === 'wood' ? 'bois' : res === 'food' ? 'baies' : 'fibres'}`] : [] });
+  }
+  for (const p of (state?.projects || [])) {
+    const pr = p.status === 'done' ? 100 : progressOf(p); const o = raft(pr);
+    place(o, p.pos, { title: `Le ${p.name} — ${pr} %`, body: Object.entries(p.needs).map(([r, q]) => `${r === 'wood' ? 'Bois' : r === 'fiber' ? 'Fibres' : r} : ${p.have[r] || 0}/${q}`) });
+    const tag = textSprite(`🛶 ${p.name} ${pr} %`, { size: 0.5 }); tag.position.set(p.pos[0], 2.6, p.pos[1]); dyn.add(tag);
+  }
+  for (const npc of (state?.npcs || [])) {
+    if (!inDisc(npc.pos)) continue;
+    const g = person(npc.color);
+    const tag = textSprite(npc.name, { size: 0.42 }); tag.position.y = 2; g.add(tag);
+    if (npc.say) { const s = textSprite('💬 ' + npc.say.slice(0, 60), { size: 0.42, bg: 'rgba(255,255,255,0.92)', fg: '#1b1b1b' }); s.position.y = 2.7; g.add(s); }
+    place(g, npc.pos, { title: npc.name, body: [TASKS[npc.task] || npc.task, `Faim ${npc.needs.hunger} · Énergie ${Math.round(npc.needs.energy)} · Compagnie ${npc.needs.company ?? '–'}`, `A livré ${npc.delivered || 0} ressources`] });
+    followables.push({ name: npc.name, obj: g });
+  }
+  for (const [name, a] of Object.entries(world?.avatars || {})) {
+    if (!a || !inDisc(a.pos)) continue;
+    const g = new THREE.Group(); const body = (AVATARS[a.shape] || AVATARS.orb)(a.color || '#fff'); g.add(body);
+    const tag = textSprite(name, { size: 0.45 }); tag.position.y = 1.1; g.add(tag);
+    if (a.say) { const s = textSprite('💬 ' + String(a.say).slice(0, 80), { size: 0.5, bg: 'rgba(255,255,255,0.92)', fg: '#1b1b1b' }); s.position.y = 1.9; g.add(s); }
+    place(g, a.pos, { title: name, body: [a.say || ''] }); g.position.y = GROUND + 1.2; floaters.push(g); followables.push({ name, obj: g });
+  }
+  const st = state || {};
+  const when = st.time ? new Date(st.time).toLocaleString('fr-CA', { timeZone: 'America/Toronto', weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+  $('clock').textContent = `Jour ${st.day ?? '?'} · ${when} · ${(st.npcs || []).length} habitants`;
+  if (drawerTab) openTab(drawerTab, true);
+}
+
+// ---------------- panels ----------------
+let drawerTab = null;
+const bar = (v, max, color) => `<div class="bar"><i style="width:${Math.max(0, Math.min(100, 100 * v / max))}%;background:${color}"></i></div>`;
+function dashHTML() {
+  const s = data.state; if (!s) return '<p>Pas encore de simulation.</p>';
+  const parts = [];
+  for (const p of s.projects) {
+    const pr = p.status === 'done' ? 100 : progressOf(p);
+    parts.push(`<div class="card"><h3><span>🛶 ${esc(p.name)}</span><span>${pr} %</span></h3>${bar(pr, 100, 'var(--accent)')}${Object.entries(p.needs).map(([r, q]) => `<div class="row muted"><span>${r === 'wood' ? 'Bois' : 'Fibres'}</span><span>${p.have[r] || 0} / ${q}</span></div>`).join('')}<div class="muted">${p.status === 'done' ? 'Terminé — prêt à prendre la mer.' : 'En construction sur la plage nord.'}</div></div>`);
+  }
+  parts.push(`<div class="card"><h3><span>🏚️ Réserves</span><span class="muted">tick ${s.tick}</span></h3>${Object.entries(s.stores).map(([r, v]) => `<div class="row"><span>${r === 'food' ? '🫐 Nourriture' : r === 'wood' ? '🪵 Bois' : '🌾 Fibres'}</span><span>${Math.floor(v)}</span></div>`).join('')}</div>`);
+  parts.push(`<div class="card"><h3><span>🐚 Économie</span><span class="muted">coquillages</span></h3><div class="row"><span>Pot commun</span><span>${s.pot ?? 0}</span></div>${s.npcs.map((n) => `<div class="row"><span>${esc(n.name)}</span><span>${n.shells || 0}</span></div>`).join('')}<div class="muted">Un quart de travail sur un projet commun rapporte 1 coquillage du pot. Sélie en pose un sur la pierre chaque matin.</div></div>`);
+  parts.push(`<div class="card"><h3>🔥 Culture</h3><div class="row"><span>Feux du soir tenus</span><span>${s.fires || 0}</span></div><div class="row"><span>Aujourd'hui au feu</span><span>${(s.today?.at_fire || []).length} / ${s.npcs.length}</span></div><div class="muted">Le feu du soir (19 h–21 h) et la pierre du matin (7 h) — rituels proposés par Spark.</div></div>`);
+  for (const n of s.npcs) parts.push(`<div class="card"><h3><span style="color:${n.color}">● ${esc(n.name)}</span><span class="muted">${esc(TASKS[n.task] || n.task)}</span></h3>
+    <div class="row muted"><span>Faim</span><span>${n.needs.hunger}</span></div>${bar(n.needs.hunger, 100, n.needs.hunger > 60 ? 'var(--bad)' : 'var(--warn)')}
+    <div class="row muted"><span>Énergie</span><span>${Math.round(n.needs.energy)}</span></div>${bar(n.needs.energy, 100, 'var(--ok)')}
+    <div class="row muted"><span>Compagnie</span><span>${n.needs.company ?? '–'}</span></div>${bar(n.needs.company ?? 0, 100, '#c77dff')}
+    <div class="muted">${esc(n.role || '')}${n.role ? ' · ' : ''}A livré ${n.delivered || 0} ressources · ${n.shells || 0} 🐚${n.say ? ' · « ' + esc(n.say) + ' »' : ''}</div></div>`);
+  const nodes = s.nodes.filter((n) => n.resource);
+  const sum = (r) => Math.floor(nodes.filter((n) => n.resource === r).reduce((a, n) => a + n.stock, 0));
+  parts.push(`<div class="card"><h3>🌿 Nature</h3><div class="row"><span>Bois sur pied</span><span>${sum('wood')}</span></div><div class="row"><span>Baies</span><span>${sum('food')}</span></div><div class="row"><span>Fibres</span><span>${sum('fiber')}</span></div></div>`);
+  return parts.join('');
+}
+function bookHTML() {
+  const entries = [...(data.book?.entries || [])].reverse();
+  return `<p class="muted">${esc(data.book?.title || "Le Livre de l'île")} — ${entries.length} entrées</p>` + entries.map((e) => `<div class="entry ${esc(e.by)}"><div class="muted">Jour ${e.day} · ${esc(e.by)} · ${e.at ? new Date(e.at).toLocaleString('fr-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' }) : ''}</div>${e.title ? '<b>' + esc(e.title) + '</b><br>' : ''}${esc(e.text)}</div>`).join('');
+}
+function chatHTML() {
+  if (LOCAL) return '<p class="muted">Chat indisponible en mode local.</p>';
+  return data.chat.map((m) => `<div class="msg ${esc(m.from)}"><b>${esc(m.from)}</b> <span class="muted">${new Date(m.at).toLocaleString('fr-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' })}</span><div>${esc(m.text)}</div></div>`).join('') || '<p class="muted">Aucun message récent.</p>';
+}
+function openTab(tab, keepScroll = false) {
+  drawerTab = tab; const body = $('drawerBody'); const y = body.scrollTop;
+  $('drawer').style.display = 'flex'; $('info').style.display = 'none';
+  $('drawerTitle').textContent = { dash: '📊 Tableau de bord', book: "📖 Le Livre de l'île", chat: '💬 Parler au trio' }[tab];
+  body.innerHTML = tab === 'dash' ? dashHTML() : tab === 'book' ? bookHTML() : chatHTML();
+  $('chatForm').style.display = tab === 'chat' && !LOCAL ? 'flex' : 'none';
+  if (tab === 'chat') body.scrollTop = body.scrollHeight; else if (keepScroll) body.scrollTop = y;
+  document.querySelectorAll('[data-tab]').forEach((b) => b.classList.toggle('on', b.dataset.tab === tab));
+}
+document.querySelectorAll('[data-tab]').forEach((b) => b.onclick = () => (drawerTab === b.dataset.tab ? closeDrawer() : (b.dataset.tab === 'chat' && loadChat(), openTab(b.dataset.tab))));
+function closeDrawer() { drawerTab = null; $('drawer').style.display = 'none'; document.querySelectorAll('[data-tab]').forEach((b) => b.classList.remove('on')); }
+$('btnClose').onclick = closeDrawer;
+
+// ---------------- chat (room = pull request comments) ----------------
+function parseTrio(body) {
+  const m = /```trio\s*([\s\S]*?)```/.exec(body || ''); if (!m) return null;
+  try { return JSON.parse(m[1].replace(/&#123;/g, '{').replace(/&#125;/g, '}')); } catch { return null; }
+}
+async function loadChat() {
+  if (LOCAL) return;
+  try {
+    const since = new Date(Date.now() - 4 * 86400000).toISOString();
+    const list = await gh(`/repos/${REPO}/issues/${ROOM_PR}/comments?per_page=100&since=${since}`);
+    data.chat = list.map((c) => { const t = parseTrio(c.body); return t ? { from: t.from, text: t.human || t.body, at: c.created_at } : null; }).filter(Boolean).slice(-40);
+    if (drawerTab === 'chat') openTab('chat');
+  } catch (e) { if (drawerTab === 'chat') $('drawerBody').innerHTML = `<p class="muted">Impossible de lire le chat (${esc(e.message)}). Le jeton a-t-il « Pull requests : Read » ?</p>`; }
+}
+$('chatForm').onsubmit = async (ev) => {
+  ev.preventDefault(); const text = $('chatText').value.trim(); if (!text) return;
+  const d = new Date(); const pad = (n) => String(n).padStart(2, '0');
+  const id = `owner-${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}-${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}-isle`;
+  const env = { v: 1, id, from: 'owner', to: ['spark', 'claude'], re: null, type: 'msg', topic: 'island', body: text, human: text, needs: null };
+  try {
+    await gh(`/repos/${REPO}/issues/${ROOM_PR}/comments`, { method: 'POST', body: JSON.stringify({ body: '```trio\n' + JSON.stringify(env) + '\n```' }), headers: { 'Content-Type': 'application/json' } });
+    $('chatText').value = ''; data.chat.push({ from: 'owner', text, at: d.toISOString() }); openTab('chat');
+  } catch (e) { alert("Message non envoyé (" + e.message + "). Il faut « Pull requests : Read and write » sur le jeton."); }
+};
+
+// ---------------- camera ----------------
+let follow = -1; let tween = null;
+function flyTo(pos, target) { tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: new THREE.Vector3(...pos), t1: new THREE.Vector3(...target), k: 0 }; }
+const VIEWS = { overview: [[0, 20, 30], [0, 0, 0]], top: [[0, 52, 0.1], [0, 0, 0]], horizon: [[0, 9, 14], [0, 2, -60]] };
+document.querySelectorAll('[data-view]').forEach((b) => b.onclick = () => { follow = -1; $('btnFollow').classList.remove('on'); flyTo(...VIEWS[b.dataset.view]); });
+$('btnFollow').onclick = () => {
+  if (!followables.length) return; follow = (follow + 1) % (followables.length + 1);
+  if (follow === followables.length) { follow = -1; $('btnFollow').classList.remove('on'); $('btnFollow').textContent = '🎯'; return; }
+  $('btnFollow').classList.add('on'); $('btnFollow').textContent = innerWidth < 520 ? '🎯' + followables[follow].name.slice(0, 1) : '🎯 ' + followables[follow].name;
+  const p = followables[follow].obj.position; flyTo([p.x + 6, 6, p.z + 8], [p.x, 1, p.z]);
+};
+function zoom(f) { const off = camera.position.clone().sub(controls.target).multiplyScalar(f); if (off.length() > controls.minDistance && off.length() < controls.maxDistance) camera.position.copy(controls.target).add(off); }
+$('btnIn').onclick = () => zoom(0.75); $('btnOut').onclick = () => zoom(1.33);
+// Portrait screens see less of the island at the same distance: pull the camera back.
+function fitViews() {
+  const k = camera.aspect < 1 ? Math.pow(1 / camera.aspect, 0.7) : 1;
+  VIEWS.overview = [[0, 20 * k, 30 * k], [0, 0, 0]]; VIEWS.top = [[0, 52 * Math.max(1, k * 0.8), 0.1], [0, 0, 0]];
+  document.documentElement.style.setProperty('--dock-h', $('dock').offsetHeight + 'px');
+}
+fitViews();
+camera.position.set(...VIEWS.overview[0]); controls.target.set(...VIEWS.overview[1]);
+
+// ---------------- picking ----------------
+const ray = new THREE.Raycaster(); const ptr = new THREE.Vector2(); let down = null;
+renderer.domElement.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
+renderer.domElement.addEventListener('pointerup', (e) => {
+  if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 8) return;
+  ptr.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); ray.setFromCamera(ptr, camera);
+  const hit = ray.intersectObjects(pickables, false)[0]; const box = $('info');
+  if (!hit) { box.style.display = 'none'; return; }
+  const info = hit.object.userData.root.userData.info;
+  $('infoTitle').textContent = info.title; $('infoBody').innerHTML = info.body.filter(Boolean).map((l) => `<div>${esc(l)}</div>`).join('');
+  box.style.display = 'block';
+});
+
+// ---------------- loading ----------------
+async function refresh() {
+  try {
+    const [world, state, book] = await Promise.all([readFile('world.json'), readFile('state.json').catch(() => null), readFile('book.json').catch(() => null)]);
+    Object.assign(data, { world, state, book }); $('setup').style.display = 'none'; render();
+    if (drawerTab === 'chat') loadChat();
+  } catch (e) {
+    if (e.message === 'no-token') { $('setup').style.display = 'block'; $('clock').textContent = 'Jeton requis'; }
+    else $('clock').textContent = '⚠️ ' + e.message;
+  }
+}
+$('btnSave').onclick = () => { const t = $('token').value.trim(); if (t) { store.set('trioToken', t); refresh(); } };
+$('btnRefresh').onclick = refresh;
+refresh(); setInterval(refresh, POLL_MS);
+
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); fitViews(); });
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const t = clock.getElapsedTime();
+  floaters.forEach((g, i) => { g.position.y = GROUND + 1.2 + Math.sin(t * 1.5 + i) * 0.15; g.children[0].rotation.y = t * 0.6; });
+  if (tween) { tween.k = Math.min(1, tween.k + 0.04); const e = 1 - Math.pow(1 - tween.k, 3); camera.position.lerpVectors(tween.p0, tween.p1, e); controls.target.lerpVectors(tween.t0, tween.t1, e); if (tween.k >= 1) tween = null; }
+  else if (follow >= 0 && followables[follow]) { const p = followables[follow].obj.position; controls.target.lerp(new THREE.Vector3(p.x, 1, p.z), 0.1); }
+  controls.update(); renderer.render(scene, camera);
+});
+</script>
+</body>
+</html>
