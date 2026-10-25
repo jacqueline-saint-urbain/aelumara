@@ -1,5 +1,5 @@
-PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur 4d24a2160052889b9f524376fd900685e6d64676)
-Contexte : confirmation indépendante par Spark après la correction A de Claude (tâche 3 de la répartition)
+PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur f5aea3006c5f9f4662d7c5c8c996470224d94731)
+Contexte : confirmation indépendante par Spark après les règles nourriture de Claude (claude-20261025-021 : gâchis 10 %/jour et repas partagé)
 Course : 720 ticks = 30 jours d'île, fixture fraîche (voir en-tête de playtest_sweep.py), état vivant jamais touché.
 
 DÉCLENCHEMENTS PAR RÈGLE
@@ -7,39 +7,40 @@ DÉCLENCHEMENTS PAR RÈGLE
 - Entrée « launching » dans le Livre : 1
 - Jalons de progression 25/50/75 % dans le Livre : 3
 - Livraisons au projet (quantité totale) : 42
-- Paiements d'un coquillage par livraison au projet : 18
-- Livraisons aux réserves (hors projet) : 430
+- Paiements d'un coquillage par livraison au projet : 19
+- Livraisons aux réserves (hors projet) : 411
 - Pierre du matin : arrivée de Sélie à 07 h (+1 coquillage au pot) : 30
 - Feu du soir : résumé du soir dans le Livre : 30
 - Feu du soir : au moins un résident présent : 30
-- Feu du soir : les trois résidents présents : 21
-- Repas pris aux réserves (tâche eat) : 198
-- Cueillette de baies quand les réserves sont vides (tâche forage) : 8
-- Sommeil avec regain d'énergie (tâche sleep) : 659
+- Feu du soir : les trois résidents présents : 24
+- Repas pris aux réserves (tâche eat) : 180
+- Cueillette de baies quand les réserves sont vides (tâche forage) : 46
+- Sommeil avec regain d'énergie (tâche sleep) : 655
 - Repos faute de ressource à ramasser (tâche rest) : 0
-- Phrase signature d'un résident (probabilité 8 % par tick) : 108
-- Faim au plafond (100) : 154
+- Phrase signature d'un résident (probabilité 8 % par tick) : 104
+- Faim au plafond (100) : 138
 - Énergie à zéro : 0
-- Compagnie à zéro : 1092
+- Compagnie à zéro : 682
 - Nœud de ressource épuisé (stock < 1, donc ignoré par les résidents) : 1
-- Réserves de nourriture à zéro au début d'un tick : 12
+- Réserves de nourriture à zéro au début d'un tick : 0
 - Après le radeau : récolte de bois ou de fibre : 0
 - Après le radeau : paiement d'un coquillage : 1
 
 RÈGLES JAMAIS DÉCLENCHÉES
 - Repos faute de ressource à ramasser (tâche rest)
 - Énergie à zéro
+- Réserves de nourriture à zéro au début d'un tick
 - Après le radeau : récolte de bois ou de fibre
 
 FAITS SAILLANTS
-- Radeau terminé : tick 177, jour 8 (drapeau raft_ready = True).
+- Radeau terminé : tick 230, jour 10 (drapeau raft_ready = True).
 - Livre : 34 entrées, par genre : {"launching": 1, "progress": 3, "summary": 30}.
-- Compteur de feux (state.fires) à la fin : 30 ; soirs avec au moins un présent : 30 ; soirs vides : 0 ; soirs au complet : 21.
-- Présences au feu par résident (sur 30 soirs) : {"npc-1": 27, "npc-2": 22, "npc-3": 30}.
+- Compteur de feux (state.fires) à la fin : 30 ; soirs avec au moins un présent : 30 ; soirs vides : 0 ; soirs au complet : 24.
+- Présences au feu par résident (sur 30 soirs) : {"npc-1": 28, "npc-2": 24, "npc-3": 30}.
 - Pierre du matin : 30 arrivées, sur 30 jours distincts.
-- Pot commun : min 2, max 24, fin 24 ; coquillages gagnés par les résidents : 18 ; après le radeau, le pot a encore gagné 22 (pierre du matin) sans aucune dépense possible.
-- Réserves à la fin : {"wood": 2, "fiber": 0, "food": 236} ; nourriture au plus bas : 0.
-- Besoins observés (min/max) : faim 10/100, énergie 16.0/100, compagnie 0/49.
-- Tâches observées : {"deliver": 417, "eat": 198, "fire": 210, "forage": 8, "gather_fiber": 9, "gather_food": 398, "gather_wood": 50, "go_home": 121, "sleep": 659, "stone": 90}.
-- Stocks de nœuds au plus bas : {"fiber-1": 10, "fiber-2": 8.4, "food-1": 0.0, "food-2": 8.2, "food-3": 5.4, "wood-1": 20, "wood-2": 20, "wood-3": 20, "wood-4": 16.5, "wood-5": 14.0}.
+- Pot commun : min 3, max 23, fin 23 ; coquillages gagnés par les résidents : 19 ; après le radeau, le pot a encore gagné 20 (pierre du matin) sans aucune dépense possible.
+- Réserves à la fin : {"wood": 0, "fiber": 0, "food": 41.65} ; nourriture au plus bas : 0.13.
+- Besoins observés (min/max) : faim 10/100, énergie 16.0/100, compagnie 0/100.
+- Tâches observées : {"deliver": 414, "eat": 180, "fire": 210, "forage": 46, "gather_fiber": 8, "gather_food": 375, "gather_wood": 57, "go_home": 125, "sleep": 655, "stone": 90}.
+- Stocks de nœuds au plus bas : {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 5.6, "food-3": 3.6, "wood-1": 20, "wood-2": 20, "wood-3": 18, "wood-4": 17, "wood-5": 13.25}.
 - État final : tick 720, jour 31, heure d'île 2026-11-25T03:00:00Z.
