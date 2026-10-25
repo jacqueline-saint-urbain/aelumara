@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 13,
+  "tick": 14,
   "day": 1,
-  "time": "2026-10-26T05:00:00Z",
+  "time": "2026-10-26T06:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -66,7 +66,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 15.25,
+      "stock": 15.5,
       "pos": [
         -12,
         -8
@@ -76,7 +76,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 13.25,
+      "stock": 13.5,
       "pos": [
         -15,
         -2
@@ -86,7 +86,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 17.25,
+      "stock": 17.5,
       "pos": [
         -9,
         -13
@@ -96,7 +96,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 17.25,
+      "stock": 17.5,
       "pos": [
         8,
         -12
@@ -106,7 +106,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 10.25,
+      "stock": 10.5,
       "pos": [
         15,
         -7
@@ -146,7 +146,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.9,
+      "stock": 12,
       "pos": [
         -16,
         6
@@ -156,7 +156,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.9,
+      "stock": 12,
       "pos": [
         -4,
         -16
@@ -197,15 +197,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 68,
-        "company": 42
+        "hunger": 50,
+        "energy": 80,
+        "company": 41
       },
       "task": "sleep",
       "carry": {
         "wood": 3
       },
-      "say": "Good night.",
+      "say": "You don't talk about a raft. You build it.",
       "delivered": 0,
       "shells": 0
     },
@@ -225,9 +225,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 58,
-        "company": 84
+        "hunger": 60,
+        "energy": 70,
+        "company": 82
       },
       "task": "sleep",
       "carry": {},
@@ -250,9 +250,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 86.0,
-        "company": 47
+        "hunger": 55,
+        "energy": 98.0,
+        "company": 46
       },
       "task": "sleep",
       "carry": {},
