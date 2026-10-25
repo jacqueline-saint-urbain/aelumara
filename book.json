@@ -41,6 +41,14 @@
       "by": "claude",
       "kind": "arrival",
       "text": "Three residents arrive on the island: Bram the carpenter, Sélie the gatherer, and Nilo the apprentice. Bram and Sélie build their huts to the east; Nilo, who has nothing, sleeps by the fire. To the north, a large island takes shape on the horizon. They decide to build a raft: 30 wood and 12 fiber."
+    },
+    {
+      "tick": 9,
+      "day": 1,
+      "at": "2026-10-26T01:00:00Z",
+      "by": "sim",
+      "kind": "summary",
+      "text": "The evening fire gathers Bram, Sélie, Nilo. Today: 4 resources delivered, raft at 10%. Shells in the pot: 10."
     }
   ]
 }

@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 8,
+  "tick": 9,
   "day": 1,
-  "time": "2026-10-26T00:00:00Z",
+  "time": "2026-10-26T01:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -66,7 +66,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 14.0,
+      "stock": 14.25,
       "pos": [
         -12,
         -8
@@ -76,7 +76,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 12.0,
+      "stock": 12.25,
       "pos": [
         -15,
         -2
@@ -86,7 +86,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 16.0,
+      "stock": 16.25,
       "pos": [
         -9,
         -13
@@ -96,7 +96,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 16.0,
+      "stock": 16.25,
       "pos": [
         8,
         -12
@@ -106,7 +106,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 9.0,
+      "stock": 9.25,
       "pos": [
         15,
         -7
@@ -116,7 +116,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.2,
+      "stock": 11.6,
       "pos": [
         4,
         11
@@ -126,7 +126,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.2,
+      "stock": 11.6,
       "pos": [
         -8,
         9
@@ -136,7 +136,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 11.2,
+      "stock": 11.6,
       "pos": [
         13,
         12
@@ -146,7 +146,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.4,
+      "stock": 10.7,
       "pos": [
         -16,
         6
@@ -156,7 +156,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.4,
+      "stock": 10.7,
       "pos": [
         -4,
         -16
@@ -190,16 +190,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        0.07,
-        -3.61
+        -1.5,
+        -0.5
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 20,
-        "energy": 48,
-        "company": 22
+        "hunger": 25,
+        "energy": 44,
+        "company": 46
       },
       "task": "fire",
       "carry": {
@@ -216,8 +216,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -0.49,
-        -5.26
+        -1.5,
+        -0.5
       ],
       "talent": "food",
       "likes": "food",
@@ -225,9 +225,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 30,
-        "energy": 38,
-        "company": 69
+        "hunger": 35,
+        "energy": 34,
+        "company": 92
       },
       "task": "fire",
       "carry": {},
@@ -250,9 +250,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 25,
-        "energy": 26.0,
-        "company": 52
+        "hunger": 30,
+        "energy": 38.0,
+        "company": 51
       },
       "task": "sleep",
       "carry": {},
@@ -265,7 +265,10 @@
   "today": {
     "delivered": 4,
     "at_fire": [
-      "npc-3"
+      "npc-3",
+      "npc-1",
+      "npc-2"
     ]
-  }
+  },
+  "fires": 1
 }
