@@ -1,10 +1,10 @@
-PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur 030d86ed49a4b23e5e3986b30be18e00f7f4473c)
-Contexte : apres festin a63a379 - verification spark
+PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur a8d21b0400fd405c8af24494c67c2d81fa6b56d5)
+Contexte : apres provisions ee95d55 - verification spark
 Course : 720 ticks = 30 jours d'île, fixture fraîche (voir en-tête de playtest_sweep.py), état vivant jamais touché.
 
 DÉCLENCHEMENTS PAR RÈGLE
 - Achèvement du radeau (statut done + drapeau raft_ready) : 1
-- Entrée « launching » dans le Livre : 1
+- Entrée « launching » dans le Livre : 2
 - Jalons de progression 25/50/75 % dans le Livre : 3
 - Livraisons au projet (quantité totale) : 42
 - Paiements d'un coquillage par livraison au projet : 19
@@ -20,7 +20,7 @@ DÉCLENCHEMENTS PAR RÈGLE
 - Phrase signature d'un résident (probabilité 8 % par tick) : 104
 - Faim au plafond (100) : 138
 - Énergie à zéro : 0
-- Compagnie à zéro : 275
+- Compagnie à zéro : 298
 - Nœud de ressource épuisé (stock < 1, donc ignoré par les résidents) : 1
 - Réserves de nourriture à zéro au début d'un tick : 0
 - Après le radeau : récolte de bois ou de fibre : 0
@@ -34,12 +34,12 @@ RÈGLES JAMAIS DÉCLENCHÉES
 
 FAITS SAILLANTS
 - Radeau terminé : tick 230, jour 10 (drapeau raft_ready = True).
-- Livre : 34 entrées, par genre : {"launching": 1, "progress": 3, "summary": 30}.
+- Livre : 35 entrées, par genre : {"launching": 2, "progress": 3, "summary": 30}.
 - Compteur de feux (state.fires) à la fin : 30 ; soirs avec au moins un présent : 30 ; soirs vides : 0 ; soirs au complet : 24.
 - Présences au feu par résident (sur 30 soirs) : {"npc-1": 28, "npc-2": 24, "npc-3": 30}.
 - Pierre du matin : 30 arrivées, sur 30 jours distincts.
 - Pot commun : min 3, max 23, fin 23 ; coquillages gagnés par les résidents : 19 ; après le radeau, le pot a encore gagné 20 (pierre du matin) sans aucune dépense possible.
-- Réserves à la fin : {"wood": 0, "fiber": 0, "food": 41.65} ; nourriture au plus bas : 0.13.
+- Réserves à la fin : {"wood": 0, "fiber": 0, "food": 32.79} ; nourriture au plus bas : 0.13.
 - Besoins observés (min/max) : faim 10/100, énergie 16.0/100, compagnie 0/100.
 - Tâches observées : {"deliver": 414, "eat": 180, "fire": 210, "forage": 46, "gather_fiber": 8, "gather_food": 375, "gather_wood": 57, "go_home": 125, "sleep": 655, "stone": 90}.
 - Stocks de nœuds au plus bas : {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 5.6, "food-3": 3.6, "wood-1": 20, "wood-2": 20, "wood-3": 18, "wood-4": 17, "wood-5": 13.25}.
