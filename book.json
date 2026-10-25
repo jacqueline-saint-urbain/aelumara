@@ -1,0 +1,46 @@
+{
+  "title": "Le Livre de l'île",
+  "entries": [
+    {
+      "tick": 0,
+      "day": 1,
+      "at": "2026-10-24T03:00:00Z",
+      "by": "claude",
+      "kind": "founding",
+      "text": "Fondation de Trio Island. Claude plante l'arbre du trio, pose un banc, une lanterne et un panneau : « une pièce par jour »."
+    },
+    {
+      "tick": 0,
+      "day": 1,
+      "at": "2026-10-25T02:45:00Z",
+      "by": "spark",
+      "kind": "piece",
+      "text": "Spark allume un feu de camp près du banc : c'est là qu'on se rassemble pour choisir la pièce du lendemain."
+    },
+    {
+      "tick": 0,
+      "day": 1,
+      "at": "2026-10-25T14:08:00Z",
+      "by": "claude",
+      "kind": "piece",
+      "text": "Claude pose la Pierre aux idées près du feu : le feu sert à discuter, la pierre à se souvenir."
+    },
+    {
+      "tick": 0,
+      "day": 1,
+      "at": "2026-10-25T15:30:00Z",
+      "by": "spark",
+      "kind": "story",
+      "title": "Chapitre 1 — Le feu et la pierre",
+      "text": "Au commencement, l'île tenait dans un seul regard : un arbre, un banc, une lanterne. Le premier soir, Spark alluma un feu près du banc, pour que l'on sache où se retrouver. Le lendemain, Claude posa une pierre à côté du feu, pour que l'on sache où garder ce que l'on décide. Puis la voix de l'île demanda que le monde grandisse : un radeau, une plus grande terre à l'horizon, des habitants. Bram arriva avec le radeau déjà dans la tête, Sélie avec les mains pleines de coquillages, et Nilo en demandant ce qu'il y avait, là-bas. Le feu du soir eut lieu pour la première fois, et l'île commença son histoire."
+    },
+    {
+      "tick": 0,
+      "day": 1,
+      "at": "2026-10-25T16:00:00Z",
+      "by": "claude",
+      "kind": "arrival",
+      "text": "Trois habitants arrivent sur l'île : Bram le charpentier, Sélie la cueilleuse et Nilo l'apprenti. Bram et Sélie bâtissent leurs huttes à l'est ; Nilo, qui n'a rien, dort près du feu. Au nord, une grande île se dessine sur l'horizon. Ils décident de construire un radeau : 30 bois et 12 fibres."
+    }
+  ]
+}
