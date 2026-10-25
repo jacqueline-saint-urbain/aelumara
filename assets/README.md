@@ -10,22 +10,24 @@ Mise à jour : 2026-10-25. Sur GitHub, appuie sur une image pour l'agrandir.
 |---|---|---|---|
 | [Kenney](https://kenney.nl/assets/category:3D) | CC0 | 50 packs, environ 4 700 modèles, format glb (3 packs de personnages animés en FBX) | [kenney/README.md](kenney/README.md) |
 | [Quaternius](https://quaternius.com/) | CC0 | 14 packs low-poly (médiane 1 500 triangles ou moins), OBJ, FBX et un pack glTF | [quaternius/README.md](quaternius/README.md) |
+| [KayKit](https://kaylousberg.itch.io/) | CC0 | 4 packs (forêt, outils, ressources, cimetière), format glTF, FBX et OBJ | [kaykit/README.md](kaykit/README.md) |
 
 Aucun crédit n'est exigé (CC0). Les glb et glTF se chargent directement dans [Three.js](https://threejs.org/), les OBJ et FBX aussi avec leurs chargeurs.
 
 ## Catégories
 
-- [🌴 Nature et île](#nature-et-île) (6 packs)
+- [🌴 Nature et île](#nature-et-île) (7 packs)
 - [⛵ Bateaux, mer et pirates](#bateaux-mer-et-pirates) (2 packs)
 - [🏘️ Village et bâtiments](#village-et-bâtiments) (6 packs)
 - [🏙️ Ville et routes](#ville-et-routes) (8 packs)
 - [🧑 Personnages](#personnages) (6 packs)
 - [🐾 Animaux et créatures](#animaux-et-créatures) (5 packs)
-- [🏰 Donjons, cavernes et fantasy](#donjons-cavernes-et-fantasy) (6 packs)
+- [🏰 Donjons, cavernes et fantasy](#donjons-cavernes-et-fantasy) (7 packs)
 - [🍎 Objets, nourriture et intérieur](#objets-nourriture-et-intérieur) (6 packs)
 - [🚗 Véhicules](#véhicules) (5 packs)
 - [🚀 Espace et science-fiction](#espace-et-science-fiction) (4 packs)
 - [🔫 Armes](#armes) (2 packs)
+- [⛏️ Outils et ressources](#outils-et-ressources) (2 packs)
 - [🎮 Jeux et plateformes](#jeux-et-plateformes) (8 packs)
 
 ## 🌴 Nature et île
@@ -67,6 +69,15 @@ Quaternius · 150 modèles · dossier [`quaternius/150-lowpoly-nature-models`](q
 Quaternius · 45 modèles · dossier [`quaternius/textured-lowpoly-trees`](quaternius/textured-lowpoly-trees) · [page](https://quaternius.itch.io/textured-lowpoly-trees) · [autres aperçus](quaternius/textured-lowpoly-trees/Preview-2.png)
 
 <img src="quaternius/textured-lowpoly-trees/Preview-1.png" width="480">
+
+
+### KayKit Forest Nature Pack
+
+Arbres, buissons, herbes et rochers, en style très doux. Pour l'île.
+
+KayKit · 105 modèles · dossier [`kaykit/kaykit-forest`](kaykit/kaykit-forest) · [page](https://kaylousberg.itch.io/kaykit-forest) · [autres aperçus](kaykit/kaykit-forest/Preview-2.png)
+
+<img src="kaykit/kaykit-forest/Preview-1.png" width="480">
 
 
 ## ⛵ Bateaux, mer et pirates
@@ -297,6 +308,15 @@ Quaternius · 24 modèles · dossier [`quaternius/lowpoly-medieval-weapons`](qua
 <img src="quaternius/lowpoly-medieval-weapons/Preview.png" width="480">
 
 
+### KayKit Halloween Bits
+
+Cimetière : pierres tombales, cercueils, grilles, lanternes et bougies. Ambiance nocturne ou ancien cimetière.
+
+KayKit · 63 modèles · dossier [`kaykit/halloween-bits`](kaykit/halloween-bits) · [page](https://kaylousberg.itch.io/halloween-bits) · [autres aperçus](kaykit/halloween-bits/Preview-2.png)
+
+<img src="kaykit/halloween-bits/Preview-1.png" width="480">
+
+
 ## 🍎 Objets, nourriture et intérieur
 
 Baies, repas, meubles de cabane, étals, décors de fête.
@@ -419,6 +439,26 @@ Quaternius · 55 modèles · dossier [`quaternius/50-lowpoly-guns`](quaternius/5
 <img src="quaternius/50-lowpoly-guns/Preview-1.png" width="480">
 
 
+## ⛏️ Outils et ressources
+
+Outils de bricolage et lingots, pour les métiers et les ressources de l'île.
+
+### KayKit RPG Tools Bits
+
+Marteaux, haches, pioches, scies, cartes, lanternes et outils de bricolage. Utile pour les métiers de l'île.
+
+KayKit · 49 modèles · dossier [`kaykit/rpg-tools-bits`](kaykit/rpg-tools-bits) · [page](https://kaylousberg.itch.io/rpg-tools-bits) · [autres aperçus](kaykit/rpg-tools-bits/Preview-2.png)
+
+<img src="kaykit/rpg-tools-bits/Preview-1.png" width="480">
+
+### KayKit Resource Bits
+
+Lingots, pépites, tonneaux de carburant et palettes. Pour les ressources de l'île (bois, pierre, métaux).
+
+KayKit · 76 modèles · dossier [`kaykit/resource-bits`](kaykit/resource-bits) · [page](https://kaylousberg.itch.io/resource-bits) · [autres aperçus](kaykit/resource-bits/Preview-2.png)
+
+<img src="kaykit/resource-bits/Preview-1.png" width="480">
+
 ## 🎮 Jeux et plateformes
 
 Décors et éléments de jeu génériques.
@@ -482,7 +522,7 @@ Animal Kit de madtrollstudio sur [Poly Pizza](https://poly.pizza/bundle/Animal-K
 
 ## Pas encore téléchargé
 
-Autres sources de la [liste d'outils](https://github.com/jacqueline-saint-urbain/box/blob/main/00_Inbox/Outils%20low-poly%203D%20et%20UI%20de%20jeu.md) : [KayKit](https://kaylousberg.itch.io/), [Jean Charpentier](https://jeancharpentier.itch.io/cc0-lowpoly-pack), [OpenGameArt](https://opengameart.org/).
+Autres sources de la [liste d'outils](https://github.com/jacqueline-saint-urbain/box/blob/main/00_Inbox/Outils%20low-poly%203D%20et%20UI%20de%20jeu.md) : [Jean Charpentier](https://jeancharpentier.itch.io/cc0-lowpoly-pack), [OpenGameArt](https://opengameart.org/).
 
 ## Pour ajouter une source
 
