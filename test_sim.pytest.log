@@ -1,0 +1,20 @@
+Aelumara rule-enforcement tests — pytest log
+Run by spark, 2026-10-25 (America/Toronto), against the live engine sim.py copied from jacqueline-saint-urbain/aelumara main.
+Command: python3 -m pytest test_sim.py -v
+Engine under test: sim.py blob 44f970d35aeedfa548bd1361077889109ee84591 (12,880 bytes, repo main at run time).
+
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.7.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /tmp/simtest
+collecting ... collected 7 items
+
+test_sim.py::test_raft_completes_when_last_resource_is_delivered PASSED  [ 14%]
+test_sim.py::test_raft_does_not_complete_early PASSED                    [ 28%]
+test_sim.py::test_raft_completion_is_chronicled_exactly_once PASSED      [ 42%]
+test_sim.py::test_delivery_to_shared_project_pays_one_shell_from_the_pot PASSED [ 57%]
+test_sim.py::test_evening_fire_rewards_presence_and_names_the_absent PASSED [ 71%]
+test_sim.py::test_morning_stone_adds_one_shell_once_per_day PASSED       [ 85%]
+test_sim.py::test_morning_stone_needs_arrival PASSED                     [100%]
+
+============================== 7 passed in 0.02s ===============================
