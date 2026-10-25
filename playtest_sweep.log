@@ -1,5 +1,5 @@
-PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur f5aea3006c5f9f4662d7c5c8c996470224d94731)
-Contexte : confirmation indépendante par Spark après les règles nourriture de Claude (claude-20261025-021 : gâchis 10 %/jour et repas partagé)
+PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur 03f9fa42206092c2033f94d35b097a24cbf819b7)
+Contexte : apres fusion compagnie bcdc537 - verification spark
 Course : 720 ticks = 30 jours d'île, fixture fraîche (voir en-tête de playtest_sweep.py), état vivant jamais touché.
 
 DÉCLENCHEMENTS PAR RÈGLE
@@ -20,7 +20,7 @@ DÉCLENCHEMENTS PAR RÈGLE
 - Phrase signature d'un résident (probabilité 8 % par tick) : 104
 - Faim au plafond (100) : 138
 - Énergie à zéro : 0
-- Compagnie à zéro : 682
+- Compagnie à zéro : 363
 - Nœud de ressource épuisé (stock < 1, donc ignoré par les résidents) : 1
 - Réserves de nourriture à zéro au début d'un tick : 0
 - Après le radeau : récolte de bois ou de fibre : 0
@@ -44,3 +44,4 @@ FAITS SAILLANTS
 - Tâches observées : {"deliver": 414, "eat": 180, "fire": 210, "forage": 46, "gather_fiber": 8, "gather_food": 375, "gather_wood": 57, "go_home": 125, "sleep": 655, "stone": 90}.
 - Stocks de nœuds au plus bas : {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 5.6, "food-3": 3.6, "wood-1": 20, "wood-2": 20, "wood-3": 18, "wood-4": 17, "wood-5": 13.25}.
 - État final : tick 720, jour 31, heure d'île 2026-11-25T03:00:00Z.
+
