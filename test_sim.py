@@ -318,3 +318,51 @@ def test_no_shared_meal_without_enough_food_or_company():
     sim_obj.evening_fire()
     assert state["stores"]["food"] == pytest.approx(4.0, abs=0.01)
     assert not any("shared meal" in e["text"] for e in entries(book, "summary"))
+
+
+# ------------------------------------------------- crossing provisions ---
+
+def provisions_state(food, status="done"):
+    proj = raft_project({"wood": 30, "fiber": 12})
+    proj["status"] = status
+    state = make_state([sleeper("npc-1", "Bram"), sleeper("npc-2", "Sélie"), sleeper("npc-3", "Nilo")],
+                       projects=[proj])
+    state["flags"]["raft_ready"] = status == "done"
+    state["stores"]["food"] = food
+    return state, make_book()
+
+
+def test_finished_raft_is_loaded_with_24_food_for_the_crossing():
+    # Food's second use (2026-10-25): once the raft is built, the food above
+    # the feast line (30) is loaded on board until it holds 24 provisions.
+    state, book = provisions_state(60)
+    sim_obj = engine.Sim(state, book)
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))
+    raft = state["projects"][0]
+    assert raft["provisions"] == 24
+    assert state["stores"]["food"] == pytest.approx(36.0, abs=0.01)
+    assert state["flags"]["raft_provisioned"] is True
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 15, 0, tzinfo=UTC))
+    assert raft["provisions"] == 24  # loaded once
+    assert state["stores"]["food"] == pytest.approx(36.0, abs=0.01)
+    assert len([e for e in book["entries"] if "provisions" in e["text"]]) == 1
+
+
+def test_provisions_take_only_the_surplus_above_the_feast_line():
+    state, book = provisions_state(40)
+    run_tick(engine.Sim(state, book), dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))
+    assert state["projects"][0]["provisions"] == pytest.approx(10.0, abs=0.01)
+    assert state["stores"]["food"] == pytest.approx(30.0, abs=0.01)
+    assert not state["flags"].get("raft_provisioned")
+
+
+def test_no_provisions_before_enough_food_or_before_the_raft_is_built():
+    state, book = provisions_state(20)
+    run_tick(engine.Sim(state, book), dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))
+    assert state["projects"][0].get("provisions", 0) == 0
+    assert state["stores"]["food"] == pytest.approx(20.0, abs=0.01)
+    state, book = provisions_state(60, status="building")
+    state["projects"][0]["have"] = {"wood": 10}
+    run_tick(engine.Sim(state, book), dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))
+    assert state["projects"][0].get("provisions", 0) == 0
+    assert not state["flags"].get("raft_provisioned")

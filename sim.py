@@ -31,6 +31,7 @@ COMPANY_RATE = 1
 FIRE_COMPANY = 25  # company gained for each evening hour at the fire
 WORK_HOURS = range(7, 19)  # 07h-18h Toronto: working near someone halves company decay
 CLOSE_DIST = 4
+PROVISIONS = 24  # food loaded on the built raft for the crossing
 FEAST_STORES = 30  # food in the stores that turns the shared meal into a feast
 FIRE_HOURS = (19, 20, 21)  # le feu du soir (Toronto time)
 STONE_HOURS = (6, 7, 8)   # la pierre du matin: the walk starts at 06h, owner decision A
@@ -159,6 +160,18 @@ class Sim:
             self.chronicle(f"First step. The {proj['name']} is finished and slides into the water in front of {present}. It waits on the north beach, ready to sail for the island on the horizon.", "launching")
             if proj["id"] == "raft":
                 s["flags"]["raft_ready"] = True
+
+        # Provisions for the crossing: the built raft takes food from the stores, once.
+        raft = next((p for p in s["projects"] if p["id"] == "raft"), None)
+        # Only the surplus above the feast line goes on board, so the evening feasts go on.
+        if raft and raft["status"] == "done" and not s["flags"].get("raft_provisioned"):
+            load_now = min(PROVISIONS - raft.get("provisions", 0), s["stores"]["food"] - FEAST_STORES)
+            if load_now > 0:
+                s["stores"]["food"] = round(s["stores"]["food"] - load_now, 2)
+                raft["provisions"] = round(raft.get("provisions", 0) + load_now, 2)
+                if raft["provisions"] >= PROVISIONS:
+                    s["flags"]["raft_provisioned"] = True
+                    self.chronicle(f"The {raft['name']} is loaded with {PROVISIONS} food: provisions for the crossing, and the first stores of the island on the horizon.", "launching")
 
     def home_pos(self, npc):
         return self.spots["fire"] if npc["home"] == "fire" else self.node(npc["home"])["pos"]
