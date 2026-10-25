@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 5,
+  "tick": 6,
   "day": 1,
-  "time": "2026-10-25T21:00:00Z",
+  "time": "2026-10-25T22:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -32,7 +32,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 6
+    "food": 5
   },
   "nodes": [
     {
@@ -66,7 +66,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 13.25,
+      "stock": 13.5,
       "pos": [
         -12,
         -8
@@ -76,7 +76,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 11.25,
+      "stock": 11.5,
       "pos": [
         -15,
         -2
@@ -86,7 +86,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 15.25,
+      "stock": 15.5,
       "pos": [
         -9,
         -13
@@ -96,7 +96,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 15.25,
+      "stock": 15.5,
       "pos": [
         8,
         -12
@@ -106,7 +106,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 8.25,
+      "stock": 8.5,
       "pos": [
         15,
         -7
@@ -116,7 +116,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10.0,
+      "stock": 10.4,
       "pos": [
         4,
         11
@@ -126,7 +126,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.0,
+      "stock": 10.4,
       "pos": [
         -8,
         9
@@ -136,7 +136,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 10.0,
+      "stock": 10.4,
       "pos": [
         13,
         12
@@ -146,7 +146,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 9.5,
+      "stock": 9.8,
       "pos": [
         -16,
         6
@@ -156,7 +156,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 9.5,
+      "stock": 9.8,
       "pos": [
         -4,
         -16
@@ -177,7 +177,9 @@
         "wood": 30,
         "fiber": 12
       },
-      "have": {}
+      "have": {
+        "wood": 4
+      }
     }
   ],
   "npcs": [
@@ -195,15 +197,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 60,
-        "company": 25
+        "hunger": 10,
+        "energy": 56,
+        "company": 24
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {
         "wood": 3
       },
-      "say": "Wood for the raft.",
+      "say": "A meal from the stores.",
       "delivered": 0,
       "shells": 0
     },
@@ -214,8 +216,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        5.48,
-        -14.32
+        2,
+        -17
       ],
       "talent": "food",
       "likes": "food",
@@ -223,17 +225,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 15,
-        "energy": 50,
-        "company": 75
+        "hunger": 20,
+        "energy": 46,
+        "company": 73
       },
       "task": "deliver",
-      "carry": {
-        "wood": 2
-      },
+      "carry": {},
       "say": "A meal from the stores.",
-      "delivered": 0,
-      "shells": 0
+      "delivered": 2,
+      "shells": 1
     },
     {
       "id": "npc-3",
@@ -242,30 +242,28 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -13.91
+        2,
+        -17
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 10,
-        "energy": 20.0,
-        "company": 55
+        "hunger": 15,
+        "energy": 14.0,
+        "company": 54
       },
-      "task": "eat",
-      "carry": {
-        "wood": 2
-      },
-      "say": "A meal from the stores.",
-      "delivered": 0,
-      "shells": 0
+      "task": "deliver",
+      "carry": {},
+      "say": "What's that, over there?",
+      "delivered": 2,
+      "shells": 1
     }
   ],
-  "pot": 12,
+  "pot": 10,
   "today": {
-    "delivered": 0,
+    "delivered": 4,
     "at_fire": []
   }
 }
