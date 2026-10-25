@@ -114,7 +114,7 @@ def test_raft_completes_when_last_resource_is_delivered():
     assert state["flags"]["raft_ready"] is True
     launching = entries(book, "launching")
     assert len(launching) == 1
-    assert "premier pas" in launching[0]["text"]
+    assert "First step" in launching[0]["text"]
 
 
 def test_raft_does_not_complete_early():
@@ -177,7 +177,7 @@ def test_evening_fire_rewards_presence_and_names_the_absent():
     summaries = entries(book, "summary")
     assert len(summaries) == 1
     assert "Bram" in summaries[0]["text"] and "Sélie" in summaries[0]["text"]
-    assert "Absents : Nilo" in summaries[0]["text"]
+    assert "Absent: Nilo" in summaries[0]["text"]
     assert state["fires"] == 1
 
 
@@ -196,7 +196,7 @@ def test_morning_stone_adds_one_shell_once_per_day():
     selie = state["npcs"][1]
     assert state["pot"] == 13
     assert selie["stone_day"] == state["day"]
-    assert selie["say"] == "Un coquillage sur la pierre."
+    assert selie["say"] == "A shell on the stone."
     # A second tick on the same morning adds nothing more.
     run_tick(sim_obj, dt.datetime(2026, 10, 25, 11, 0, tzinfo=UTC))
     assert state["pot"] == 13

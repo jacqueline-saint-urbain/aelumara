@@ -144,7 +144,7 @@ class Sim:
             proj["status"] = "done"
             proj["done_tick"] = s["tick"]
             present = ", ".join(n["name"] for n in s["npcs"])
-            self.chronicle(f"Le premier pas. Le {proj['name']} est terminé et glisse jusqu'à l'eau sous les yeux de {present}. Il attend sur la plage nord, prêt à prendre la mer vers l'île de l'horizon.", "launching")
+            self.chronicle(f"First step. The {proj['name']} is finished and slides into the water in front of {present}. It waits on the north beach, ready to sail for the island on the horizon.", "launching")
             if proj["id"] == "raft":
                 s["flags"]["raft_ready"] = True
 
@@ -158,9 +158,9 @@ class Sim:
         missing = [n["name"] for n in st["npcs"] if n["id"] not in here]
         proj = self.active_project() or next((p for p in st["projects"] if p["id"] == "raft"), None)
         pr = 100 if proj and proj["status"] == "done" else (self.progress(proj) if proj else 0)
-        line = f"Le feu du soir réunit {', '.join(names) if names else 'personne'}. Aujourd'hui : {st['today']['delivered']} ressources livrées, radeau à {pr} %. Coquillages au pot : {st['pot']}."
+        line = f"The evening fire gathers {', '.join(names) if names else 'no one'}. Today: {st['today']['delivered']} resources delivered, raft at {pr}%. Shells in the pot: {st['pot']}."
         if missing:
-            line += f" Absents : {', '.join(missing)}."
+            line += f" Absent: {', '.join(missing)}."
         st["fires"] = st.get("fires", 0) + (1 if names else 0)
         self.chronicle(line, "summary")
 
@@ -179,7 +179,7 @@ class Sim:
             npc["pos"], arrived = step_toward(npc["pos"], home, speed)
             if arrived:
                 if npc["task"] != "sleep":
-                    npc["say"] = "Bonne nuit."
+                    npc["say"] = "Good night."
                 npc["task"] = "sleep"
                 n["energy"] = min(100, n["energy"] + 12)
             else:
@@ -194,7 +194,7 @@ class Sim:
             if arrived:
                 npc["stone_day"] = st["day"]
                 st["pot"] += 1
-                npc["say"] = "Un coquillage sur la pierre."
+                npc["say"] = "A shell on the stone."
             return
 
         # Le feu du soir: everyone gathers at the campfire.
@@ -213,7 +213,7 @@ class Sim:
                 st["stores"]["food"] = round(st["stores"]["food"] - 1, 2)
                 n["hunger"] = max(0, n["hunger"] - 50)
                 npc["task"] = "eat"
-                npc["say"] = "Un repas aux réserves."
+                npc["say"] = "A meal from the stores."
                 return
             bush = self.nearest_node(npc["pos"], "food")
             if bush:
@@ -222,7 +222,7 @@ class Sim:
                 if arrived:
                     bush["stock"] = round(bush["stock"] - 1, 2)
                     n["hunger"] = max(0, n["hunger"] - 40)
-                    npc["say"] = "Des baies !"
+                    npc["say"] = "Berries!"
                 return
 
         # Carrying something: bring it where it is needed.
@@ -273,10 +273,10 @@ class Sim:
                 if take >= 1:
                     target["stock"] = round(target["stock"] - take, 2)
                     npc["carry"] = {res: take}
-                    npc["say"] = {"wood": "Du bois pour le radeau.", "fiber": "Des fibres pour les cordes.", "food": "Des baies pour tout le monde."}[res]
+                    npc["say"] = {"wood": "Wood for the raft.", "fiber": "Fiber for the ropes.", "food": "Berries for everyone."}[res]
             return
         npc["task"] = "rest"
-        npc["say"] = "Rien à ramasser pour l'instant."
+        npc["say"] = "Nothing to gather right now."
 
     def progress(self, proj):
         total = sum(proj["needs"].values())
@@ -287,7 +287,7 @@ class Sim:
         after = self.progress(proj)
         for m in (25, 50, 75):
             if before < m <= after:
-                self.chronicle(f"Le {proj['name']} est construit à {m} %.", "progress")
+                self.chronicle(f"The {proj['name']} is {m}% built.", "progress")
 
 
 def main():
@@ -299,7 +299,7 @@ def main():
     state = load(STATE, None)
     if state is None:
         raise SystemExit("world/state.json missing")
-    book = load(BOOK, {"title": "Le Livre de l'île", "entries": []})
+    book = load(BOOK, {"title": "The Book of the Island", "entries": []})
 
     now = dt.datetime.fromisoformat(args.now.replace("Z", "+00:00")) if args.now else dt.datetime.now(dt.timezone.utc)
     last = dt.datetime.fromisoformat(state["time"].replace("Z", "+00:00"))
