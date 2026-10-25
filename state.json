@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 4,
+  "tick": 5,
   "day": 1,
-  "time": "2026-10-25T20:00:00Z",
+  "time": "2026-10-25T21:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -32,7 +32,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 7
+    "food": 6
   },
   "nodes": [
     {
@@ -66,7 +66,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 13.0,
+      "stock": 13.25,
       "pos": [
         -12,
         -8
@@ -76,7 +76,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 11.0,
+      "stock": 11.25,
       "pos": [
         -15,
         -2
@@ -86,7 +86,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 15.0,
+      "stock": 15.25,
       "pos": [
         -9,
         -13
@@ -96,7 +96,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 15.0,
+      "stock": 15.25,
       "pos": [
         8,
         -12
@@ -106,7 +106,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 8.0,
+      "stock": 8.25,
       "pos": [
         15,
         -7
@@ -116,7 +116,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 9.6,
+      "stock": 10.0,
       "pos": [
         4,
         11
@@ -126,7 +126,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 9.6,
+      "stock": 10.0,
       "pos": [
         -8,
         9
@@ -136,7 +136,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 9.6,
+      "stock": 10.0,
       "pos": [
         13,
         12
@@ -146,7 +146,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 9.2,
+      "stock": 9.5,
       "pos": [
         -16,
         6
@@ -156,7 +156,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 9.2,
+      "stock": 9.5,
       "pos": [
         -4,
         -16
@@ -188,16 +188,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        10.24,
-        -10.66
+        5.48,
+        -14.32
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 64,
-        "company": 26
+        "hunger": 55,
+        "energy": 60,
+        "company": 25
       },
       "task": "deliver",
       "carry": {
@@ -214,8 +214,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.24,
-        -10.66
+        5.48,
+        -14.32
       ],
       "talent": "food",
       "likes": "food",
@@ -223,11 +223,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 10,
-        "energy": 54,
-        "company": 77
+        "hunger": 15,
+        "energy": 50,
+        "company": 75
       },
-      "task": "eat",
+      "task": "deliver",
       "carry": {
         "wood": 2
       },
@@ -250,15 +250,15 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 26.0,
-        "company": 56
+        "hunger": 10,
+        "energy": 20.0,
+        "company": 55
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {
         "wood": 2
       },
-      "say": "What's that, over there?",
+      "say": "A meal from the stores.",
       "delivered": 0,
       "shells": 0
     }
