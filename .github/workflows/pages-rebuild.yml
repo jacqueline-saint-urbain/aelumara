@@ -1,0 +1,18 @@
+name: Republier la page Cloudflare (code seulement)
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - world.json
+      - SOCIETY.md
+      - WORLD.md
+      - README.md
+      - sim.py
+  workflow_dispatch: {}
+jobs:
+  hook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Déclencher la reconstruction chez Cloudflare
+        run: curl -s -X POST "${{ secrets.PAGES_DEPLOY_HOOK }}" > /dev/null && echo "Reconstruction demandée."
