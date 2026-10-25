@@ -159,6 +159,8 @@ def fire_state():
 def test_evening_fire_rewards_presence_and_names_the_absent():
     state, book = fire_state()
     state["stores"]["food"] = 0  # no shared meal here: this test is about presence
+    for npc in state["npcs"][:2]:
+        npc["needs"]["company"] = 20  # room below the cap for three fire bonuses
     sim_obj = engine.Sim(state, book)
     # 19h, 20h, 21h Toronto.
     run_tick(sim_obj, dt.datetime(2026, 10, 25, 23, 0, tzinfo=UTC))
@@ -166,8 +168,8 @@ def test_evening_fire_rewards_presence_and_names_the_absent():
     run_tick(sim_obj, dt.datetime(2026, 10, 26, 1, 0, tzinfo=UTC))
 
     bram, selie, nilo = state["npcs"]
-    # Company: -rate each tick, then +15 on arrival at the fire.
-    # Bram (rate 1): 50 -> 64 -> 78 -> 92. Sélie (rate 2): 50 -> 63 -> 76 -> 89.
+    # Company: -rate each tick, then +25 for each evening hour at the fire.
+    # Bram (rate 1): 20 -> 44 -> 68 -> 92. Sélie (rate 2): 20 -> 43 -> 66 -> 89.
     assert bram["needs"]["company"] == 92
     assert selie["needs"]["company"] == 89
     # Nilo slept through it: decay only, no fire bonus.
@@ -180,6 +182,31 @@ def test_evening_fire_rewards_presence_and_names_the_absent():
     assert "Bram" in summaries[0]["text"] and "Sélie" in summaries[0]["text"]
     assert "Absent: Nilo" in summaries[0]["text"]
     assert state["fires"] == 1
+
+
+def test_working_near_another_resident_halves_company_decay():
+    # Companionship (2026-10-25): during working hours (07h-18h Toronto), a
+    # resident within 4 units of another resident loses company at half rate.
+    bram = make_npc("npc-1", "Bram", pos=[-12, -8])
+    selie = make_npc("npc-2", "Sélie", pos=[-10, -8], company_rate=2)
+    nilo = sleeper("npc-3", "Nilo")  # alone at the far hut
+    state = make_state([bram, selie, nilo])
+    sim_obj = engine.Sim(state, make_book())
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))  # 10h Toronto
+    assert bram["needs"]["company"] == pytest.approx(49.5)
+    assert selie["needs"]["company"] == pytest.approx(49.0)
+    assert nilo["needs"]["company"] == pytest.approx(49.0)
+
+
+def test_closeness_does_not_count_outside_working_hours():
+    bram = make_npc("npc-1", "Bram", pos=[-12, -8])
+    selie = make_npc("npc-2", "Sélie", pos=[-10, -8], company_rate=2)
+    state = make_state([bram, selie, sleeper("npc-3", "Nilo")])
+    sim_obj = engine.Sim(state, make_book())
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 23, 0, tzinfo=UTC) - dt.timedelta(hours=1))  # 18h Toronto: last working hour
+    assert bram["needs"]["company"] == pytest.approx(49.5)
+    run_tick(sim_obj, dt.datetime(2026, 10, 26, 3, 0, tzinfo=UTC))  # 23h Toronto: night
+    assert bram["needs"]["company"] == pytest.approx(48.5)
 
 
 # -------------------------------------------------------- morning stone ---
