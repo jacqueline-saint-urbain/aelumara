@@ -98,7 +98,8 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch {} },
 };
 const params = new URLSearchParams(location.search);
-const LOCAL = params.has('local') || location.hostname.endsWith('github.io');
+const LOCAL = params.has('local') || location.hostname.endsWith('github.io') || location.hostname.endsWith('pages.dev');
+const RAW_BASE = 'https://raw.githubusercontent.com/jacqueline-saint-urbain/aelumara/main/';
 
 // ---------------- data ----------------
 async function gh(path, opts = {}) {
@@ -114,7 +115,7 @@ async function gh(path, opts = {}) {
   return r.status === 204 ? null : r.json();
 }
 async function readFile(name) {
-  if (LOCAL) { const r = await fetch(name + '?t=' + Date.now()); if (!r.ok) throw new Error(name + ' ' + r.status); return r.json(); }
+  if (LOCAL) { const base = location.hostname.endsWith('pages.dev') ? RAW_BASE : ''; const r = await fetch(base + name + '?t=' + Date.now()); if (!r.ok) throw new Error(name + ' ' + r.status); return r.json(); }
   return gh(`/repos/${REPO}/contents/world/${name}?ref=${REF}&t=${Date.now()}`, { accept: 'application/vnd.github.raw+json' });
 }
 const data = { world: null, state: null, book: null, chat: [] };
