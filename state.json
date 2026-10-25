@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 10,
+  "tick": 11,
   "day": 1,
-  "time": "2026-10-26T02:00:00Z",
+  "time": "2026-10-26T03:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -66,7 +66,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 14.5,
+      "stock": 14.75,
       "pos": [
         -12,
         -8
@@ -76,7 +76,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 12.5,
+      "stock": 12.75,
       "pos": [
         -15,
         -2
@@ -86,7 +86,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 16.5,
+      "stock": 16.75,
       "pos": [
         -9,
         -13
@@ -96,7 +96,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 16.5,
+      "stock": 16.75,
       "pos": [
         8,
         -12
@@ -106,7 +106,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 9.5,
+      "stock": 9.75,
       "pos": [
         15,
         -7
@@ -146,7 +146,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.0,
+      "stock": 11.3,
       "pos": [
         -16,
         6
@@ -156,7 +156,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.0,
+      "stock": 11.3,
       "pos": [
         -4,
         -16
@@ -190,16 +190,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        3.16,
-        3.28
+        7.83,
+        7.05
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
+        "hunger": 35,
         "energy": 44,
-        "company": 45
+        "company": 44
       },
       "task": "go_home",
       "carry": {
@@ -216,8 +216,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        4.31,
-        1.01
+        10.12,
+        2.51
       ],
       "talent": "food",
       "likes": "food",
@@ -225,9 +225,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 40,
+        "hunger": 45,
         "energy": 34,
-        "company": 90
+        "company": 88
       },
       "task": "go_home",
       "carry": {},
@@ -250,9 +250,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 50.0,
-        "company": 50
+        "hunger": 40,
+        "energy": 62.0,
+        "company": 49
       },
       "task": "sleep",
       "carry": {},
