@@ -210,3 +210,20 @@ def test_morning_stone_needs_arrival():
     assert selie["task"] == "stone"
     assert state["pot"] == 12
     assert selie.get("stone_day") is None
+
+
+def test_morning_stone_walk_arrives_from_far_away_and_pays_once():
+    # Owner decision A (2026-10-25): the walk to the stone starts at 06h and
+    # continues each tick until she arrives. Her hut is 15.5 units away, so
+    # three ticks (06h, 07h, 08h) are needed; she pays once, then stops.
+    state, book = stone_state([18.5, 0])  # 15.5 units from the stone at [3, 0]
+    sim_obj = engine.Sim(state, book)
+    selie = state["npcs"][1]
+    for utc_hour in (10, 11, 12):  # 06h, 07h, 08h Toronto
+        run_tick(sim_obj, dt.datetime(2026, 10, 25, utc_hour, 0, tzinfo=UTC))
+    assert selie["pos"] == pytest.approx(STONE, abs=0.01)
+    assert state["pot"] == 13
+    assert selie["stone_day"] == state["day"]
+    # Later the same morning, nothing more is paid.
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 13, 0, tzinfo=UTC))  # 09h
+    assert state["pot"] == 13
