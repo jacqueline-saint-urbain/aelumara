@@ -31,6 +31,7 @@ COMPANY_RATE = 1
 FIRE_COMPANY = 25  # company gained for each evening hour at the fire
 WORK_HOURS = range(7, 19)  # 07h-18h Toronto: working near someone halves company decay
 CLOSE_DIST = 4
+FEAST_STORES = 30  # food in the stores that turns the shared meal into a feast
 FIRE_HOURS = (19, 20, 21)  # le feu du soir (Toronto time)
 STONE_HOURS = (6, 7, 8)   # la pierre du matin: the walk starts at 06h, owner decision A
 NODE_REGROW = {"wood": 0.25, "food": 0.4, "fiber": 0.3}
@@ -169,11 +170,13 @@ class Sim:
         meal = ""
         # Food's use: a shared meal at the fire, when there is enough to share.
         if len(here) >= 2 and st["stores"]["food"] >= 6:
+            # Full stores make the meal a feast: same 6 food, more company.
+            feast = st["stores"]["food"] >= FEAST_STORES
             st["stores"]["food"] = round(st["stores"]["food"] - 6, 2)
             for npc in st["npcs"]:
                 if npc["id"] in here:
-                    npc["needs"]["company"] = min(100, npc["needs"]["company"] + 10)
-            meal = " A shared meal was cooked from the stores."
+                    npc["needs"]["company"] = min(100, npc["needs"]["company"] + (20 if feast else 10))
+            meal = " A feast was shared from the full stores." if feast else " A shared meal was cooked from the stores."
         missing = [n["name"] for n in st["npcs"] if n["id"] not in here]
         proj = self.active_project() or next((p for p in st["projects"] if p["id"] == "raft"), None)
         pr = 100 if proj and proj["status"] == "done" else (self.progress(proj) if proj else 0)

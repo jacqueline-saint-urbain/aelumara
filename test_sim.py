@@ -293,6 +293,23 @@ def test_shared_meal_at_the_evening_fire_uses_food_and_lifts_company():
     assert any("shared meal" in e["text"] for e in entries(book, "summary"))
 
 
+def test_shared_meal_from_full_stores_is_a_feast():
+    # Feast tuning (2026-10-25): when the stores hold 30 food or more, the
+    # shared meal is a feast: still 6 food used, but +20 company each.
+    state, book = stone_state(FIRE)
+    bram, selie = state["npcs"][0], state["npcs"][1]
+    state["stores"]["food"] = 30
+    state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
+    bram["needs"]["company"] = 40
+    selie["needs"]["company"] = 40
+    sim_obj = engine.Sim(state, book)
+    sim_obj.evening_fire()
+    assert state["stores"]["food"] == pytest.approx(24.0, abs=0.01)
+    assert bram["needs"]["company"] == 60
+    assert selie["needs"]["company"] == 60
+    assert any("feast" in e["text"] for e in entries(book, "summary"))
+
+
 def test_no_shared_meal_without_enough_food_or_company():
     state, book = stone_state(FIRE)
     state["stores"]["food"] = 4  # below the 6 needed for a meal
