@@ -20,7 +20,7 @@
     },
     {
       "id": "far",
-      "name": "L'île de l'horizon",
+      "name": "Horizon Island",
       "center": [
         0,
         -95
@@ -42,7 +42,7 @@
         6,
         4
       ],
-      "label": "Réserves"
+      "label": "Stores"
     },
     {
       "id": "hut-1",
@@ -51,7 +51,7 @@
         9,
         8
       ],
-      "label": "Hutte de Bram"
+      "label": "Bram's Hut"
     },
     {
       "id": "hut-2",
@@ -60,7 +60,7 @@
         12,
         3
       ],
-      "label": "Hutte de Sélie"
+      "label": "Sélie's Hut"
     },
     {
       "id": "wood-1",
@@ -166,7 +166,7 @@
   "projects": [
     {
       "id": "raft",
-      "name": "radeau",
+      "name": "raft",
       "type": "raft",
       "pos": [
         2,
@@ -184,7 +184,7 @@
     {
       "id": "npc-1",
       "name": "Bram",
-      "role": "charpentier",
+      "role": "carpenter",
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
@@ -193,7 +193,7 @@
       ],
       "talent": "wood",
       "likes": "wood",
-      "line": "On ne parle pas d'un radeau. On le construit.",
+      "line": "You don't talk about a raft. You build it.",
       "needs": {
         "hunger": 50,
         "energy": 64,
@@ -203,14 +203,14 @@
       "carry": {
         "wood": 3
       },
-      "say": "Du bois pour le radeau.",
+      "say": "Wood for the raft.",
       "delivered": 0,
       "shells": 0
     },
     {
       "id": "npc-2",
       "name": "Sélie",
-      "role": "cueilleuse et cuisinière",
+      "role": "gatherer and cook",
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
@@ -221,7 +221,7 @@
       "likes": "food",
       "ritual": "stone",
       "company_rate": 2,
-      "line": "La marée rapporte toujours quelque chose. Il faut être là quand elle se retire.",
+      "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 10,
         "energy": 54,
@@ -231,14 +231,14 @@
       "carry": {
         "wood": 2
       },
-      "say": "Un repas aux réserves.",
+      "say": "A meal from the stores.",
       "delivered": 0,
       "shells": 0
     },
     {
       "id": "npc-3",
       "name": "Nilo",
-      "role": "apprenti et messager",
+      "role": "apprentice and messenger",
       "color": "#80ed99",
       "home": "fire",
       "pos": [
@@ -248,7 +248,7 @@
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
-      "line": "C'est quoi, ça, là-bas ?",
+      "line": "What's that, over there?",
       "needs": {
         "hunger": 55,
         "energy": 26.0,
@@ -258,7 +258,7 @@
       "carry": {
         "wood": 2
       },
-      "say": "C'est quoi, ça, là-bas ?",
+      "say": "What's that, over there?",
       "delivered": 0,
       "shells": 0
     }
