@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 32,
+  "tick": 33,
   "day": 2,
-  "time": "2026-10-27T00:00:00Z",
+  "time": "2026-10-27T01:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -77,7 +77,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.0,
+      "stock": 18.25,
       "pos": [
         -15,
         -2
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 15.0,
+      "stock": 15.25,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10.2,
+      "stock": 10.6,
       "pos": [
         4,
         11
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.9,
+      "stock": 11.2,
       "pos": [
         -16,
         6
@@ -157,7 +157,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.6,
+      "stock": 11.9,
       "pos": [
         -4,
         -16
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -1.5,
-        -0.5
+        3.16,
+        3.28
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
+        "hunger": 45,
         "energy": 40,
-        "company": 49.5
+        "company": 48.5
       },
-      "task": "sleep",
+      "task": "go_home",
       "carry": {},
       "say": "Good night, all. I need my bed.",
       "delivered": 3,
@@ -236,9 +236,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 40,
-        "company": 71
+        "hunger": 55,
+        "energy": 36,
+        "company": 94
       },
       "task": "fire",
       "carry": {
@@ -276,9 +276,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 45,
-        "energy": 28.0,
-        "company": 54.5
+        "hunger": 50,
+        "energy": 40.0,
+        "company": 53.5
       },
       "task": "sleep",
       "carry": {
@@ -324,7 +324,7 @@
       "npc-1"
     ]
   },
-  "fires": 1,
+  "fires": 2,
   "ledgers": [
     {
       "stores_in": {},
@@ -345,5 +345,9 @@
         "Nilo": 2
       }
     }
-  ]
+  ],
+  "council": {
+    "decided": {},
+    "last": null
+  }
 }
