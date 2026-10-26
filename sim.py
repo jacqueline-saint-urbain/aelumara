@@ -53,12 +53,13 @@ TEMPER_BAND = (0.25, 0.75)  # nobody is born extreme; extremes can only come fro
 TEMPER_MIN_SPREAD = 0.15  # three near-identical temperaments would tell no story: redraw at birth
 LEAN_CLAMP = (0.05, 0.95)  # nobody becomes a machine
 IMITATE_RATE = 0.02  # each evening, 2% of the gap toward the admired person's reputation
-RECALL_RATE = 0.03  # each evening, 3% of the gap back toward one's own temperament (nature recalls)
+RECALL_RATE = 0.02  # each evening, 2% of the gap back toward one's own temperament (nature recalls); the only value passing both tests, at day 90 (Spark, 340 runs)
 HABIT_RATE = 0.02  # each evening, 2% of the gap toward one's own acts of the last 14 days: one becomes what one does
 REPUTATION_DAYS = 14  # a reputation is the share of one's acts for the group over the last 14 days
 # Closed loop Nilo -> Bram -> Sélie -> Nilo: at equilibrium the spread of dispositions keeps
 # p / |1 - (1 - p) w| of the spread of temperaments, p = recall / (recall + imitate), w = e^(2i pi/3).
-# 0.02 / 0.03 keeps about 48% (0.05 / 0.02 kept 19%: the three became alike). Spark and Claude, #decisions n°5.
+# 0.05 / 0.02 kept 19%: the three became alike (#decisions n°5). With habit (2%) and chance the spread kept is larger
+# than this; measured, nature dominates the first month and falls to about 50-70% by day 90 (#ile-economie n°40).
 TIRED_ENERGY = 30  # below this, finishing a delivery for the common project becomes a dilemma
 SHORT_NIGHT_CAP = 85  # who stays tired at the fire wakes up at 85 at most; who left early wakes at 100
 FIRE_TIRED = 50  # below half energy at the evening fire, staying is a choice (most evenings, for everyone: Spark's grid, 2026-10-26)
