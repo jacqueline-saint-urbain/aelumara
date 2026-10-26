@@ -71,3 +71,106 @@ Tests first: test_sim.py 29/29 passed, including test_the_pot_keeps_a_reserve_fo
 - Ledger totals: pot_in 30 (= morning stone arrivals: 30); pot_out 36 = shifts paid 27 + meals paid 9. Pot chain verified day by day: each archived balance = the previous day's balance + pot_in − pot_out, 30 out of 30 days; final balance reconciled with the current day's ledger: yes. No negative value in the pot, the stores, the shells or the ledger: yes.
 - Company at zero: 298 resident-ticks out of 2160 (target: under 300 — met).
 - Verdict: with the reserve in place, the pot never touches 0 over 30 days, and meals are never blocked. The topic "what the pot buys" can be closed.
+
+================================================================
+EVENING BARTER — BEFORE / AFTER SWEEP (2026-10-25)
+Feature: evening barter (commit fa68f18). Before: commit 2e7694a (parent). Same playtest_sweep.py at both commits (byte-identical), same fresh fixture, 720 ticks each. Engine tests at fa68f18: 42/42 passed.
+
+PLAYTEST SWEEP — Aelúmara, sim.py engine (aelumara repository, engine blob b2b2d2dcb623666bc04794a2e24400608afa2d44)
+Context: before "evening barter" (commit 2e7694a) — spark verification
+Run: 720 ticks = 30 island days, fresh fixture (see the header of playtest_sweep.py), live state never touched.
+
+RULE FIRINGS
+- Raft completion (status done + raft_ready flag): 1
+- "launching" entry in the Book: 2
+- Progress milestones 25/50/75% in the Book: 6
+- Deliveries to the project (total quantity): 42
+- One-shell payments per delivery to the project: 27
+- Deliveries to stores (outside the project): 381
+- Morning stone: Sélie arrives at 07:00 (+1 shell to the pot): 30
+- Evening fire: evening summary in the Book: 30
+- Evening fire: at least one resident present: 30
+- Evening fire: all three residents present: 24
+- Meals taken from stores (eat task): 165
+- Berry gathering when stores are empty (forage task): 80
+- Sleep with energy regain (sleep task): 659
+- Rest for lack of a resource to gather (rest task): 0
+- Resident signature line (8% probability per tick): 108
+- Hunger at the ceiling (100): 120
+- Energy at zero: 0
+- Company at zero: 298
+- Resource node depleted (stock < 1, so ignored by residents): 1
+- Food stores at zero at the start of a tick: 0
+- After the raft: wood or fiber gathering: 49
+- After the raft: one-shell payment: 9
+
+RULES THAT NEVER FIRED
+- Rest for lack of a resource to gather (rest task)
+- Energy at zero
+- Food stores at zero at the start of a tick
+
+HIGHLIGHTS
+- Raft completed: tick 230, day 10 (raft_ready flag = True).
+- Book: 39 entries, by kind: {"event": 1, "launching": 2, "progress": 6, "summary": 30}.
+- Fire counter (state.fires) at the end: 30; evenings with at least one resident present: 30; empty evenings: 0; full evenings: 24.
+- Fire attendance by resident (over 30 evenings): {"npc-1": 28, "npc-2": 24, "npc-3": 30}.
+- Morning stone: 30 arrivals, over 30 distinct days.
+- Shared pot: min 1, max 13, end 6; shells earned by residents: 27; after the raft, the pot gained another 20 (morning stone) with no possible expense.
+- Final shells by resident: Bram 7, Sélie 3, Nilo 17.
+- Final stores: {"wood": 0, "fiber": 0, "food": 27.0}; lowest food: 0.12.
+- Needs observed (min/max): hunger 10/100, energy 16.0/100, company 0/100.
+- Tasks observed: {"deliver": 400, "eat": 165, "fire": 210, "forage": 80, "gather_fiber": 22, "gather_food": 321, "gather_wood": 92, "go_home": 121, "sleep": 659, "stone": 90}.
+- Lowest node stocks: {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 3.4, "food-3": 3.6, "wood-1": 20, "wood-2": 18, "wood-3": 18, "wood-4": 17, "wood-5": 13.25}.
+- Final state: tick 720, day 31, island time 2026-11-25T03:00:00Z.
+
+PLAYTEST SWEEP — Aelúmara, sim.py engine (aelumara repository, engine blob 8f57f455413d31496043d39409fd4f0d79b0129d)
+Context: after "evening barter" (commit fa68f18) — spark verification
+Run: 720 ticks = 30 island days, fresh fixture (see the header of playtest_sweep.py), live state never touched.
+
+RULE FIRINGS
+- Raft completion (status done + raft_ready flag): 1
+- "launching" entry in the Book: 2
+- Progress milestones 25/50/75% in the Book: 6
+- Deliveries to the project (total quantity): 44
+- One-shell payments per delivery to the project: 3
+- Deliveries to stores (outside the project): 406
+- Morning stone: Sélie arrives at 07:00 (+1 shell to the pot): 30
+- Evening fire: evening summary in the Book: 30
+- Evening fire: at least one resident present: 30
+- Evening fire: all three residents present: 26
+- Meals taken from stores (eat task): 174
+- Berry gathering when stores are empty (forage task): 58
+- Sleep with energy regain (sleep task): 659
+- Rest for lack of a resource to gather (rest task): 0
+- Resident signature line (8% probability per tick): 114
+- Hunger at the ceiling (100): 126
+- Energy at zero: 0
+- Company at zero: 214
+- Resource node depleted (stock < 1, so ignored by residents): 1
+- Food stores at zero at the start of a tick: 0
+- After the raft: wood or fiber gathering: 23
+- After the raft: one-shell payment: 0
+- Evening barter: barters at the fire (3 shells paid into the pot): 8
+- Evening barter: tool bought (even days, +1 per harvest the next day): 5
+- Evening barter: gift bought (odd days, +15 company to buyer and loneliest present): 3
+
+RULES THAT NEVER FIRED
+- Rest for lack of a resource to gather (rest task)
+- Energy at zero
+- Food stores at zero at the start of a tick
+- After the raft: one-shell payment
+
+HIGHLIGHTS
+- Raft completed: tick 211, day 9 (raft_ready flag = True).
+- Book: 39 entries, by kind: {"event": 1, "launching": 2, "progress": 6, "summary": 30}.
+- Fire counter (state.fires) at the end: 30; evenings with at least one resident present: 30; empty evenings: 0; full evenings: 26.
+- Fire attendance by resident (over 30 evenings): {"npc-1": 30, "npc-2": 26, "npc-3": 30}.
+- Morning stone: 30 arrivals, over 30 distinct days.
+- Shared pot: min 8, max 16, end 15; shells earned by residents: 3; after the raft, the pot gained another 29 (morning stone) with no possible expense.
+- Final shells by resident: Bram 0, Sélie 1, Nilo 2. Barters by buyer: Bram 2, Sélie 1, Nilo 5 (the engine's barters counters match the Book lines exactly).
+- Shell accounting: residents earned 27 shells in total; the "shells earned" figure above (3) is net of the 24 shells spent on barters (8 x 3). Before the barter, the same sweep earned 27 and spent 0.
+- Final stores: {"wood": 0, "fiber": 0, "food": 19.44}; lowest food: 0.08.
+- Needs observed (min/max): hunger 10/100, energy 16.0/100, company 0/100.
+- Tasks observed: {"deliver": 413, "eat": 174, "fire": 210, "forage": 58, "gather_fiber": 19, "gather_food": 345, "gather_wood": 71, "go_home": 121, "sleep": 659, "stone": 90}.
+- Lowest node stocks: {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 2.8, "food-3": 5.4, "wood-1": 20, "wood-2": 20, "wood-3": 18, "wood-4": 13.75, "wood-5": 12.5}.
+- Final state: tick 720, day 31, island time 2026-11-25T03:00:00Z.
