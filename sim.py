@@ -52,9 +52,14 @@ MEAL_POT_MIN = 5  # the pot pays the shared meal only above this reserve, kept f
 TEMPER_BAND = (0.25, 0.75)  # nobody is born extreme; extremes can only come from a life
 TEMPER_MIN_SPREAD = 0.15  # three near-identical temperaments would tell no story: redraw at birth
 LEAN_CLAMP = (0.05, 0.95)  # nobody becomes a machine
-IMITATE_RATE = 0.05  # each evening, 5% of the gap toward what the admired person did that day
-RECALL_RATE = 0.02  # each evening, 2% of the gap back toward one's own temperament (nature recalls)
+IMITATE_RATE = 0.02  # each evening, 2% of the gap toward the admired person's reputation
+RECALL_RATE = 0.03  # each evening, 3% of the gap back toward one's own temperament (nature recalls)
+REPUTATION_DAYS = 14  # a reputation is the share of one's acts for the group over the last 14 days
+# Closed loop Nilo -> Bram -> Sélie -> Nilo: at equilibrium the spread of dispositions keeps
+# p / |1 - (1 - p) w| of the spread of temperaments, p = recall / (recall + imitate), w = e^(2i pi/3).
+# 0.02 / 0.03 keeps about 48% (0.05 / 0.02 kept 19%: the three became alike). Spark and Claude, #decisions n°5.
 TIRED_ENERGY = 30  # below this, finishing a delivery for the common project becomes a dilemma
+SHORT_NIGHT_CAP = 85  # who stays tired at the fire wakes up at 85 at most; who left early wakes at 100
 FIRE_TIRED = 50  # below half energy at the evening fire, staying is a choice (most evenings, for everyone: Spark's grid, 2026-10-26)
 GIVE_FLOOR = 80  # hunger at or above this is survival, never a choice (food wellbeing under LAW_FLOOR)
 ADMIRES = {"Nilo": "Bram", "Bram": "Sélie", "Sélie": "Nilo"}  # SOCIETY.md: the admiration loop
@@ -211,14 +216,18 @@ class Sim:
         return group
 
     def imitate(self, day):
-        """Socialisation: each evening, move toward what the admired person did, then back toward one's nature."""
+        """Socialisation: each evening, move toward the admired person's reputation, then back toward one's nature."""
         npcs = [n for n in self.s["npcs"] if "disposition" in n]
-        seen = {n["id"]: dict(n.get("choices", {"group": 0, "self": 0})) for n in npcs}
+        seen = {}
         for n in npcs:
-            ch = seen.get(n.get("admires"))
+            ch = n.get("choices", {"group": 0, "self": 0})
+            n["acts"] = (n.get("acts", []) + [[ch["group"], ch["self"]]])[-REPUTATION_DAYS:]
+            seen[n["id"]] = (sum(a[0] for a in n["acts"]), sum(a[1] for a in n["acts"]))
+        for n in npcs:
+            group, alone = seen.get(n.get("admires"), (0, 0))
             d = n["disposition"]
-            if ch and ch["group"] + ch["self"]:
-                d += IMITATE_RATE * (ch["group"] / (ch["group"] + ch["self"]) - d)
+            if group + alone:
+                d += IMITATE_RATE * (group / (group + alone) - d)
             d += RECALL_RATE * (n["temperament"] - d)
             n["disposition"] = round(min(LEAN_CLAMP[1], max(LEAN_CLAMP[0], d)), 4)
             n["choices"] = {"group": 0, "self": 0}
@@ -313,7 +322,8 @@ class Sim:
         for npc in s["npcs"]:
             self.act(npc, rng, night, hour)
             # Whoever is at the fire during the evening counts as present, asleep or not.
-            if hour in FIRE_HOURS and dist(npc["pos"], self.spots["fire"]) < 1 and npc["id"] not in s["today"]["at_fire"]:
+            if (hour in FIRE_HOURS and dist(npc["pos"], self.spots["fire"]) < 1 and npc["id"] not in s["today"]["at_fire"]
+                    and npc["id"] not in s["today"].get("left_fire", ())):
                 s["today"]["at_fire"].append(npc["id"])
         if hour == FIRE_HOURS[-1]:
             self.evening_fire()
@@ -377,10 +387,13 @@ class Sim:
             meal = " A feast was shared from the full stores." if feast else " A shared meal was cooked from the stores."
         if BARTER_ON:
             meal += self.barter(here)
-        missing = [n["name"] for n in st["npcs"] if n["id"] not in here]
+        left = st["today"].get("left_fire", [])
+        missing = [n["name"] for n in st["npcs"] if n["id"] not in here and n["id"] not in left]
         proj = self.active_project() or next((p for p in st["projects"] if p["id"] == "raft"), None)
         pr = 100 if proj and proj["status"] == "done" else (self.progress(proj) if proj else 0)
         line = f"The evening fire gathers {', '.join(names) if names else 'no one'}. Today: {st['today']['delivered']} resources delivered, raft at {pr}%. Shells in the pot: {st['pot']}.{meal}"
+        if left:
+            line += f" Left early: {', '.join(n['name'] for n in st['npcs'] if n['id'] in left)}."
         if missing:
             line += f" Absent: {', '.join(missing)}."
         line += " " + self.ledger_line()
@@ -438,10 +451,13 @@ class Sim:
                 if npc["task"] != "sleep":
                     npc["say"] = "Good night."
                 npc["task"] = "sleep"
-                n["energy"] = min(100, n["energy"] + 12)
+                cap = max(n["energy"], SHORT_NIGHT_CAP) if npc.get("short_night") else 100
+                n["energy"] = min(cap, n["energy"] + 12)
             else:
                 npc["task"] = "go_home"
             return
+        if hour < FIRE_HOURS[0]:  # a new day: last night's short night is over
+            npc.pop("short_night", None)
         n["energy"] = max(0, n["energy"] - ENERGY_RATE * npc.get("rest_rate", 1))
 
         # The morning stone: the shell keeper leaves one shell on the idea stone.
@@ -461,9 +477,18 @@ class Sim:
             if n["energy"] < FIRE_TIRED and "disposition" in npc and npc.get("fire_day") != st["day"]:
                 npc["fire_day"] = st["day"]
                 npc["fire_choice"] = self.choose_group(npc, rng)
-            if npc.get("fire_day") == st["day"] and not npc.get("fire_choice", True):
+                npc["fire_hour"] = hour
+                if npc["fire_choice"]:  # staying up tired: a short night
+                    npc["short_night"] = True
+            if npc.get("fire_day") == st["day"] and not npc.get("fire_choice", True) and hour > npc.get("fire_hour", hour):
+                # One hour with the others, then good night, before the shared meal.
                 npc["task"] = "sleep"
-                npc["say"] = "Not tonight. I need my bed."
+                npc["say"] = "Good night, all. I need my bed."
+                today = st["today"]
+                if npc["id"] in today["at_fire"]:
+                    today["at_fire"].remove(npc["id"])
+                if npc["id"] not in today.setdefault("left_fire", []):
+                    today["left_fire"].append(npc["id"])
                 return
             npc["pos"], arrived = step_toward(npc["pos"], self.spots["fire"], speed)
             npc["task"] = "fire"

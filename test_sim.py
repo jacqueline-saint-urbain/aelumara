@@ -832,9 +832,24 @@ def test_imitation_moves_the_disposition_toward_what_the_admired_did():
     engine.Sim(state, make_book()).close_day(1)
     expected = 0.4 + engine.IMITATE_RATE * (1 - 0.4)
     expected += engine.RECALL_RATE * (0.4 - expected)
-    assert nilo["disposition"] == pytest.approx(expected)
+    assert nilo["disposition"] == pytest.approx(expected, abs=1e-4)  # stored to 4 decimals
     assert selie["disposition"] == pytest.approx(0.4)  # Nilo made no choice: only the recall
     assert bram["choices"] == {"group": 0, "self": 0}
+def test_imitation_follows_the_reputation_over_the_last_14_days():
+    state = trait_state()
+    bram, selie, nilo = state["npcs"]
+    for n, adm in ((bram, "npc-2"), (selie, "npc-3"), (nilo, "npc-1")):
+        n.update(temperament=0.4, disposition=0.4, admires=adm, choices={"group": 0, "self": 0})
+    bram["acts"] = [[0, 2]] * 5 + [[1, 0]] * 13  # an old selfish week, then 13 days for the group
+    bram["choices"] = {"group": 0, "self": 1}  # today: once for himself
+    engine.Sim(state, make_book()).close_day(1)
+    assert len(bram["acts"]) == engine.REPUTATION_DAYS
+    assert bram["acts"][-1] == [0, 1]
+    expected = 0.4 + engine.IMITATE_RATE * (13 / 14 - 0.4)  # the 14-day window forgets the old week
+    expected += engine.RECALL_RATE * (0.4 - expected)
+    assert nilo["disposition"] == pytest.approx(expected, abs=1e-4)  # stored to 4 decimals
+
+
 def test_the_far_island_is_migrated_to_its_enlarged_size():
     state = barter_state(0, (0, 0, 0))
     state["regions"] = [{"id": "home", "center": [0, 0], "radius": 20},
@@ -861,12 +876,48 @@ def test_a_tired_resident_stays_at_the_fire_when_the_lean_says_group():
     assert bram["choices"] == {"group": 1, "self": 0}
 
 
-def test_a_tired_resident_goes_to_sleep_instead_of_the_fire_when_the_lean_says_self():
+def test_a_tired_resident_says_goodnight_after_the_first_hour_when_the_lean_says_self():
     state, bram, sim_obj = fire_evening(0.99)
-    assert bram["task"] == "sleep" and "npc-1" not in state["today"]["at_fire"]
+    assert bram["task"] == "fire" and "npc-1" in state["today"]["at_fire"]  # the first hour, with the others
     assert bram["choices"] == {"group": 0, "self": 1}
     sim_obj.act(bram, FixedRng(0.0), False, 20)  # asked once per evening: the choice holds
-    assert bram["choices"] == {"group": 0, "self": 1}
+    assert bram["task"] == "sleep" and bram["choices"] == {"group": 0, "self": 1}
+    assert "npc-1" not in state["today"]["at_fire"] and "npc-1" in state["today"]["left_fire"]
+
+
+def test_who_left_early_misses_the_shared_meal_and_is_named_in_the_summary():
+    state, bram, sim_obj = fire_evening(0.99)
+    sim_obj.act(bram, FixedRng(0.0), False, 20)
+    for other in state["npcs"][1:]:
+        other["pos"] = list(sim_obj.spots["fire"])
+        state["today"]["at_fire"].append(other["id"])
+    company = bram["needs"]["company"]
+    sim_obj.evening_fire()
+    assert bram["needs"]["company"] == company
+    assert all(o["needs"]["company"] >= 60 for o in state["npcs"][1:])
+    summary = entries(sim_obj.book, "summary")[-1]["text"]
+    assert "Left early: Bram." in summary and "Absent: Bram" not in summary
+
+
+def sleep_night(sim_obj, npc, hours=8):
+    for _ in range(hours):
+        sim_obj.act(npc, FixedRng(0.5), True, 23)
+
+
+def test_staying_tired_at_the_fire_makes_a_short_night():
+    state, bram, sim_obj = fire_evening(0.0)
+    assert bram.get("short_night")
+    sleep_night(sim_obj, bram)
+    assert bram["needs"]["energy"] == engine.SHORT_NIGHT_CAP
+    sim_obj.act(bram, FixedRng(0.5), False, 7)  # morning: the short night is over
+    assert not bram.get("short_night")
+
+
+def test_who_left_early_wakes_up_rested():
+    state, bram, sim_obj = fire_evening(0.99)
+    assert not bram.get("short_night")
+    sleep_night(sim_obj, bram)
+    assert bram["needs"]["energy"] == 100
 
 
 def test_no_fire_dilemma_for_a_rested_resident():
