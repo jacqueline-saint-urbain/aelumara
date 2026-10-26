@@ -1,0 +1,819 @@
+{
+ "record": [
+  "x",
+  "y",
+  "z",
+  "rotation",
+  "height"
+ ],
+ "count": 12769,
+ "layers": [
+  {
+   "name": "palms",
+   "fade": 0,
+   "shadow": true,
+   "models": [
+    {
+     "path": "res://models/kenney-nature/tree_palm.glb",
+     "offset": 0,
+     "count": 31
+    },
+    {
+     "path": "res://models/kenney-nature/tree_palmBend.glb",
+     "offset": 31,
+     "count": 32
+    },
+    {
+     "path": "res://models/kenney-nature/tree_palmTall.glb",
+     "offset": 63,
+     "count": 25
+    },
+    {
+     "path": "res://models/kenney-nature/tree_palmDetailedTall.glb",
+     "offset": 88,
+     "count": 27
+    },
+    {
+     "path": "res://models/kenney-pirate/palm-bend.glb",
+     "offset": 115,
+     "count": 26
+    },
+    {
+     "path": "res://models/kenney-pirate/palm-detailed-bend.glb",
+     "offset": 141,
+     "count": 34
+    },
+    {
+     "path": "res://models/kenney-pirate/palm-detailed-straight.glb",
+     "offset": 175,
+     "count": 24
+    },
+    {
+     "path": "res://models/kenney-pirate/palm-straight.glb",
+     "offset": 199,
+     "count": 23
+    },
+    {
+     "path": "res://models/quaternius-nature/PalmTree_1.obj",
+     "offset": 222,
+     "count": 33
+    },
+    {
+     "path": "res://models/quaternius-nature/PalmTree_2.obj",
+     "offset": 255,
+     "count": 24
+    },
+    {
+     "path": "res://models/quaternius-nature/PalmTree_3.obj",
+     "offset": 279,
+     "count": 23
+    },
+    {
+     "path": "res://models/quaternius-nature/PalmTree_4.obj",
+     "offset": 302,
+     "count": 25
+    }
+   ]
+  },
+  {
+   "name": "jungle_trees",
+   "fade": 0,
+   "shadow": true,
+   "models": [
+    {
+     "path": "res://models/kaykit-forest/Tree_1_C_Color1.gltf",
+     "offset": 327,
+     "count": 70
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_2_D_Color1.gltf",
+     "offset": 397,
+     "count": 76
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_2_E_Color1.gltf",
+     "offset": 473,
+     "count": 85
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_3_C_Color1.gltf",
+     "offset": 558,
+     "count": 109
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_4_C_Color1.gltf",
+     "offset": 667,
+     "count": 85
+    },
+    {
+     "path": "res://models/quaternius-nature/CommonTree_5.obj",
+     "offset": 752,
+     "count": 80
+    },
+    {
+     "path": "res://models/kenney-nature/tree_detailed.glb",
+     "offset": 832,
+     "count": 65
+    },
+    {
+     "path": "res://models/kenney-nature/tree_oak.glb",
+     "offset": 897,
+     "count": 78
+    }
+   ]
+  },
+  {
+   "name": "mountain_main",
+   "fade": 0,
+   "shadow": true,
+   "models": [
+    {
+     "path": "res://models/kaykit-forest/Tree_2_A_Color1.gltf",
+     "offset": 975,
+     "count": 65
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_2_B_Color1.gltf",
+     "offset": 1040,
+     "count": 75
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_2_C_Color1.gltf",
+     "offset": 1115,
+     "count": 89
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_2_D_Color1.gltf",
+     "offset": 1204,
+     "count": 75
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_2_E_Color1.gltf",
+     "offset": 1279,
+     "count": 69
+    }
+   ]
+  },
+  {
+   "name": "mountain_other",
+   "fade": 0,
+   "shadow": true,
+   "models": [
+    {
+     "path": "res://models/kaykit-forest/Tree_4_A_Color1.gltf",
+     "offset": 1348,
+     "count": 16
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_4_B_Color1.gltf",
+     "offset": 1364,
+     "count": 8
+    },
+    {
+     "path": "res://models/kenney-nature/tree_tall.glb",
+     "offset": 1372,
+     "count": 16
+    },
+    {
+     "path": "res://models/kenney-nature/tree_simple.glb",
+     "offset": 1388,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "name": "plains_trees",
+   "fade": 0,
+   "shadow": true,
+   "models": [
+    {
+     "path": "res://models/kenney-nature/tree_plateau.glb",
+     "offset": 1398,
+     "count": 2
+    },
+    {
+     "path": "res://models/kenney-nature/tree_plateau.glb",
+     "offset": 1400,
+     "count": 4
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_1_A_Color1.gltf",
+     "offset": 1404,
+     "count": 3
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_1_B_Color1.gltf",
+     "offset": 1407,
+     "count": 3
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_3_A_Color1.gltf",
+     "offset": 1410,
+     "count": 4
+    },
+    {
+     "path": "res://models/kaykit-forest/Tree_3_B_Color1.gltf",
+     "offset": 1414,
+     "count": 6
+    },
+    {
+     "path": "res://models/quaternius-nature/CommonTree_3.obj",
+     "offset": 1420,
+     "count": 3
+    },
+    {
+     "path": "res://models/quaternius-nature/CommonTree_4.obj",
+     "offset": 1423,
+     "count": 3
+    }
+   ]
+  },
+  {
+   "name": "big_bushes",
+   "fade": 220,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/kaykit-forest/Bush_1_E_Color1.gltf",
+     "offset": 1426,
+     "count": 88
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_1_F_Color1.gltf",
+     "offset": 1514,
+     "count": 101
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_2_E_Color1.gltf",
+     "offset": 1615,
+     "count": 97
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_2_F_Color1.gltf",
+     "offset": 1712,
+     "count": 111
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_4_E_Color1.gltf",
+     "offset": 1823,
+     "count": 94
+    },
+    {
+     "path": "res://models/quaternius-nature/BushBerries_1.obj",
+     "offset": 1917,
+     "count": 101
+    },
+    {
+     "path": "res://models/quaternius-nature/BushBerries_2.obj",
+     "offset": 2018,
+     "count": 96
+    }
+   ]
+  },
+  {
+   "name": "low_bushes",
+   "fade": 140,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/kaykit-forest/Bush_1_C_Color1.gltf",
+     "offset": 2114,
+     "count": 140
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_1_D_Color1.gltf",
+     "offset": 2254,
+     "count": 154
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_2_B_Color1.gltf",
+     "offset": 2408,
+     "count": 147
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_2_C_Color1.gltf",
+     "offset": 2555,
+     "count": 147
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_4_C_Color1.gltf",
+     "offset": 2702,
+     "count": 156
+    },
+    {
+     "path": "res://models/kenney-nature/plant_bush.glb",
+     "offset": 2858,
+     "count": 180
+    },
+    {
+     "path": "res://models/kenney-nature/plant_bushDetailed.glb",
+     "offset": 3038,
+     "count": 177
+    },
+    {
+     "path": "res://models/kenney-nature/plant_bushLarge.glb",
+     "offset": 3215,
+     "count": 159
+    },
+    {
+     "path": "res://models/kenney-nature/plant_bushTriangle.glb",
+     "offset": 3374,
+     "count": 173
+    },
+    {
+     "path": "res://models/quaternius-nature/Bush_1.obj",
+     "offset": 3547,
+     "count": 189
+    },
+    {
+     "path": "res://models/quaternius-nature/Bush_2.obj",
+     "offset": 3736,
+     "count": 144
+    }
+   ]
+  },
+  {
+   "name": "jungle_plants",
+   "fade": 120,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/quaternius-nature/Plant_1.obj",
+     "offset": 3880,
+     "count": 202
+    },
+    {
+     "path": "res://models/quaternius-nature/Plant_2.obj",
+     "offset": 4082,
+     "count": 219
+    },
+    {
+     "path": "res://models/quaternius-nature/Plant_3.obj",
+     "offset": 4301,
+     "count": 196
+    },
+    {
+     "path": "res://models/quaternius-nature/Plant_4.obj",
+     "offset": 4497,
+     "count": 169
+    },
+    {
+     "path": "res://models/quaternius-nature/Plant_5.obj",
+     "offset": 4666,
+     "count": 207
+    },
+    {
+     "path": "res://models/quaternius-nature/Plant_5.obj",
+     "offset": 4873,
+     "count": 202
+    },
+    {
+     "path": "res://models/quaternius-platformer/Plant_Large.gltf",
+     "offset": 5075,
+     "count": 214
+    },
+    {
+     "path": "res://models/quaternius-platformer/Plant_Small.gltf",
+     "offset": 5289,
+     "count": 174
+    },
+    {
+     "path": "res://models/kenney-nature/plant_flatTall.glb",
+     "offset": 5463,
+     "count": 210
+    },
+    {
+     "path": "res://models/kenney-nature/plant_flatShort.glb",
+     "offset": 5673,
+     "count": 214
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_3_A_Color1.gltf",
+     "offset": 5887,
+     "count": 211
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_3_B_Color1.gltf",
+     "offset": 6098,
+     "count": 198
+    },
+    {
+     "path": "res://models/kaykit-forest/Bush_3_C_Color1.gltf",
+     "offset": 6296,
+     "count": 225
+    }
+   ]
+  },
+  {
+   "name": "rocks_big",
+   "fade": 0,
+   "shadow": true,
+   "models": [
+    {
+     "path": "res://models/kaykit-forest/Rock_1_D_Color1.gltf",
+     "offset": 6521,
+     "count": 8
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_1_G_Color1.gltf",
+     "offset": 6529,
+     "count": 5
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_1_J_Color1.gltf",
+     "offset": 6534,
+     "count": 10
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_1_K_Color1.gltf",
+     "offset": 6544,
+     "count": 6
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_2_C_Color1.gltf",
+     "offset": 6550,
+     "count": 9
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_2_D_Color1.gltf",
+     "offset": 6559,
+     "count": 4
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_2_E_Color1.gltf",
+     "offset": 6563,
+     "count": 5
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_2_G_Color1.gltf",
+     "offset": 6568,
+     "count": 7
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_3_G_Color1.gltf",
+     "offset": 6575,
+     "count": 4
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_3_K_Color1.gltf",
+     "offset": 6579,
+     "count": 8
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_3_M_Color1.gltf",
+     "offset": 6587,
+     "count": 5
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_3_Q_Color1.gltf",
+     "offset": 6592,
+     "count": 13
+    },
+    {
+     "path": "res://models/kenney-nature/rock_tallA.glb",
+     "offset": 6605,
+     "count": 3
+    },
+    {
+     "path": "res://models/kenney-nature/rock_tallB.glb",
+     "offset": 6608,
+     "count": 6
+    },
+    {
+     "path": "res://models/kenney-nature/rock_tallG.glb",
+     "offset": 6614,
+     "count": 12
+    }
+   ]
+  },
+  {
+   "name": "water_rocks",
+   "fade": 160,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/quaternius-nature/Rock_Moss_1.obj",
+     "offset": 6626,
+     "count": 37
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_Moss_2.obj",
+     "offset": 6663,
+     "count": 24
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_Moss_3.obj",
+     "offset": 6687,
+     "count": 29
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_Moss_4.obj",
+     "offset": 6716,
+     "count": 33
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_Moss_5.obj",
+     "offset": 6749,
+     "count": 34
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_Moss_6.obj",
+     "offset": 6783,
+     "count": 40
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_Moss_7.obj",
+     "offset": 6823,
+     "count": 35
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_3_A_Color1.gltf",
+     "offset": 6858,
+     "count": 31
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_3_E_Color1.gltf",
+     "offset": 6889,
+     "count": 29
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_1_D_Color1.gltf",
+     "offset": 6918,
+     "count": 37
+    },
+    {
+     "path": "res://models/kaykit-forest/Rock_2_C_Color1.gltf",
+     "offset": 6955,
+     "count": 46
+    },
+    {
+     "path": "res://models/kenney-nature/rock_largeB.glb",
+     "offset": 7001,
+     "count": 33
+    },
+    {
+     "path": "res://models/kenney-nature/rock_largeD.glb",
+     "offset": 7034,
+     "count": 34
+    },
+    {
+     "path": "res://models/kenney-nature/rock_largeF.glb",
+     "offset": 7068,
+     "count": 39
+    },
+    {
+     "path": "res://models/kenney-nature/rock_tallG.glb",
+     "offset": 7107,
+     "count": 32
+    },
+    {
+     "path": "res://models/kenney-nature/rock_tallH.glb",
+     "offset": 7139,
+     "count": 36
+    }
+   ]
+  },
+  {
+   "name": "beach_rocks",
+   "fade": 260,
+   "shadow": true,
+   "models": [
+    {
+     "path": "res://models/kenney-pirate/rocks-sand-a.glb",
+     "offset": 7175,
+     "count": 11
+    },
+    {
+     "path": "res://models/kenney-pirate/rocks-sand-b.glb",
+     "offset": 7186,
+     "count": 16
+    },
+    {
+     "path": "res://models/kenney-pirate/rocks-sand-c.glb",
+     "offset": 7202,
+     "count": 2
+    }
+   ]
+  },
+  {
+   "name": "rocks_small",
+   "fade": 90,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/kenney-nature/rock_smallA.glb",
+     "offset": 7204,
+     "count": 22
+    },
+    {
+     "path": "res://models/kenney-nature/rock_smallB.glb",
+     "offset": 7226,
+     "count": 20
+    },
+    {
+     "path": "res://models/kenney-nature/rock_smallD.glb",
+     "offset": 7246,
+     "count": 24
+    },
+    {
+     "path": "res://models/kenney-nature/rock_smallE.glb",
+     "offset": 7270,
+     "count": 17
+    },
+    {
+     "path": "res://models/kenney-nature/rock_smallG.glb",
+     "offset": 7287,
+     "count": 16
+    },
+    {
+     "path": "res://models/kenney-nature/rock_smallH.glb",
+     "offset": 7303,
+     "count": 21
+    },
+    {
+     "path": "res://models/kenney-nature/rock_smallFlatA.glb",
+     "offset": 7324,
+     "count": 27
+    },
+    {
+     "path": "res://models/kenney-nature/rock_largeA.glb",
+     "offset": 7351,
+     "count": 16
+    },
+    {
+     "path": "res://models/kenney-nature/rock_largeC.glb",
+     "offset": 7367,
+     "count": 17
+    },
+    {
+     "path": "res://models/kenney-nature/rock_largeE.glb",
+     "offset": 7384,
+     "count": 24
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_1.obj",
+     "offset": 7408,
+     "count": 25
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_2.obj",
+     "offset": 7433,
+     "count": 29
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_3.obj",
+     "offset": 7462,
+     "count": 19
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_5.obj",
+     "offset": 7481,
+     "count": 23
+    },
+    {
+     "path": "res://models/quaternius-nature/Rock_6.obj",
+     "offset": 7504,
+     "count": 16
+    }
+   ]
+  },
+  {
+   "name": "forest_floor",
+   "fade": 60,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/quaternius-nature/WoodLog_Moss.obj",
+     "offset": 7520,
+     "count": 26
+    },
+    {
+     "path": "res://models/quaternius-nature/TreeStump_Moss.obj",
+     "offset": 7546,
+     "count": 31
+    },
+    {
+     "path": "res://models/kenney-nature/mushroom_redGroup.glb",
+     "offset": 7577,
+     "count": 34
+    },
+    {
+     "path": "res://models/kenney-nature/log.glb",
+     "offset": 7611,
+     "count": 37
+    },
+    {
+     "path": "res://models/kenney-nature/stump_old.glb",
+     "offset": 7648,
+     "count": 34
+    }
+   ]
+  },
+  {
+   "name": "flowers",
+   "fade": 60,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/kenney-nature/flower_redA.glb",
+     "offset": 7682,
+     "count": 171
+    },
+    {
+     "path": "res://models/kenney-nature/flower_redB.glb",
+     "offset": 7853,
+     "count": 208
+    },
+    {
+     "path": "res://models/kenney-nature/flower_redC.glb",
+     "offset": 8061,
+     "count": 169
+    },
+    {
+     "path": "res://models/kenney-nature/flower_yellowA.glb",
+     "offset": 8230,
+     "count": 179
+    },
+    {
+     "path": "res://models/kenney-nature/flower_yellowB.glb",
+     "offset": 8409,
+     "count": 172
+    },
+    {
+     "path": "res://models/kenney-nature/flower_yellowC.glb",
+     "offset": 8581,
+     "count": 181
+    },
+    {
+     "path": "res://models/kenney-nature/flower_purpleA.glb",
+     "offset": 8762,
+     "count": 171
+    },
+    {
+     "path": "res://models/kenney-nature/flower_purpleB.glb",
+     "offset": 8933,
+     "count": 183
+    },
+    {
+     "path": "res://models/kenney-nature/flower_purpleC.glb",
+     "offset": 9116,
+     "count": 190
+    },
+    {
+     "path": "res://models/quaternius-nature/Flowers.obj",
+     "offset": 9306,
+     "count": 212
+    },
+    {
+     "path": "res://models/quaternius-nature/Flowers.obj",
+     "offset": 9518,
+     "count": 174
+    }
+   ]
+  },
+  {
+   "name": "grass",
+   "fade": 45,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/kenney-nature/grass_large.glb",
+     "offset": 9692,
+     "count": 655
+    },
+    {
+     "path": "res://models/kenney-nature/grass_leafsLarge.glb",
+     "offset": 10347,
+     "count": 576
+    },
+    {
+     "path": "res://models/kenney-pirate/grass-plant.glb",
+     "offset": 10923,
+     "count": 624
+    },
+    {
+     "path": "res://models/kenney-pirate/grass.glb",
+     "offset": 11547,
+     "count": 610
+    },
+    {
+     "path": "res://models/quaternius-nature/Grass_Short.obj",
+     "offset": 12157,
+     "count": 594
+    }
+   ]
+  },
+  {
+   "name": "lilies",
+   "fade": 160,
+   "shadow": false,
+   "models": [
+    {
+     "path": "res://models/quaternius-nature/Lilypad.obj",
+     "offset": 12751,
+     "count": 18
+    }
+   ]
+  }
+ ]
+}

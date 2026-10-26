@@ -12,6 +12,9 @@ func _ready() -> void:
 	_ground()
 	_sea()
 	_fresh_water()
+	var flora := preload("res://scripts/flora.gd").new()
+	flora.name = "Flora"
+	add_child(flora)
 	_camera_from_args()
 
 
@@ -78,9 +81,22 @@ func _fresh_water() -> void:
 ## For screenshots: godot --path . -- --cam=x,z,distance,yaw,pitch
 func _camera_from_args() -> void:
 	for arg in OS.get_cmdline_user_args():
+		if arg == "--stats":
+			_print_stats.call_deferred()
 		if arg.begins_with("--cam="):
 			var v := arg.substr(6).split_floats(",")
 			var rig := $CameraRig
 			rig.yaw = v[3]
 			rig.pitch = v[4]
 			rig.focus(Vector3(v[0], heights.height_at(v[0], v[1]), v[1]), v[2])
+
+
+func _print_stats() -> void:
+	for i in 5:
+		await get_tree().process_frame
+	var rs := RenderingServer
+	print("stats: primitives %d, draw calls %d, objects %d, video memory %.1f MB" % [
+		rs.get_rendering_info(rs.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME),
+		rs.get_rendering_info(rs.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME),
+		rs.get_rendering_info(rs.RENDERING_INFO_TOTAL_OBJECTS_IN_FRAME),
+		rs.get_rendering_info(rs.RENDERING_INFO_VIDEO_MEM_USED) / 1048576.0])

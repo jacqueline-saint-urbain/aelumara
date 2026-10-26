@@ -156,7 +156,7 @@ def home_island():
     sand = smoothstep(-1.5, 0.5, s)
     rock = np.clip(knoll / 2.6 * 1.6 - 0.6, 0, 1) * (1 - sand)
     w = np.stack([sand, (1 - sand) * (1 - rock), np.zeros_like(y), rock], axis=-1)
-    return dict(name="home", x=xs, z=zs, y=y, w=w, mud=np.zeros_like(y))
+    return dict(name="home", x=xs, z=zs, y=y, w=w, mud=np.zeros_like(y), zones=dict(s=s, r=r, knoll=knoll))
 
 
 def far_island():
@@ -255,7 +255,9 @@ def far_island():
 
     water = dict(lake_level=lake_level, river=river, level=level, width=width, cascade=cas,
                  cascade_y=_sample(y, lxs, lzs, cas[:, 0], cas[:, 1]) + 0.3)
-    return dict(name="far", x=lxs + cx, z=lzs + cz, y=y, w=w, mud=mud, water=water, offset=(cx, cz))
+    zones = dict(inside=inside, jungle=jm, rm=rm, river_d=rd, river_half=half, cascade_d=cd, slope=slope,
+                 sand=w[..., 0], rock=w[..., 3])   # for flora.py
+    return dict(name="far", x=lxs + cx, z=lzs + cz, y=y, w=w, mud=mud, water=water, offset=(cx, cz), zones=zones)
 
 
 def _blur(m, radius):
