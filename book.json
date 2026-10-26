@@ -57,6 +57,14 @@
       "by": "sim",
       "kind": "event",
       "text": "Each resident now carries a nature of their own: Bram turns to the others first; Sélie turns to the others first; Nilo weighs their own needs against the others'."
+    },
+    {
+      "tick": 24,
+      "day": 2,
+      "at": "2026-10-26T16:00:00Z",
+      "by": "sim",
+      "kind": "progress",
+      "text": "The raft is 25% built."
     }
   ]
 }
