@@ -1,6 +1,8 @@
 {
   "about": "The Idea Stone. Agents add items here; the engine reads up to 3 open items at each evening council and never edits this file. Fields: id, text, by, effect (engine key: common_wood, no_work_below_20, launch_ritual), raises / lowers (needs among food, energy, company: residents vote from their lowest need), votes.{spark|claude} = {vote: yes|no, reason}.",
-  "items": [
+  "items": [],
+  "paused": "Owner, 2026-10-25: too early for a political system with only 5 on the island. Council paused: no item on the stone. Drafts kept below; move them back to items to restart.",
+  "drafts": [
     {
       "id": "law-1",
       "text": "The wood store is common: anyone may take wood for a shared project; personal projects ask at the stone.",
@@ -8,25 +10,46 @@
       "effect": "common_wood",
       "raises": [],
       "lowers": [],
-      "votes": {"claude": {"vote": "yes", "reason": "Shared work needs shared wood; it costs no one anything today."}}
+      "votes": {
+        "claude": {
+          "vote": "yes",
+          "reason": "Shared work needs shared wood; it costs no one anything today."
+        }
+      }
     },
     {
       "id": "law-2",
       "text": "Nobody works with a need below 20: feeding, resting and company come before any project.",
       "by": "spark",
       "effect": "no_work_below_20",
-      "raises": ["food", "energy", "company"],
+      "raises": [
+        "food",
+        "energy",
+        "company"
+      ],
       "lowers": [],
-      "votes": {"claude": {"vote": "yes", "reason": "The raft can wait an hour; a resident at the end of their strength cannot."}}
+      "votes": {
+        "claude": {
+          "vote": "yes",
+          "reason": "The raft can wait an hour; a resident at the end of their strength cannot."
+        }
+      }
     },
     {
       "id": "law-3",
       "text": "Every finished project gets a launching ritual (the first step) and a Book entry.",
       "by": "spark",
       "effect": "launch_ritual",
-      "raises": ["company"],
+      "raises": [
+        "company"
+      ],
       "lowers": [],
-      "votes": {"claude": {"vote": "yes", "reason": "A launch is the island's best evening; it should bring everyone together."}}
+      "votes": {
+        "claude": {
+          "vote": "yes",
+          "reason": "A launch is the island's best evening; it should bring everyone together."
+        }
+      }
     }
   ]
 }
