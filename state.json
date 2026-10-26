@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 22,
+  "tick": 23,
   "day": 1,
-  "time": "2026-10-26T14:00:00Z",
+  "time": "2026-10-26T15:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -67,7 +67,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 17.5,
+      "stock": 17.75,
       "pos": [
         -12,
         -8
@@ -77,7 +77,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 15.5,
+      "stock": 15.75,
       "pos": [
         -15,
         -2
@@ -87,7 +87,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 19.5,
+      "stock": 19.75,
       "pos": [
         -9,
         -13
@@ -97,7 +97,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 19.5,
+      "stock": 19.75,
       "pos": [
         8,
         -12
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 12.5,
+      "stock": 12.75,
       "pos": [
         15,
         -7
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 9,
       "pos": [
         -8,
         9
@@ -157,7 +157,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.6,
+      "stock": 8.9,
       "pos": [
         -4,
         -16
@@ -179,7 +179,7 @@
         "fiber": 12
       },
       "have": {
-        "wood": 4,
+        "wood": 7,
         "fiber": 2
       }
     }
@@ -192,24 +192,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        2.53,
-        -15.12
+        2,
+        -17
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 80,
-        "company": 33
+        "hunger": 45,
+        "energy": 76,
+        "company": 32
       },
       "task": "deliver",
-      "carry": {
-        "wood": 3
-      },
+      "carry": {},
       "say": "A meal from the stores.",
-      "delivered": 0,
-      "shells": 0,
+      "delivered": 3,
+      "shells": 1,
       "temperament": 0.643,
       "disposition": 0.643,
       "disposition_week": 0.643,
@@ -226,8 +224,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -5.42,
-        3.7
+        -8,
+        9
       ],
       "talent": "food",
       "likes": "food",
@@ -235,13 +233,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 80,
-        "company": 66
+        "hunger": 55,
+        "energy": 76,
+        "company": 64
       },
       "task": "gather_food",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "carry": {
+        "food": 3
+      },
+      "say": "Berries for everyone.",
       "delivered": 2,
       "shells": 1,
       "stone_day": 1,
@@ -261,21 +261,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.23,
-        -8.6
+        -4,
+        -16
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 45,
-        "energy": 70.0,
-        "company": 38
+        "hunger": 50,
+        "energy": 64.0,
+        "company": 37
       },
-      "task": "gather_food",
-      "carry": {},
-      "say": "What's that, over there?",
+      "task": "gather_fiber",
+      "carry": {
+        "fiber": 2
+      },
+      "say": "Fiber for the ropes.",
       "delivered": 4,
       "shells": 2,
       "temperament": 0.503,
@@ -288,9 +290,9 @@
       }
     }
   ],
-  "pot": 10,
+  "pot": 9,
   "today": {
-    "delivered": 6,
+    "delivered": 9,
     "at_fire": [
       "npc-3",
       "npc-1",
@@ -302,10 +304,11 @@
         "food": 1
       },
       "project": {
-        "fiber": 2
+        "fiber": 2,
+        "wood": 3
       },
       "pot_in": 1,
-      "pot_out": 1
+      "pot_out": 2
     }
   },
   "fires": 1
