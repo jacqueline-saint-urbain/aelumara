@@ -79,7 +79,7 @@
   <ul><li><b>Pull requests</b>: Read and write (to read and post in the room)</li><li><b>Contents</b>: Read-only (only needed when the page runs outside pages.dev)</li></ul>
   <p class="muted">The token stays on this device only.</p>
   <input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
-  <button id="btnSave" class="on">Save token</button> <button id="btnCancel">Cancel</button>
+  <button id="btnSave" class="on">Save token</button> <button id="btnCancel">Cancel</button> <button id="btnForgetSetup">Remove saved token</button>
 </div>
 <script type="module">
 import * as THREE from 'three';
@@ -96,6 +96,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch { return null; } },
   set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+  del(k) { try { localStorage.removeItem(k); } catch {} },
 };
 const params = new URLSearchParams(location.search);
 // STATIC: island data comes from public files (raw GitHub on pages.dev), no token needed. The chat is separate: it only needs a token.
@@ -352,7 +353,7 @@ function bookHTML() {
 }
 function chatHTML() {
   if (!store.get('trioToken')) return connectHTML();
-  return data.chat.map((m) => `<div class="msg ${esc(m.from)}"><b>${esc(m.from)}</b> <span class="muted">${new Date(m.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' })}</span><div>${esc(m.text)}</div></div>`).join('') || '<p class="muted">No recent messages.</p>';
+  return removeHTML() + data.chat.map((m) => `<div class="msg ${esc(m.from)}"><b>${esc(m.from)}</b> <span class="muted">${new Date(m.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' })}</span><div>${esc(m.text)}</div></div>`).join('') || '<p class="muted">No recent messages.</p>';
 }
 function openTab(tab, keepScroll = false) {
   drawerTab = tab; const body = $('drawerBody'); const y = body.scrollTop;
@@ -375,7 +376,15 @@ function parseTrio(body) {
 function connectHTML(why = '') {
   return `<p class="muted">${why || 'Paste your GitHub token to talk to the trio from the island.'}</p><button id="btnConnect" class="on">Connect</button><p class="muted">The full group chat lives on <a href="${TRIO_PAGE}" target="_blank" rel="noopener">the Trio page</a>.</p>`;
 }
-$('drawerBody').addEventListener('click', (e) => { if (e.target.id === 'btnConnect') $('setup').style.display = 'block'; });
+// Plain-language reason for a GitHub error, so the owner knows which token setting to fix.
+const TOKEN_HELP = {
+  'no-token': 'GitHub refused this token (mistyped, expired or revoked).',
+  'GitHub 404': 'This token cannot see the agentchat repo. When creating it, pick “Only select repositories” → agentchat.',
+  'GitHub 403': 'This token can see agentchat but lacks “Pull requests: Read and write”.',
+};
+function removeHTML() { return '<p><button id="btnForget">🔑 Remove token</button></p>'; }
+function forgetToken() { store.del('trioToken'); data.chat = []; $('chatForm').style.display = 'none'; $('setup').style.display = 'block'; if (drawerTab === 'chat') $('drawerBody').innerHTML = connectHTML('Token removed. Paste a new one.'); }
+$('drawerBody').addEventListener('click', (e) => { if (e.target.id === 'btnConnect') $('setup').style.display = 'block'; if (e.target.id === 'btnForget') forgetToken(); });
 async function loadChat() {
   if (!store.get('trioToken')) return;
   try {
@@ -385,8 +394,8 @@ async function loadChat() {
     if (drawerTab === 'chat') openTab('chat');
   } catch (e) {
     if (drawerTab !== 'chat') return;
-    if (e.message === 'no-token') { $('chatForm').style.display = 'none'; $('drawerBody').innerHTML = connectHTML('The saved token was refused. Paste a new one.'); }
-    else $('drawerBody').innerHTML = `<p class="muted">Could not read the chat (${esc(e.message)}). Does the token have “Pull requests: Read”?</p>`;
+    $('chatForm').style.display = 'none';
+    $('drawerBody').innerHTML = `<p class="muted">Could not read the chat (${esc(e.message === 'no-token' ? 'GitHub 401' : e.message)}). ${esc(TOKEN_HELP[e.message] || 'Try again in a minute.')}</p>` + removeHTML();
   }
 }
 $('chatForm').onsubmit = async (ev) => {
@@ -446,8 +455,9 @@ async function refresh() {
     else $('clock').textContent = '⚠️ ' + e.message;
   }
 }
-$('btnSave').onclick = () => { const t = $('token').value.trim(); if (!t) return; store.set('trioToken', t); $('token').value = ''; $('setup').style.display = 'none'; if (drawerTab === 'chat') { openTab('chat'); loadChat(); } refresh(); };
+$('btnSave').onclick = () => { const t = $('token').value.replace(/\s+/g, ''); if (!t) return; store.set('trioToken', t); $('token').value = ''; $('setup').style.display = 'none'; if (drawerTab === 'chat') { openTab('chat'); loadChat(); } refresh(); };
 $('btnCancel').onclick = () => { $('setup').style.display = 'none'; };
+$('btnForgetSetup').onclick = forgetToken;
 $('btnRefresh').onclick = refresh;
 refresh(); setInterval(refresh, POLL_MS);
 
