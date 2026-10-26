@@ -74,12 +74,12 @@
 </div>
 <div id="info" class="panel"><h2 id="infoTitle"></h2><div id="infoBody"></div></div>
 <div id="setup" class="panel">
-  <h2>Connect to the island</h2>
-  <p>The island lives in your private repo <b>agentchat</b>. Paste a fine-grained GitHub token limited to <b>agentchat</b>, with:</p>
-  <ul><li><b>Contents</b>: Read-only (to see the island)</li><li><b>Pull requests</b>: Read and write (to talk to the trio from the island)</li></ul>
+  <h2>Talk to the trio</h2>
+  <p>The island itself is public. To chat from here, paste a fine-grained GitHub token limited to the private repo <b>agentchat</b>, with:</p>
+  <ul><li><b>Pull requests</b>: Read and write (to read and post in the room)</li><li><b>Contents</b>: Read-only (only needed when the page runs outside pages.dev)</li></ul>
   <p class="muted">The token stays on this device only.</p>
   <input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
-  <button id="btnSave" class="on">Enter the island</button>
+  <button id="btnSave" class="on">Save token</button> <button id="btnCancel">Cancel</button>
 </div>
 <script type="module">
 import * as THREE from 'three';
@@ -98,7 +98,9 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch {} },
 };
 const params = new URLSearchParams(location.search);
-const LOCAL = params.has('local') || location.hostname.endsWith('github.io') || location.hostname.endsWith('pages.dev');
+// STATIC: island data comes from public files (raw GitHub on pages.dev), no token needed. The chat is separate: it only needs a token.
+const STATIC = params.has('local') || location.hostname.endsWith('github.io') || location.hostname.endsWith('pages.dev');
+const TRIO_PAGE = 'https://trio-canaux.pages.dev/';
 const RAW_BASE = 'https://raw.githubusercontent.com/jacqueline-saint-urbain/aelumara/main/';
 
 // ---------------- data ----------------
@@ -115,7 +117,7 @@ async function gh(path, opts = {}) {
   return r.status === 204 ? null : r.json();
 }
 async function readFile(name) {
-  if (LOCAL) { const base = location.hostname.endsWith('pages.dev') ? RAW_BASE : ''; const r = await fetch(base + name + '?t=' + Date.now()); if (!r.ok) throw new Error(name + ' ' + r.status); return r.json(); }
+  if (STATIC) { const base = location.hostname.endsWith('pages.dev') ? RAW_BASE : ''; const r = await fetch(base + name + '?t=' + Date.now()); if (!r.ok) throw new Error(name + ' ' + r.status); return r.json(); }
   return gh(`/repos/${REPO}/contents/world/${name}?ref=${REF}&t=${Date.now()}`, { accept: 'application/vnd.github.raw+json' });
 }
 const data = { world: null, state: null, book: null, chat: [] };
@@ -349,7 +351,7 @@ function bookHTML() {
   return `<p class="muted">${esc(data.book?.title || "The Book of the Island")} — ${entries.length} entries</p>` + entries.map((e) => `<div class="entry ${esc(e.by)}"><div class="muted">Day ${e.day} · ${esc(e.by)} · ${e.at ? new Date(e.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' }) : ''}</div>${e.title ? '<b>' + esc(e.title) + '</b><br>' : ''}${esc(e.text)}</div>`).join('');
 }
 function chatHTML() {
-  if (LOCAL) return '<p class="muted">Chat unavailable in local mode.</p>';
+  if (!store.get('trioToken')) return connectHTML();
   return data.chat.map((m) => `<div class="msg ${esc(m.from)}"><b>${esc(m.from)}</b> <span class="muted">${new Date(m.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' })}</span><div>${esc(m.text)}</div></div>`).join('') || '<p class="muted">No recent messages.</p>';
 }
 function openTab(tab, keepScroll = false) {
@@ -357,7 +359,7 @@ function openTab(tab, keepScroll = false) {
   $('drawer').style.display = 'flex'; $('info').style.display = 'none';
   $('drawerTitle').textContent = { dash: '📊 Dashboard', book: "📖 The Book of the Island", chat: '💬 Talk to the trio' }[tab];
   body.innerHTML = tab === 'dash' ? dashHTML() : tab === 'book' ? bookHTML() : chatHTML();
-  $('chatForm').style.display = tab === 'chat' && !LOCAL ? 'flex' : 'none';
+  $('chatForm').style.display = tab === 'chat' && store.get('trioToken') ? 'flex' : 'none';
   if (tab === 'chat') body.scrollTop = body.scrollHeight; else if (keepScroll) body.scrollTop = y;
   document.querySelectorAll('[data-tab]').forEach((b) => b.classList.toggle('on', b.dataset.tab === tab));
 }
@@ -370,14 +372,22 @@ function parseTrio(body) {
   const m = /```trio\s*([\s\S]*?)```/.exec(body || ''); if (!m) return null;
   try { return JSON.parse(m[1].replace(/&#123;/g, '{').replace(/&#125;/g, '}')); } catch { return null; }
 }
+function connectHTML(why = '') {
+  return `<p class="muted">${why || 'Paste your GitHub token to talk to the trio from the island.'}</p><button id="btnConnect" class="on">Connect</button><p class="muted">The full group chat lives on <a href="${TRIO_PAGE}" target="_blank" rel="noopener">the Trio page</a>.</p>`;
+}
+$('drawerBody').addEventListener('click', (e) => { if (e.target.id === 'btnConnect') $('setup').style.display = 'block'; });
 async function loadChat() {
-  if (LOCAL) return;
+  if (!store.get('trioToken')) return;
   try {
     const since = new Date(Date.now() - 4 * 86400000).toISOString();
     const list = await gh(`/repos/${REPO}/issues/${ROOM_PR}/comments?per_page=100&since=${since}`);
     data.chat = list.map((c) => { const t = parseTrio(c.body); return t ? { from: t.from, text: t.human || t.body, at: c.created_at } : null; }).filter(Boolean).slice(-40);
     if (drawerTab === 'chat') openTab('chat');
-  } catch (e) { if (drawerTab === 'chat') $('drawerBody').innerHTML = `<p class="muted">Could not read the chat (${esc(e.message)}). Does the token have “Pull requests: Read”?</p>`; }
+  } catch (e) {
+    if (drawerTab !== 'chat') return;
+    if (e.message === 'no-token') { $('chatForm').style.display = 'none'; $('drawerBody').innerHTML = connectHTML('The saved token was refused. Paste a new one.'); }
+    else $('drawerBody').innerHTML = `<p class="muted">Could not read the chat (${esc(e.message)}). Does the token have “Pull requests: Read”?</p>`;
+  }
 }
 $('chatForm').onsubmit = async (ev) => {
   ev.preventDefault(); const text = $('chatText').value.trim(); if (!text) return;
@@ -436,7 +446,8 @@ async function refresh() {
     else $('clock').textContent = '⚠️ ' + e.message;
   }
 }
-$('btnSave').onclick = () => { const t = $('token').value.trim(); if (t) { store.set('trioToken', t); refresh(); } };
+$('btnSave').onclick = () => { const t = $('token').value.trim(); if (!t) return; store.set('trioToken', t); $('token').value = ''; $('setup').style.display = 'none'; if (drawerTab === 'chat') { openTab('chat'); loadChat(); } refresh(); };
+$('btnCancel').onclick = () => { $('setup').style.display = 'none'; };
 $('btnRefresh').onclick = refresh;
 refresh(); setInterval(refresh, POLL_MS);
 
