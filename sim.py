@@ -47,6 +47,16 @@ LAW_FLOOR = 20  # law no_work_below_20: no project work while a need is below th
 LAUNCH_COMPANY = 20  # law launch_ritual: company gained by those present at a launch
 LAUNCH_DIST = 6
 MEAL_POT_MIN = 5  # the pot pays the shared meal only above this reserve, kept for work shifts
+# Resident traits (design agreed by Spark and Claude, 2026-10-26; box: Aelúmara - WIP).
+# 0 = me first, 1 = group first. Nature is drawn once, habitus moves by imitation.
+TEMPER_BAND = (0.25, 0.75)  # nobody is born extreme; extremes can only come from a life
+TEMPER_MIN_SPREAD = 0.15  # three near-identical temperaments would tell no story: redraw at birth
+LEAN_CLAMP = (0.05, 0.95)  # nobody becomes a machine
+IMITATE_RATE = 0.05  # each evening, 5% of the gap toward what the admired person did that day
+RECALL_RATE = 0.02  # each evening, 2% of the gap back toward one's own temperament (nature recalls)
+TIRED_ENERGY = 30  # below this, finishing a delivery for the common project becomes a dilemma
+GIVE_FLOOR = 80  # hunger at or above this is survival, never a choice (food wellbeing under LAW_FLOOR)
+ADMIRES = {"Nilo": "Bram", "Bram": "Sélie", "Sélie": "Nilo"}  # SOCIETY.md: the admiration loop
 BARTER_ON = False  # evening barter, switched off 2026-10-26 until Spark and Claude finish the economy reflection (box 00_Inbox)
 BARTER_PRICE = 3  # evening barter: shells paid into the pot for one item
 GIFT_COMPANY = 15  # a gift at the fire: company for the giver and the receiver
@@ -144,8 +154,69 @@ class Sim:
 
     def close_day(self, day):
         s = self.s
+        self.imitate(day)
         led = dict(self.ledger(), day=day, pot=s["pot"], shells={n["name"]: n.get("shells", 0) for n in s["npcs"]})
         s["ledgers"] = (s.get("ledgers", []) + [led])[-LEDGER_DAYS:]
+
+    # ---------- traits ----------
+    def ensure_traits(self):
+        """Birth of the traits: draw each missing temperament once, reproducibly, with a minimum spread."""
+        npcs = self.s["npcs"]
+        missing = [n for n in npcs if "temperament" not in n]
+        if not missing:
+            return
+        rng = random.Random(self.s["seed"] * 7919 + 1)
+        for _ in range(50):
+            draw = {n["id"]: round(rng.uniform(*TEMPER_BAND), 3) for n in missing}
+            temps = [draw.get(n["id"], n.get("temperament")) for n in npcs]
+            if len(temps) < 2 or max(temps) - min(temps) >= TEMPER_MIN_SPREAD:
+                break
+        by_name = {n["name"]: n["id"] for n in npcs}
+        for n in missing:
+            n["temperament"] = n["disposition"] = n["disposition_week"] = draw[n["id"]]
+            n["admires"] = by_name.get(ADMIRES.get(n["name"]))
+            n["choices"] = {"group": 0, "self": 0}
+        self.chronicle("Each resident now carries a nature of their own: " + "; ".join(
+            f"{n['name']} {self.lean_words(n['temperament'])}" for n in missing) + ".", "event")
+
+    @staticmethod
+    def lean_words(x):
+        return ("thinks of themself first" if x < 0.4 else "turns to the others first" if x > 0.6
+                else "weighs themself and the others")
+
+    @staticmethod
+    def lean(npc):
+        """Effective lean: the disposition, amplified in its own direction when a need is below the floor."""
+        d = npc.get("disposition", 0.5)
+        low = min(Sim.wellbeing(npc).values())
+        pressure = (LAW_FLOOR - low) / LAW_FLOOR if low < LAW_FLOOR else 0
+        return min(LEAN_CLAMP[1], max(LEAN_CLAMP[0], 0.5 + (d - 0.5) * (1 + pressure)))
+
+    def choose_group(self, npc, rng):
+        """A dilemma: the group wins with a probability equal to the effective lean."""
+        group = rng.random() < self.lean(npc)
+        ch = npc.setdefault("choices", {"group": 0, "self": 0})
+        ch["group" if group else "self"] += 1
+        return group
+
+    def imitate(self, day):
+        """Socialisation: each evening, move toward what the admired person did, then back toward one's nature."""
+        npcs = [n for n in self.s["npcs"] if "disposition" in n]
+        seen = {n["id"]: dict(n.get("choices", {"group": 0, "self": 0})) for n in npcs}
+        for n in npcs:
+            ch = seen.get(n.get("admires"))
+            d = n["disposition"]
+            if ch and ch["group"] + ch["self"]:
+                d += IMITATE_RATE * (ch["group"] / (ch["group"] + ch["self"]) - d)
+            d += RECALL_RATE * (n["temperament"] - d)
+            n["disposition"] = round(min(LEAN_CLAMP[1], max(LEAN_CLAMP[0], d)), 4)
+            n["choices"] = {"group": 0, "self": 0}
+            if day % 7 == 0:  # a weekly line in the Book only for a real change
+                before = n.get("disposition_week", n["disposition"])
+                if abs(n["disposition"] - before) > 0.1:
+                    way = "more toward the others" if n["disposition"] > before else "more toward themself"
+                    self.chronicle(f"Over the week, {n['name']} has turned {way}.", "event")
+                n["disposition_week"] = n["disposition"]
 
     # ---------- council of the fire ----------
     def law(self, effect):
@@ -213,6 +284,7 @@ class Sim:
             if spoiled:
                 self.log("stores_out", "food", spoiled)
         s.setdefault("today", {"delivered": 0, "at_fire": []})
+        self.ensure_traits()
         hour = local_hour(when)
 
         for n in s["nodes"]:
@@ -384,7 +456,15 @@ class Sim:
 
         # Eat from the stores, or forage when they are empty.
         if n["hunger"] >= 60:
-            if st["stores"]["food"] >= 1:
+            # Dilemma: the last portion, when someone hungrier also needs it (never below the survival floor).
+            hungrier = [o for o in st["npcs"] if o is not npc and o["needs"]["hunger"] >= 60 and o["needs"]["hunger"] > n["hunger"]]
+            if (1 <= st["stores"]["food"] < 2 and hungrier and n["hunger"] < GIVE_FLOOR
+                    and "disposition" in npc and npc.get("portion_day") != st["day"]):
+                npc["portion_day"] = st["day"]
+                if self.choose_group(npc, rng):
+                    npc["say"] = f"Keep it for {max(hungrier, key=lambda o: o['needs']['hunger'])['name']}."
+                    npc["leaving_portion"] = True
+            if st["stores"]["food"] >= 1 and not npc.pop("leaving_portion", False):
                 st["stores"]["food"] = round(st["stores"]["food"] - 1, 2)
                 self.log("stores_out", "food", 1)
                 n["hunger"] = max(0, n["hunger"] - 50)
@@ -409,6 +489,14 @@ class Sim:
         if carry:
             res, qty = next(iter(carry.items()))
             proj = None if resting else self.active_project()
+            # Dilemma, once a day: tired, finish the delivery for the common project or go to rest.
+            if (proj and res in self.missing(proj) and n["energy"] < TIRED_ENERGY and "disposition" in npc
+                    and npc.get("tired_day") != st["day"]):
+                npc["tired_day"] = st["day"]
+                if not self.choose_group(npc, rng):
+                    npc["task"] = "sleep"
+                    npc["say"] = "Tomorrow. I am done for today."
+                    return
             dest = proj["pos"] if proj and res in self.missing(proj) else self.node("stores")["pos"]
             npc["pos"], arrived = step_toward(npc["pos"], dest, speed)
             npc["task"] = "deliver"

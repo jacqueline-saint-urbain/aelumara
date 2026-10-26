@@ -715,3 +715,123 @@ def test_the_barter_is_told_in_the_evening_summary(barter_on):
     engine.Sim(state, book).evening_fire()
     line = entries(book, "summary")[-1]["text"]
     assert "Bram trades 3 shells for a gift for Sélie" in line
+
+
+# --------------------------------------------------------------- traits ---
+# Resident traits, steps 1 and 2 of the design agreed by Spark and Claude
+# (box: Aelúmara - WIP, "traits, dons et services"). Each resident has a
+# temperament (nature: drawn once, 0.25-0.75, 0 = me first, 1 = group first)
+# and a disposition (habitus: learned by imitating the admired person). A need
+# below the law floor amplifies the lean in its own direction. Two dilemmas use
+# it: the last portion in the stores, and a tired delivery at the end of a day.
+
+class FixedRng:
+    def __init__(self, value):
+        self.value = value
+
+    def random(self):
+        return self.value
+
+
+def trait_state():
+    npcs = [make_npc("npc-1", "Bram"), make_npc("npc-2", "Sélie"), make_npc("npc-3", "Nilo")]
+    return make_state(npcs)
+
+
+def test_temperaments_are_drawn_once_in_the_band_and_spread():
+    state = trait_state()
+    sim_obj = engine.Sim(state, make_book())
+    sim_obj.ensure_traits()
+    temps = [n["temperament"] for n in state["npcs"]]
+    assert all(0.25 <= t <= 0.75 for t in temps)
+    assert max(temps) - min(temps) >= engine.TEMPER_MIN_SPREAD
+    assert all(n["disposition"] == n["temperament"] for n in state["npcs"])
+    assert [n["admires"] for n in state["npcs"]] == ["npc-2", "npc-3", "npc-1"]  # Bram→Sélie→Nilo→Bram
+    sim_obj.ensure_traits()  # idempotent
+    assert [n["temperament"] for n in state["npcs"]] == temps
+    other = trait_state()
+    engine.Sim(other, make_book()).ensure_traits()
+    assert [n["temperament"] for n in other["npcs"]] == temps  # same seed, same draw
+
+
+def test_need_pressure_amplifies_the_lean_in_its_own_direction():
+    npc = make_npc("npc-1", "Bram", disposition=0.4)
+    assert engine.Sim.lean(npc) == pytest.approx(0.4)
+    npc["needs"]["hunger"] = 100  # food 0: full pressure
+    assert engine.Sim.lean(npc) == pytest.approx(0.3)
+    npc["disposition"] = 0.6
+    assert engine.Sim.lean(npc) == pytest.approx(0.7)
+    npc["disposition"] = 0.5
+    assert engine.Sim.lean(npc) == pytest.approx(0.5)
+    npc["disposition"] = 0.95
+    assert engine.Sim.lean(npc) == pytest.approx(0.95)  # clamped
+
+
+def portion_state(a_hunger, b_hunger, food=1):
+    state = trait_state()
+    a, b, c = state["npcs"]
+    a["needs"]["hunger"], b["needs"]["hunger"] = a_hunger, b_hunger
+    c["needs"]["hunger"] = 0
+    for n in state["npcs"]:
+        n.update(temperament=0.5, disposition=0.5, admires="npc-2", pos=[6, 4])
+    state["stores"]["food"] = food
+    return state, a
+
+
+def test_last_portion_left_to_the_hungrier_when_the_lean_says_group():
+    state, a = portion_state(60, 90)
+    engine.Sim(state, make_book()).act(a, FixedRng(0.0), False, 10)
+    assert state["stores"]["food"] == 1
+    assert a["choices"] == {"group": 1, "self": 0}
+
+
+def test_last_portion_eaten_when_the_lean_says_self():
+    state, a = portion_state(60, 90)
+    engine.Sim(state, make_book()).act(a, FixedRng(0.99), False, 10)
+    assert state["stores"]["food"] == 0
+    assert a["choices"] == {"group": 0, "self": 1}
+
+
+def test_no_portion_dilemma_below_the_survival_floor_or_with_food_to_spare():
+    state, a = portion_state(80, 95)  # food wellbeing would fall under 20: survival, not a choice
+    engine.Sim(state, make_book()).act(a, FixedRng(0.0), False, 10)
+    assert state["stores"]["food"] == 0 and "choices" not in a
+    state, a = portion_state(60, 90, food=3)
+    engine.Sim(state, make_book()).act(a, FixedRng(0.0), False, 10)
+    assert state["stores"]["food"] == 2 and "choices" not in a
+
+
+def tired_carrier(value):
+    state = trait_state()
+    state["projects"] = [raft_project({})]
+    bram = state["npcs"][0]
+    bram.update(temperament=0.5, disposition=0.5, admires="npc-2", pos=[-12, -8], carry={"wood": 2})
+    bram["needs"]["energy"] = 30
+    sim_obj = engine.Sim(state, make_book())
+    sim_obj.act(bram, FixedRng(value), False, 16)
+    return state, bram
+
+
+def test_a_tired_carrier_finishes_the_delivery_when_the_lean_says_group():
+    state, bram = tired_carrier(0.0)
+    assert bram["task"] == "deliver" and bram["choices"]["group"] == 1
+
+
+def test_a_tired_carrier_goes_to_rest_when_the_lean_says_self_and_is_asked_once_a_day():
+    state, bram = tired_carrier(0.99)
+    assert bram["task"] == "sleep" and bram["choices"]["self"] == 1
+    assert bram["carry"] == {"wood": 2}  # kept for tomorrow
+
+
+def test_imitation_moves_the_disposition_toward_what_the_admired_did():
+    state = trait_state()
+    bram, selie, nilo = state["npcs"]
+    for n, adm in ((bram, "npc-2"), (selie, "npc-3"), (nilo, "npc-1")):
+        n.update(temperament=0.4, disposition=0.4, admires=adm, choices={"group": 0, "self": 0})
+    bram["choices"] = {"group": 2, "self": 0}  # Bram chose the group all day
+    engine.Sim(state, make_book()).close_day(1)
+    expected = 0.4 + engine.IMITATE_RATE * (1 - 0.4)
+    expected += engine.RECALL_RATE * (0.4 - expected)
+    assert nilo["disposition"] == pytest.approx(expected)
+    assert selie["disposition"] == pytest.approx(0.4)  # Nilo made no choice: only the recall
+    assert bram["choices"] == {"group": 0, "self": 0}
