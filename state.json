@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 20,
+  "tick": 21,
   "day": 1,
-  "time": "2026-10-26T12:00:00Z",
+  "time": "2026-10-26T13:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -32,7 +32,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 3
+    "food": 2
   },
   "nodes": [
     {
@@ -66,7 +66,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 17.0,
+      "stock": 17.25,
       "pos": [
         -12,
         -8
@@ -76,7 +76,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 15.0,
+      "stock": 15.25,
       "pos": [
         -15,
         -2
@@ -86,7 +86,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 19.0,
+      "stock": 19.25,
       "pos": [
         -9,
         -13
@@ -96,7 +96,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 19.0,
+      "stock": 19.25,
       "pos": [
         8,
         -12
@@ -106,7 +106,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 12.0,
+      "stock": 12.25,
       "pos": [
         15,
         -7
@@ -156,7 +156,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10,
+      "stock": 10.3,
       "pos": [
         -4,
         -16
@@ -178,7 +178,8 @@
         "fiber": 12
       },
       "have": {
-        "wood": 4
+        "wood": 4,
+        "fiber": 2
       }
     }
   ],
@@ -190,16 +191,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        5.76,
-        -3.56
+        4.14,
+        -9.34
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
-        "energy": 88,
-        "company": 35
+        "hunger": 35,
+        "energy": 84,
+        "company": 34
       },
       "task": "deliver",
       "carry": {
@@ -225,13 +226,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 90,
-        "energy": 88,
-        "company": 70
+        "hunger": 45,
+        "energy": 84,
+        "company": 68
       },
-      "task": "stone",
+      "task": "eat",
       "carry": {},
-      "say": "A shell on the stone.",
+      "say": "A meal from the stores.",
       "delivered": 2,
       "shells": 1,
       "stone_day": 1
@@ -243,30 +244,28 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -4,
-        -16
+        2,
+        -17
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 82.0,
-        "company": 40
+        "hunger": 40,
+        "energy": 76.0,
+        "company": 39
       },
-      "task": "gather_fiber",
-      "carry": {
-        "fiber": 2
-      },
+      "task": "deliver",
+      "carry": {},
       "say": "Fiber for the ropes.",
-      "delivered": 2,
-      "shells": 1
+      "delivered": 4,
+      "shells": 2
     }
   ],
-  "pot": 11,
+  "pot": 10,
   "today": {
-    "delivered": 4,
+    "delivered": 6,
     "at_fire": [
       "npc-3",
       "npc-1",
@@ -274,10 +273,14 @@
     ],
     "ledger": {
       "stores_in": {},
-      "stores_out": {},
-      "project": {},
+      "stores_out": {
+        "food": 1
+      },
+      "project": {
+        "fiber": 2
+      },
       "pot_in": 1,
-      "pot_out": 0
+      "pot_out": 1
     }
   },
   "fires": 1
