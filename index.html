@@ -334,7 +334,9 @@ scene.add(homeIsland());
 const LONG = (() => {
   const O = [-8.547, -6.970];  // polar origin of the outline, in island coordinates
   const E = (t) => 105 + 14 * Math.sin(3 * t) + 9 * Math.sin(7 * t + 1) + 25 * Math.sin(t + 0.3);
-  const edge = (a) => { const t = Math.atan2(1.9 * Math.sin(a), 0.75 * Math.cos(a)), e = E(t); return Math.hypot(Math.cos(t) * e * 1.9, Math.sin(t) * e * 0.75); };
+  // Owner's retouch 2026-10-26: more land around the mountain in the north-west.
+  const bulge = (a) => { const d = Math.atan2(Math.sin(a + 2.8), Math.cos(a + 2.8)); return 90 * Math.exp(-((d / 0.22) ** 2)); };
+  const edge = (a) => { const t = Math.atan2(1.9 * Math.sin(a), 0.75 * Math.cos(a)), e = E(t); return Math.hypot(Math.cos(t) * e * 1.9, Math.sin(t) * e * 0.75) + bulge(a); };
   const beach = (a) => 8 + 22 * Math.pow(Math.max(0, Math.sin(a)), 1.5);  // wide in the south, facing home
   const polar = (x, z) => ({ a: Math.atan2(z - O[1], x - O[0]), d: Math.hypot(x - O[0], z - O[1]) });
   const SHORE = [[0, 0.05], [2.5, -0.25], [3.7, -0.5], [5, -0.65], [7.5, -1.2]];
@@ -359,9 +361,12 @@ const LONG = (() => {
     geo.setAttribute('uv', new THREE.Float32BufferAttribute(new Array(pos.length / 3 * 2).fill(0), 2)); geo.setIndex(idx); geo.computeVertexNormals();
     return mesh(geo, mat(color, { side: THREE.DoubleSide, ...extra }));
   }
-  const MOUNT = { x: -160, z: -30, r: 40, h: 38 };
+  const MOUNT = { x: -165, z: -45, r: 46, h: 42 };
   const HILLS = [[-95, -55, 22, 14], [-205, 12, 18, 11]];
-  const jungle = (x, z) => inGrass(x, z) && ((z < -8 + 12 * Math.sin(x / 37) && x < 110) || Math.hypot(x - MOUNT.x, z - MOUNT.z) < 85);
+  const blob = (x, z, cx, cz, rx, rz) => ((x - cx) / rx) ** 2 + ((z - cz) / rz) ** 2 < 1;
+  // Jungle: the north band, all around the mountain, south across the river in the middle, and further east (owner's retouch).
+  const jungle = (x, z) => inGrass(x, z) && ((z < -8 + 12 * Math.sin(x / 37) && x < 110) || Math.hypot(x - MOUNT.x, z - MOUNT.z) < 95
+    || blob(x, z, -42, 12, 72, 30) || blob(x, z, 132, -14, 42, 22));
   // River centre line, from the spring at the mountain foot to the sea; widens downstream.
   const KNOTS = [[-122, -14], [-100, -4], [-78, -18], [-52, -12], [-30, 6], [-8, 2], [14, 16], [28, 36], [40, 56], [46, 78], [50, 100], [52, 112]];
   const RIVER = []; {
