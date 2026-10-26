@@ -1,0 +1,63 @@
+name: Site (Godot web build)
+# Exports the Godot world to the web and publishes the page on the `site` branch, which spark deploys
+# to https://aelumara.pages.dev/. Runs when the Godot project or the page change.
+on:
+  push:
+    branches: [main]
+    paths: ["godot/**", "index.html", ".github/workflows/site.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: aelumara-site
+  cancel-in-progress: true
+env:
+  GODOT_VERSION: 4.7.2
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check the relief and the flora against the simulation
+        run: |
+          pip install numpy pillow pytest
+          python3 -m pytest -q godot/tools/test_terrain.py
+      - name: Cache Godot
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT_VERSION }}-web
+      - name: Download Godot and its web export templates
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          base=https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable
+          mkdir -p ~/godot/templates && cd ~/godot
+          curl -sSLo godot.zip $base/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
+          unzip -q godot.zip && rm godot.zip && mv Godot_v${GODOT_VERSION}-stable_linux.x86_64 godot
+          curl -sSLo templates.tpz $base/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          unzip -q -j templates.tpz templates/version.txt templates/web_nothreads_release.zip -d templates && rm templates.tpz
+      - name: Export the web build
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          cp ~/godot/templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
+          mkdir -p godot/build/web && touch godot/build/.gdignore
+          ~/godot/godot --headless --path godot --import || true
+          ~/godot/godot --headless --path godot --export-release "Web" build/web/index.html
+          test -s godot/build/web/index.pck
+      - name: Assemble the site
+        run: godot/tools/build_site.sh "$PWD/godot/build/web" "$RUNNER_TEMP/site"
+      - name: Publish on the site branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          src=$(git rev-parse --short HEAD)
+          if git fetch -q origin site; then git worktree add -q "$RUNNER_TEMP/pub" origin/site && git -C "$RUNNER_TEMP/pub" checkout -q -B site;
+          else git worktree add -q --orphan -b site "$RUNNER_TEMP/pub"; fi
+          cd "$RUNNER_TEMP/pub"
+          git rm -rq --ignore-unmatch . && cp -r "$RUNNER_TEMP/site/." .
+          git add -A
+          if git diff --cached --quiet; then echo "Nothing new."; else git commit -qm "Site build from main $src"; git push -q origin site; fi

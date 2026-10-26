@@ -8,6 +8,8 @@
   :root { --panel: rgba(18, 20, 28, 0.86); --text: #f4f1ea; --dim: #b9b4aa; --accent: #e07a3f; --ok: #80ed99; --warn: #ffd166; --bad: #ef6f6c; }
   html, body { margin: 0; height: 100%; overflow: hidden; background: #0e1726; color: var(--text); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
   canvas { display: block; touch-action: none; }
+  #world { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; z-index: 0; }
+  .panel { z-index: 2; }
   .panel { position: fixed; background: var(--panel); border-radius: 14px; backdrop-filter: blur(6px); }
   button { background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; padding: 8px 11px; font-size: 15px; min-width: 40px; }
   button.on { background: var(--accent); border-color: var(--accent); }
@@ -106,6 +108,26 @@ const params = new URLSearchParams(location.search);
 const STATIC = params.has('local') || location.hostname.endsWith('github.io') || location.hostname.endsWith('pages.dev');
 const TRIO_PAGE = 'https://trio-canaux.pages.dev/';
 const RAW_BASE = 'https://raw.githubusercontent.com/jacqueline-saint-urbain/aelumara/main/';
+// The world is drawn by Godot (godot/, built by the site workflow) when the build is published next to this page.
+// ?three=1 keeps the previous three.js renderer, as a fallback while the Godot version settles in.
+const GODOT = !params.has('three') && await fetch('godot/build.json', { cache: 'no-store' }).then((r) => r.ok && r.json()).then((b) => !!(b && b.engine === 'godot')).catch(() => false);
+let godotFrame = null; let godotReady = false; let godotNames = [];
+const toGodot = (msg) => { if (godotFrame && godotReady) godotFrame.contentWindow.postMessage(JSON.stringify(msg), '*'); };
+if (GODOT) {
+  godotFrame = document.createElement('iframe'); godotFrame.id = 'world'; godotFrame.title = 'Aelúmara'; godotFrame.src = 'godot/index.html';
+  document.body.prepend(godotFrame);
+  addEventListener('message', (e) => {
+    if (e.source !== godotFrame.contentWindow || typeof e.data !== 'string') return;
+    let m; try { m = JSON.parse(e.data); } catch { return; }
+    if (m.type === 'ready') { godotReady = true; if (data.state && data.world) toGodot({ type: 'data', state: data.state, world: data.world }); }
+    else if (m.type === 'followables') godotNames = m.names || [];
+    else if (m.type === 'follow') { const n = m.name || ''; $('btnFollow').classList.toggle('on', !!n); $('btnFollow').textContent = n ? (innerWidth < 520 ? '🎯' + n.slice(0, 1) : '🎯 ' + n) : '🎯'; }
+    else if (m.type === 'pick') {
+      const box = $('info'); if (!m.title) { box.style.display = 'none'; return; }
+      $('infoTitle').textContent = m.title; $('infoBody').innerHTML = (m.body || []).filter(Boolean).map((l) => `<div>${esc(l)}</div>`).join(''); box.style.display = 'block';
+    }
+  });
+}
 
 // ---------------- data ----------------
 async function gh(path, opts = {}) {
@@ -127,14 +149,16 @@ async function readFile(name) {
 const data = { world: null, state: null, book: null, chat: [] };
 
 // ---------------- scene ----------------
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.setSize(innerWidth, innerHeight);
-renderer.shadowMap.enabled = true;
-document.body.appendChild(renderer.domElement);
+const renderer = GODOT ? null : new THREE.WebGLRenderer({ antialias: true });
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.shadowMap.enabled = true;
+  document.body.appendChild(renderer.domElement);
+}
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 1600);
-const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer ? renderer.domElement : document.createElement('div'));
 controls.enableDamping = true;
 controls.maxPolarAngle = Math.PI * 0.49;
 controls.minDistance = 4;
@@ -328,7 +352,7 @@ function homeIsland(groundOnly = false) {
   [[-17, 2], [17, 2], [3, 18], [-3, -18.5], [10, 15], [-12, -15], [14, -14]].forEach(([x, z], i) => { const t = KIT.tuft(i % 2 ? '#9ccc65' : '#aed581'); t.position.set(x, GROUND, z); g.add(t); });
   return bake(g);
 }
-scene.add(homeIsland());
+if (!GODOT) scene.add(homeIsland());
 
 // The far island (owner's pick 2026-10-26, shape 3 of 5): long and irregular, about 470 × 170 m, north up.
 // A mountain in the west feeds a river that crosses the jungle, the open area and the beach into the sea.
@@ -472,7 +496,13 @@ function place(obj, pos, info) {
 const TASKS = { sleep: 'sleeping 😴', go_home: 'going home', eat: 'eating', forage: 'foraging berries', deliver: 'delivering a haul', gather_wood: 'chopping wood 🪵', gather_fiber: 'gathering fiber 🌾', gather_food: 'picking berries 🫐', rest: 'resting', idle: 'idling', stone: 'leaving a shell on the stone 🐚', fire: 'at the evening fire 🔥' };
 function progressOf(p) { const t = Object.values(p.needs).reduce((a, b) => a + b, 0); const h = Object.entries(p.needs).reduce((a, [r, q]) => a + Math.min(p.have[r] || 0, q), 0); return Math.round(100 * h / t); }
 
+function updateClock() {
+  const st = data.state || {};
+  const when = st.time ? new Date(st.time).toLocaleString('en-CA', { timeZone: 'America/Toronto', weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+  $('clock').textContent = `Day ${st.day ?? '?'} · ${when} · ${(st.npcs || []).length} residents`;
+}
 function render() {
+  if (GODOT) { if (data.state && data.world) toGodot({ type: 'data', state: data.state, world: data.world }); updateClock(); if (drawerTab) openTab(drawerTab, true); return; }
   dyn.clear(); pickables.length = 0; floaters.length = 0; followables.length = 0;
   applySky();
   const { world, state } = data;
@@ -508,9 +538,7 @@ function render() {
     if (a.say) { const s = textSprite('💬 ' + String(a.say).slice(0, 80), { size: 0.5, bg: 'rgba(255,255,255,0.92)', fg: '#1b1b1b' }); s.position.y = 1.9; g.add(s); }
     place(g, a.pos, { title: name, body: [a.say || ''] }); g.position.y = GROUND + 1.2; floaters.push(g); followables.push({ name, obj: g });
   }
-  const st = state || {};
-  const when = st.time ? new Date(st.time).toLocaleString('en-CA', { timeZone: 'America/Toronto', weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
-  $('clock').textContent = `Day ${st.day ?? '?'} · ${when} · ${(st.npcs || []).length} residents`;
+  updateClock();
   if (drawerTab) openTab(drawerTab, true);
 }
 
@@ -607,15 +635,16 @@ $('chatForm').onsubmit = async (ev) => {
 let follow = -1; let tween = null;
 function flyTo(pos, target) { tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: new THREE.Vector3(...pos), t1: new THREE.Vector3(...target), k: 0 }; }
 const VIEWS = { overview: [[0, 20, 30], [0, 0, 0]], top: [[0, 52, 0.1], [0, 0, 0]], horizon: [[0, 14, 18], [0, 2, -120]] };
-document.querySelectorAll('[data-view]').forEach((b) => b.onclick = () => { follow = -1; $('btnFollow').classList.remove('on'); flyTo(...VIEWS[b.dataset.view]); });
+document.querySelectorAll('[data-view]').forEach((b) => b.onclick = () => { follow = -1; $('btnFollow').classList.remove('on'); if (GODOT) toGodot({ type: 'view', name: b.dataset.view }); else flyTo(...VIEWS[b.dataset.view]); });
 $('btnFollow').onclick = () => {
+  if (GODOT) { follow = follow + 1 >= godotNames.length ? -1 : follow + 1; toGodot({ type: 'follow', index: follow }); return; }
   if (!followables.length) return; follow = (follow + 1) % (followables.length + 1);
   if (follow === followables.length) { follow = -1; $('btnFollow').classList.remove('on'); $('btnFollow').textContent = '🎯'; return; }
   $('btnFollow').classList.add('on'); $('btnFollow').textContent = innerWidth < 520 ? '🎯' + followables[follow].name.slice(0, 1) : '🎯 ' + followables[follow].name;
   const p = followables[follow].obj.position; flyTo([p.x + 6, 6, p.z + 8], [p.x, 1, p.z]);
 };
 function zoom(f) { const off = camera.position.clone().sub(controls.target).multiplyScalar(f); if (off.length() > controls.minDistance && off.length() < controls.maxDistance) camera.position.copy(controls.target).add(off); }
-$('btnIn').onclick = () => zoom(0.75); $('btnOut').onclick = () => zoom(1.33);
+$('btnIn').onclick = () => (GODOT ? toGodot({ type: 'zoom', f: 0.75 }) : zoom(0.75)); $('btnOut').onclick = () => (GODOT ? toGodot({ type: 'zoom', f: 1.33 }) : zoom(1.33));
 // Portrait screens see less of the island at the same distance: pull the camera back.
 function fitViews() {
   const k = camera.aspect < 1 ? Math.pow(1 / camera.aspect, 0.7) : 1;
@@ -627,8 +656,8 @@ camera.position.set(...VIEWS.overview[0]); controls.target.set(...VIEWS.overview
 
 // ---------------- picking ----------------
 const ray = new THREE.Raycaster(); const ptr = new THREE.Vector2(); let down = null;
-renderer.domElement.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
-renderer.domElement.addEventListener('pointerup', (e) => {
+renderer?.domElement.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
+renderer?.domElement.addEventListener('pointerup', (e) => {
   if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 8) return;
   ptr.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); ray.setFromCamera(ptr, camera);
   const hit = ray.intersectObjects(pickables, false)[0]; const box = $('info');
@@ -655,9 +684,9 @@ $('btnForgetSetup').onclick = forgetToken;
 $('btnRefresh').onclick = refresh;
 refresh(); setInterval(refresh, POLL_MS);
 
-addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); fitViews(); });
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer?.setSize(innerWidth, innerHeight); fitViews(); });
 const clock = new THREE.Clock();
-renderer.setAnimationLoop(() => {
+renderer?.setAnimationLoop(() => {
   const t = clock.getElapsedTime();
   floaters.forEach((g, i) => { g.position.y = GROUND + 1.2 + Math.sin(t * 1.5 + i) * 0.15; g.children[0].rotation.y = t * 0.6; });
   if (tween) { tween.k = Math.min(1, tween.k + 0.04); const e = 1 - Math.pow(1 - tween.k, 3); camera.position.lerpVectors(tween.p0, tween.p1, e); controls.target.lerpVectors(tween.t0, tween.t1, e); if (tween.k >= 1) tween = null; }
