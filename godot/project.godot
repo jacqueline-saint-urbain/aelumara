@@ -1,0 +1,23 @@
+; Engine configuration file.
+; Aelúmara ground for Godot 4: the two islands' ground only (no plants), with a touch camera.
+
+config_version=5
+
+[application]
+
+config/name="Aelumara Ground"
+config/description="The ground of Trio Island and Horizon Island, exported from the Aelumara page."
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.4", "Mobile")
+
+[display]
+
+window/handheld/orientation=6
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+renderer/rendering_method="mobile"

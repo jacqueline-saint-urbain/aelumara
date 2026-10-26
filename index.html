@@ -318,10 +318,11 @@ function onShore(g, piece, x, z, r, lean = 0) {
 }
 
 // The home island: sand on the sides, a few palms and rocks on the shore (scenery only, not resource nodes).
-function homeIsland() {
+function homeIsland(groundOnly = false) {
   const r = HOME_R, g = island(r, '#7cb342', 3);
   [[-6, -5, 4.5, '#8bc34a'], [7, 12, 3.5, '#689f38'], [-11, 11, 3, '#8bc34a'], [12, -12, 3.2, '#689f38'], [-14, -13, 2.5, '#9ccc65']]
     .forEach(([x, z, rad, c], i) => g.add(patch(x, z, rad, c, 20 + i)));
+  if (groundOnly) return bake(g);  // ground only, for exports (Godot)
   [[-19, 9], [18, 9], [-9, -20], [20, -3], [6, 20.5], [-15, 15]].forEach(([x, z], i) => { const p = KIT.palm(i % 2 ? '#43a047' : '#66bb6a'), k = (r + 2.5) / Math.hypot(x, z); p.scale.setScalar(0.9 + (i % 3) * 0.12); onShore(g, p, x * k, z * k, r, 0.22); });
   [[22, -9], [-23, -4], [12, -21], [-4, 23.5], [16, 18], [-20, -14]].forEach(([x, z], i) => { const k = KIT.rocks(i % 2 ? '#9e9e9e' : '#8a8a8a'); k.rotation.y = i * 1.7; k.scale.setScalar(0.8 + (i % 3) * 0.25); onShore(g, k, x, z, r); });
   [[-17, 2], [17, 2], [3, 18], [-3, -18.5], [10, 15], [-12, -15], [14, -14]].forEach(([x, z], i) => { const t = KIT.tuft(i % 2 ? '#9ccc65' : '#aed581'); t.position.set(x, GROUND, z); g.add(t); });
@@ -390,9 +391,9 @@ const LONG = (() => {
 
 const FAR = { key: null, obj: null };
 const FAR_CENTER = [0, -150];  // same as FAR_ISLAND in sim.py: about 36 m of sea between the two islands
-function farIsland(region) {
+function farIsland(region, groundOnly = false) {
   const key = JSON.stringify(region.center);
-  if (FAR.key === key) return FAR.obj;
+  if (FAR.key === key && !groundOnly) return FAR.obj;
   const L = LONG, rand = rng(17), g = new THREE.Group();
   // Ground: grass top, dry sand, wet sand under the sea, foam line.
   g.add(L.radial([(e, gr) => [0, 0.2], (e, gr) => [gr * 0.5, 0.2], (e, gr) => [gr * 0.9, 0.2], (e, gr) => [gr - 1.5, 0.2], (e, gr) => [gr, 0.16], (e, gr) => [gr + 0.8, 0.07]], '#8bc34a'));
@@ -415,6 +416,7 @@ function farIsland(region) {
   // River: muddy banks under the water.
   g.add(L.ribbon((i) => L.riverW(i) + 3, 0.035, '#9c8a5a'));
   g.add(L.ribbon(L.riverW, 0.06, '#4fb3d9'));
+  if (groundOnly) return bake(g, false);  // ground only, for exports (Godot)
   const solid = (x, z, gap = 2) => L.riverDist(x, z) > gap && Math.hypot(x - M.x, z - M.z) > M.r * 0.95 && L.HILLS.every(([hx, hz, r]) => Math.hypot(x - hx, z - hz) > r * 0.9);
   const scatter = (n, test, put) => { for (let i = 0, tries = 0; i < n && tries < n * 40; tries++) { const x = (rand() - 0.5) * 480, z = (rand() - 0.5) * 180; if (test(x, z)) { put(x, z, i); i++; } } };
   const add = (piece, x, z, k = 1) => { piece.position.set(x, L.groundY(x, z), z); piece.rotation.y = rand() * 6.28; piece.scale.setScalar(k); g.add(piece); };
