@@ -634,6 +634,17 @@ def test_law_launch_ritual_lifts_company_of_those_present_at_the_launch():
 # receiver, now). The buyer is the present resident who bartered least,
 # so the richest wallet does not take every evening.
 
+@pytest.fixture
+def barter_on(monkeypatch):
+    monkeypatch.setattr(engine, "BARTER_ON", True)
+
+
+def test_the_barter_is_off_in_the_live_world():
+    state = barter_state(2, (3, 3, 12))
+    engine.Sim(state, make_book()).evening_fire()
+    assert state["pot"] == 8 and [n["shells"] for n in state["npcs"]] == [3, 3, 12]
+
+
 def barter_state(day, shells):
     npcs = [make_npc(f"npc-{i}", name, shells=s, needs={"hunger": 0, "energy": 100, "company": c})
             for i, (name, s, c) in enumerate(zip(("Bram", "Sélie", "Nilo"), shells, (50, 30, 60)), 1)]
@@ -644,7 +655,7 @@ def barter_state(day, shells):
     return state
 
 
-def test_one_barter_per_evening_paid_into_the_pot():
+def test_one_barter_per_evening_paid_into_the_pot(barter_on):
     state = barter_state(2, (3, 3, 12))
     engine.Sim(state, make_book()).evening_fire()
     assert sum(n["shells"] for n in state["npcs"]) == 18 - engine.BARTER_PRICE
@@ -652,7 +663,7 @@ def test_one_barter_per_evening_paid_into_the_pot():
     assert state["today"]["ledger"]["pot_in"] == engine.BARTER_PRICE
 
 
-def test_on_even_days_the_tool_helps_gathering_the_next_day_only():
+def test_on_even_days_the_tool_helps_gathering_the_next_day_only(barter_on):
     state = barter_state(2, (3, 0, 0))
     sim_obj = engine.Sim(state, make_book())
     sim_obj.evening_fire()
@@ -671,7 +682,7 @@ def test_on_even_days_the_tool_helps_gathering_the_next_day_only():
     assert bram["carry"] == {"wood": 2}
 
 
-def test_on_odd_days_the_gift_goes_to_the_loneliest_and_lifts_both():
+def test_on_odd_days_the_gift_goes_to_the_loneliest_and_lifts_both(barter_on):
     state = barter_state(3, (3, 0, 0))
     engine.Sim(state, make_book()).evening_fire()
     bram, selie, nilo = state["npcs"]
@@ -680,7 +691,7 @@ def test_on_odd_days_the_gift_goes_to_the_loneliest_and_lifts_both():
     assert nilo["needs"]["company"] == 60
 
 
-def test_the_buyer_is_whoever_bartered_least_not_the_richest():
+def test_the_buyer_is_whoever_bartered_least_not_the_richest(barter_on):
     state = barter_state(2, (3, 3, 12))
     state["npcs"][2]["barters"] = 1  # Nilo already bought once
     engine.Sim(state, make_book()).evening_fire()
@@ -688,7 +699,7 @@ def test_the_buyer_is_whoever_bartered_least_not_the_richest():
     assert state["npcs"][0]["shells"] == 0  # Bram: fewest barters, first in line
 
 
-def test_no_barter_without_enough_shells_or_absent():
+def test_no_barter_without_enough_shells_or_absent(barter_on):
     state = barter_state(2, (2, 2, 2))
     engine.Sim(state, make_book()).evening_fire()
     assert state["pot"] == 8
@@ -698,7 +709,7 @@ def test_no_barter_without_enough_shells_or_absent():
     assert state["npcs"][2]["shells"] == 5
 
 
-def test_the_barter_is_told_in_the_evening_summary():
+def test_the_barter_is_told_in_the_evening_summary(barter_on):
     state = barter_state(3, (3, 0, 0))
     book = make_book()
     engine.Sim(state, book).evening_fire()

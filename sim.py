@@ -47,6 +47,7 @@ LAW_FLOOR = 20  # law no_work_below_20: no project work while a need is below th
 LAUNCH_COMPANY = 20  # law launch_ritual: company gained by those present at a launch
 LAUNCH_DIST = 6
 MEAL_POT_MIN = 5  # the pot pays the shared meal only above this reserve, kept for work shifts
+BARTER_ON = False  # evening barter, switched off 2026-10-26 until Spark and Claude finish the economy reflection (box 00_Inbox)
 BARTER_PRICE = 3  # evening barter: shells paid into the pot for one item
 GIFT_COMPANY = 15  # a gift at the fire: company for the giver and the receiver
 
@@ -291,7 +292,8 @@ class Sim:
                 if npc["id"] in here:
                     npc["needs"]["company"] = min(100, npc["needs"]["company"] + (20 if feast else 10))
             meal = " A feast was shared from the full stores." if feast else " A shared meal was cooked from the stores."
-        meal += self.barter(here)
+        if BARTER_ON:
+            meal += self.barter(here)
         missing = [n["name"] for n in st["npcs"] if n["id"] not in here]
         proj = self.active_project() or next((p for p in st["projects"] if p["id"] == "raft"), None)
         pr = 100 if proj and proj["status"] == "done" else (self.progress(proj) if proj else 0)
