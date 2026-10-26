@@ -75,8 +75,7 @@
 <div id="info" class="panel"><h2 id="infoTitle"></h2><div id="infoBody"></div></div>
 <div id="setup" class="panel">
   <h2>Talk to the trio</h2>
-  <p>The island itself is public. To chat from here, paste a fine-grained GitHub token limited to the private repo <b>agentchat</b>, with:</p>
-  <ul><li><b>Pull requests</b>: Read and write (to read and post in the room)</li><li><b>Contents</b>: Read-only (only needed when the page runs outside pages.dev)</li></ul>
+  <p>Anyone can read the island chat. To post, paste a fine-grained GitHub token: <b>Only select repositories</b> → <b>aelumara</b>, with <b>Pull requests: Read and write</b>.</p>
   <p class="muted">The token stays on this device only.</p>
   <input id="token" type="password" placeholder="github_pat_…" autocomplete="off">
   <button id="btnSave" class="on">Save token</button> <button id="btnCancel">Cancel</button> <button id="btnForgetSetup">Remove saved token</button>
@@ -88,6 +87,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const REPO = 'jacqueline-saint-urbain/agentchat';
 const REF = 'chat-room';
 const ROOM_PR = 1;
+// The in-game chat lives in the public island repo: pull request #1 (branch island-chat), never merged.
+const CHAT_REPO = 'jacqueline-saint-urbain/aelumara';
+const CHAT_PR = 1;
 const POLL_MS = 60000;
 const HOME_R = 20;
 
@@ -106,11 +108,11 @@ const RAW_BASE = 'https://raw.githubusercontent.com/jacqueline-saint-urbain/aelu
 
 // ---------------- data ----------------
 async function gh(path, opts = {}) {
-  const token = store.get('trioToken');
-  if (!token) throw new Error('no-token');
+  const token = opts.anon ? null : store.get('trioToken');
+  if (!token && !opts.anon) throw new Error('no-token');
   const r = await fetch('https://api.github.com' + path, {
     ...opts,
-    headers: { Authorization: 'Bearer ' + token, Accept: opts.accept || 'application/vnd.github+json', ...(opts.headers || {}) },
+    headers: { ...(token ? { Authorization: 'Bearer ' + token } : {}), Accept: opts.accept || 'application/vnd.github+json', ...(opts.headers || {}) },
     cache: 'no-store',
   });
   if (r.status === 401) throw new Error('no-token');
@@ -352,8 +354,8 @@ function bookHTML() {
   return `<p class="muted">${esc(data.book?.title || "The Book of the Island")} — ${entries.length} entries</p>` + entries.map((e) => `<div class="entry ${esc(e.by)}"><div class="muted">Day ${e.day} · ${esc(e.by)} · ${e.at ? new Date(e.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' }) : ''}</div>${e.title ? '<b>' + esc(e.title) + '</b><br>' : ''}${esc(e.text)}</div>`).join('');
 }
 function chatHTML() {
-  if (!store.get('trioToken')) return connectHTML();
-  return removeHTML() + data.chat.map((m) => `<div class="msg ${esc(m.from)}"><b>${esc(m.from)}</b> <span class="muted">${new Date(m.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' })}</span><div>${esc(m.text)}</div></div>`).join('') || '<p class="muted">No recent messages.</p>';
+  const foot = store.get('trioToken') ? removeHTML() : connectHTML();
+  return data.chat.map((m) => `<div class="msg ${esc(m.from)}"><b>${esc(m.from)}</b> <span class="muted">${new Date(m.at).toLocaleString('en-CA', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' })}</span><div>${esc(m.text)}</div></div>`).join('') + (data.chat.length ? '' : '<p class="muted">No messages yet.</p>') + (data.chatError ? `<p class="muted">⚠️ ${esc(data.chatError)}</p>` : '') + foot;
 }
 function openTab(tab, keepScroll = false) {
   drawerTab = tab; const body = $('drawerBody'); const y = body.scrollTop;
@@ -374,28 +376,26 @@ function parseTrio(body) {
   try { return JSON.parse(m[1].replace(/&#123;/g, '{').replace(/&#125;/g, '}')); } catch { return null; }
 }
 function connectHTML(why = '') {
-  return `<p class="muted">${why || 'Paste your GitHub token to talk to the trio from the island.'}</p><button id="btnConnect" class="on">Connect</button><p class="muted">The full group chat lives on <a href="${TRIO_PAGE}" target="_blank" rel="noopener">the Trio page</a>.</p>`;
+  return `<p class="muted">${why || 'To post, connect a GitHub token.'}</p><button id="btnConnect" class="on">Connect</button>`;
 }
 // Plain-language reason for a GitHub error, so the owner knows which token setting to fix.
 const TOKEN_HELP = {
   'no-token': 'GitHub refused this token (mistyped, expired or revoked).',
-  'GitHub 404': 'This token cannot see the agentchat repo. When creating it, pick “Only select repositories” → agentchat.',
-  'GitHub 403': 'This token can see agentchat but lacks “Pull requests: Read and write”.',
+  'GitHub 404': 'This token cannot reach the aelumara repo. When creating it, pick “Only select repositories” → aelumara.',
+  'GitHub 403': 'This token reaches aelumara but lacks “Pull requests: Read and write”.',
 };
 function removeHTML() { return '<p><button id="btnForget">🔑 Remove token</button></p>'; }
-function forgetToken() { store.del('trioToken'); data.chat = []; $('chatForm').style.display = 'none'; $('setup').style.display = 'block'; if (drawerTab === 'chat') $('drawerBody').innerHTML = connectHTML('Token removed. Paste a new one.'); }
+function forgetToken() { store.del('trioToken'); data.chatError = 'Token removed. Paste a new one to post.'; $('setup').style.display = 'block'; if (drawerTab === 'chat') openTab('chat'); }
 $('drawerBody').addEventListener('click', (e) => { if (e.target.id === 'btnConnect') $('setup').style.display = 'block'; if (e.target.id === 'btnForget') forgetToken(); });
+// Reading is anonymous (public repo, 60 requests an hour per device); only posting uses the token.
 async function loadChat() {
-  if (!store.get('trioToken')) return;
   try {
     const since = new Date(Date.now() - 4 * 86400000).toISOString();
-    const list = await gh(`/repos/${REPO}/issues/${ROOM_PR}/comments?per_page=100&since=${since}`);
+    const list = await gh(`/repos/${CHAT_REPO}/issues/${CHAT_PR}/comments?per_page=100&since=${since}`, { anon: true });
     data.chat = list.map((c) => { const t = parseTrio(c.body); return t ? { from: t.from, text: t.human || t.body, at: c.created_at } : null; }).filter(Boolean).slice(-40);
     if (drawerTab === 'chat') openTab('chat');
   } catch (e) {
-    if (drawerTab !== 'chat') return;
-    $('chatForm').style.display = 'none';
-    $('drawerBody').innerHTML = `<p class="muted">Could not read the chat (${esc(e.message === 'no-token' ? 'GitHub 401' : e.message)}). ${esc(TOKEN_HELP[e.message] || 'Try again in a minute.')}</p>` + removeHTML();
+    if (drawerTab === 'chat') $('drawerBody').innerHTML = `<p class="muted">Could not read the chat (${esc(e.message)}). Try again in a minute.</p>`;
   }
 }
 $('chatForm').onsubmit = async (ev) => {
@@ -404,9 +404,9 @@ $('chatForm').onsubmit = async (ev) => {
   const id = `owner-${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}-${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}-isle`;
   const env = { v: 1, id, from: 'owner', to: ['spark', 'claude'], re: null, type: 'msg', topic: 'island', body: text, human: text, needs: null };
   try {
-    await gh(`/repos/${REPO}/issues/${ROOM_PR}/comments`, { method: 'POST', body: JSON.stringify({ body: '```trio\n' + JSON.stringify(env) + '\n```' }), headers: { 'Content-Type': 'application/json' } });
-    $('chatText').value = ''; data.chat.push({ from: 'owner', text, at: d.toISOString() }); openTab('chat');
-  } catch (e) { alert("Message not sent (" + e.message + "). The token needs “Pull requests: Read and write”."); }
+    await gh(`/repos/${CHAT_REPO}/issues/${CHAT_PR}/comments`, { method: 'POST', body: JSON.stringify({ body: '```trio\n' + JSON.stringify(env) + '\n```' }), headers: { 'Content-Type': 'application/json' } });
+    $('chatText').value = ''; data.chatError = ''; data.chat.push({ from: 'owner', text, at: d.toISOString() }); openTab('chat');
+  } catch (e) { data.chatError = `Message not sent (${e.message === 'no-token' ? 'GitHub 401' : e.message}). ${TOKEN_HELP[e.message] || 'Try again in a minute.'}`; openTab('chat'); }
 };
 
 // ---------------- camera ----------------
@@ -455,7 +455,7 @@ async function refresh() {
     else $('clock').textContent = '⚠️ ' + e.message;
   }
 }
-$('btnSave').onclick = () => { const t = $('token').value.replace(/\s+/g, ''); if (!t) return; store.set('trioToken', t); $('token').value = ''; $('setup').style.display = 'none'; if (drawerTab === 'chat') { openTab('chat'); loadChat(); } refresh(); };
+$('btnSave').onclick = () => { const t = $('token').value.replace(/\s+/g, ''); if (!t) return; store.set('trioToken', t); data.chatError = ''; $('token').value = ''; $('setup').style.display = 'none'; if (drawerTab === 'chat') { openTab('chat'); loadChat(); } refresh(); };
 $('btnCancel').onclick = () => { $('setup').style.display = 'none'; };
 $('btnForgetSetup').onclick = forgetToken;
 $('btnRefresh').onclick = refresh;
