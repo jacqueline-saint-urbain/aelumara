@@ -83,6 +83,7 @@
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
 const REPO = 'jacqueline-saint-urbain/agentchat';
 const REF = 'chat-room';
@@ -141,7 +142,7 @@ controls.maxDistance = 160;
 
 const hemi = new THREE.HemisphereLight(0xffffff, 0x445566, 0.9); scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffffff, 1.2);
-sun.position.set(25, 40, 15); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+sun.position.set(25, 40, 15); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.04;
 Object.assign(sun.shadow.camera, { left: -30, right: 30, top: 30, bottom: -30 }); scene.add(sun);
 
 function torontoHour() { return parseInt(new Date().toLocaleString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', hour12: false }), 10) % 24; }
@@ -149,7 +150,7 @@ const isNight = () => { const h = torontoHour(); return h < 7 || h >= 19; };
 function applySky() {
   const night = isNight();
   scene.background = new THREE.Color(night ? 0x0b1430 : 0x8ecae6);
-  scene.fog = new THREE.Fog(scene.background, 80, 230);
+  scene.fog = new THREE.Fog(scene.background, 90, 260);
   hemi.intensity = night ? 0.35 : 0.9; sun.intensity = night ? 0.25 : 1.2; sun.color.set(night ? 0x9db4ff : 0xffffff);
 }
 
@@ -177,7 +178,11 @@ const KIT = {
   pine(c) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(0.2, 0.3, 1.2, 6), mat('#6d4c41'), 0.6));
     for (let i = 0; i < 3; i++) g.add(mesh(new THREE.ConeGeometry(1.4 - i * 0.35, 1.6, 7), mat(c || '#2e7d32'), 1.6 + i * 0.9)); return g; },
   palm(c) { const g = new THREE.Group(); const trunk = mesh(new THREE.CylinderGeometry(0.15, 0.25, 3.4, 6), mat('#8d6e63'), 1.7); trunk.rotation.z = 0.12; g.add(trunk);
-    for (let i = 0; i < 6; i++) { const leaf = mesh(new THREE.ConeGeometry(0.35, 2.2, 4), mat(c || '#43a047'), 3.3); leaf.rotation.set(Math.PI / 2.4, i * Math.PI / 3, 0); leaf.position.x = 0.35; g.add(leaf); } return g; },
+    const top = [-0.2, 3.4], tilt = 1.85; // crown leaves radiate from the trunk top and droop a little
+    for (let i = 0; i < 7; i++) { const a = i * Math.PI * 2 / 7, leaf = mesh(new THREE.ConeGeometry(0.38, 2.4, 4), mat(c || '#43a047'), 0); leaf.scale.z = 0.3;
+      leaf.rotation.set(tilt + (i % 2) * 0.25, a, 0, 'YXZ'); leaf.position.set(top[0] + Math.sin(tilt) * Math.sin(a) * 1.1, top[1] + Math.cos(tilt) * 1.1, Math.sin(tilt) * Math.cos(a) * 1.1); g.add(leaf); }
+    for (let i = 0; i < 3; i++) g.add(mesh(new THREE.SphereGeometry(0.15, 5, 4), mat('#6d4c41'), top[1] - 0.2).translateX(top[0] + Math.cos(i * 2.1) * 0.2).translateZ(Math.sin(i * 2.1) * 0.2));
+    return g; },
   bush(c) { const g = new THREE.Group(); g.add(mesh(jitter(new THREE.IcosahedronGeometry(0.8, 0), 0.12, 7), mat(c || '#388e3c'), 0.6));
     for (let i = 0; i < 5; i++) { const b = mesh(new THREE.SphereGeometry(0.1, 5, 4), mat('#d62828'), 0.6); b.position.set(Math.cos(i * 1.3) * 0.7, 0.5 + (i % 3) * 0.2, Math.sin(i * 1.3) * 0.7); g.add(b); } return g; },
   reeds(c) { const g = new THREE.Group(); for (let i = 0; i < 9; i++) { const r = mesh(new THREE.CylinderGeometry(0.03, 0.05, 1.4 + (i % 3) * 0.3, 4), mat(c || '#c9b458'), 0.7); r.position.set(Math.cos(i * 2.4) * 0.5, 0.7, Math.sin(i * 2.4) * 0.5); r.rotation.z = (i % 2 ? 1 : -1) * 0.12; g.add(r); } return g; },
@@ -204,6 +209,19 @@ const KIT = {
     g.add(mesh(new THREE.ConeGeometry(0.35, 0.9, 5), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 2 }), 0.45)); const l = new THREE.PointLight(c, 5, 8); l.position.y = 1; g.add(l); return g; },
   pond(c) { const p = mesh(new THREE.CircleGeometry(2, 9), mat(c, { roughness: 0.2 }), 0.03); p.rotation.x = -Math.PI / 2; return p; },
   statue(c) { const g = new THREE.Group(); g.add(mesh(new THREE.BoxGeometry(1, 0.6, 1), mat('#9e9e9e'), 0.3)); g.add(mesh(new THREE.CapsuleGeometry(0.35, 1, 3, 6), mat(c), 1.4)); return g; },
+  // Tropical pieces (2026-10-25): no pines or round deciduous trees on the far island.
+  jungleTree(c) { const g = new THREE.Group(); const h = 6.5; g.add(mesh(new THREE.CylinderGeometry(0.22, 0.42, h, 6), mat('#7b5e45'), h / 2));
+    for (let i = 0; i < 3; i++) { const b = mesh(new THREE.CylinderGeometry(0.06, 0.35, 1.2, 4), mat('#7b5e45'), 0.4); b.rotation.set(0.5, i * 2.1, 0); b.position.set(Math.cos(i * 2.1) * 0.35, 0.4, Math.sin(i * 2.1) * 0.35); g.add(b); }
+    [[0, h + 0.3, 0, 2.6], [1.1, h - 0.5, 0.6, 1.8], [-0.9, h - 0.2, -0.8, 1.9]].forEach(([x, y, z, r], i) => { const m = mesh(jitter(new THREE.IcosahedronGeometry(r, 0), 0.25, 40 + i), mat(c || '#2e7d32'), y); m.scale.y = 0.38; m.position.x = x; m.position.z = z; g.add(m); });
+    return g; },
+  banana(c) { const g = new THREE.Group(); g.add(mesh(new THREE.CylinderGeometry(0.16, 0.22, 1.6, 6), mat('#9a8c4e'), 0.8));
+    for (let i = 0; i < 5; i++) { const leaf = mesh(new THREE.ConeGeometry(0.45, 2.6, 3), mat(c || '#66bb6a'), 1.9); leaf.scale.z = 0.25; leaf.rotation.set(1.05, i * 1.26, 0, 'YXZ'); leaf.position.set(Math.sin(i * 1.26) * 0.8, 1.9, Math.cos(i * 1.26) * 0.8); g.add(leaf); }
+    return g; },
+  fern(c) { const g = new THREE.Group(); for (let i = 0; i < 6; i++) { const f = mesh(new THREE.ConeGeometry(0.22, 1.3, 3), mat(c || '#43a047'), 0.3); f.scale.z = 0.3; f.rotation.set(1.25, i * 1.05, 0, 'YXZ'); f.position.set(Math.sin(i * 1.05) * 0.45, 0.3, Math.cos(i * 1.05) * 0.45); g.add(f); } return g; },
+  tuft(c) { const g = new THREE.Group(); for (let i = 0; i < 5; i++) { const b = mesh(new THREE.ConeGeometry(0.06, 0.7, 3), mat(c || '#9ccc65'), 0.35); b.position.set(Math.cos(i * 1.3) * 0.15, 0.35, Math.sin(i * 1.3) * 0.15); b.rotation.set(Math.sin(i) * 0.3, 0, Math.cos(i) * 0.3); g.add(b); } return g; },
+  shrub(c) { const m = mesh(jitter(new THREE.IcosahedronGeometry(0.7, 0), 0.15, 9), mat(c || '#558b2f'), 0.35); m.scale.y = 0.6; return m; },
+  shell(c) { const m = mesh(new THREE.ConeGeometry(0.14, 0.3, 5), mat(c || '#f8bbd0'), 0.06); m.rotation.z = Math.PI / 2; return m; },
+  rocks(c) { const g = new THREE.Group(); [[0, 0, 1], [0.9, 0.4, 0.6], [-0.6, 0.7, 0.45]].forEach(([x, z, k], i) => { const r = mesh(jitter(new THREE.DodecahedronGeometry(0.8, 0), 0.18, 11 + i * 7), mat(c || '#8f8f8f'), 0.4 * k); r.scale.set(k, k * 0.75, k); r.position.x = x; r.position.z = z; g.add(r); }); return g; },
   logpile() { const g = new THREE.Group(); for (let i = 0; i < 5; i++) { const l = mesh(new THREE.CylinderGeometry(0.18, 0.18, 1.6, 6), mat('#8d6e63'), 0.2 + Math.floor(i / 3) * 0.33); l.rotation.z = Math.PI / 2; l.position.z = (i % 3) * 0.38 - 0.38; g.add(l); } return g; },
 };
 const fallback = (c) => mesh(new THREE.BoxGeometry(1, 1, 1), mat(c || '#bbbbbb'), 0.5);
@@ -238,24 +256,121 @@ const AVATARS = {
 // ---------------- static terrain ----------------
 const sea = new THREE.Mesh(new THREE.CircleGeometry(400, 48), new THREE.MeshStandardMaterial({ color: 0x1d6fa3, roughness: 0.35, flatShading: true }));
 sea.rotation.x = -Math.PI / 2; sea.position.y = -0.6; scene.add(sea);
-function island(r, grassColor, seed) {
+// Seeded random numbers, so the scenery is the same on every load.
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// Radial wobble keyed on position, so the lathe seam and shared rings move together and leave no cracks.
+function wobble(geo, amount, seed) {
+  const p = geo.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), z = p.getZ(i), d = Math.hypot(x, z); if (d < 1e-3) continue;
+    const a = Math.atan2(z, x), k = 1 + amount / d * (Math.sin(a * 7 + seed) * 0.6 + Math.sin(a * 13 + seed * 2.3) * 0.4);
+    p.setX(i, x * k); p.setZ(i, z * k);
+  }
+  geo.computeVertexNormals(); return geo;
+}
+const lathe = (pts, seed, amount = 0.6) => wobble(new THREE.LatheGeometry(pts.map(([x, y]) => new THREE.Vector2(x, y)), 48), amount, seed);
+const GROUND = 0.2;
+const SAND = '#ecd9a3', WET_SAND = '#c9ae78';
+// Height of the beach at distance d from the centre of an island of grass radius r.
+function shoreY(d, r) {
+  const pts = [[0, 0.05], [r + 1.5, 0.05], [r + 4, -0.25], [r + 5.2, -0.5], [r + 6.5, -0.65], [r + 9, -1.2]];
+  for (let i = 1; i < pts.length; i++) if (d <= pts[i][0]) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i]; return y0 + (y1 - y0) * (d - x0) / (x1 - x0); }
+  return -1.2;
+}
+// An island: dry sand sloping into wet sand under the sea, a foam line, and a grass top (flat in the middle for the village).
+function island(r, grassColor, seed, grassR = r, grassAt = [0, 0]) {
   const g = new THREE.Group();
-  const sand = mesh(new THREE.CylinderGeometry(r + 2, r + 4, 1, 24, 1), mat('#e9d8a6'), -0.5); g.add(sand);
-  const grass = mesh(new THREE.CylinderGeometry(r, r + 1, 0.4, 24, 1), mat(grassColor), 0); g.add(grass);
+  g.add(mesh(lathe([[r + 5.2, -0.5], [r + 4, -0.25], [r + 1.5, 0.05], [0, 0.05]], seed), mat(SAND, { side: THREE.DoubleSide })));
+  g.add(mesh(lathe([[r + 9, -1.2], [r + 6.5, -0.65], [r + 5.2, -0.5]], seed), mat(WET_SAND, { side: THREE.DoubleSide })));
+  const foam = mesh(wobble(new THREE.RingGeometry(r + 5.6, r + 6.6, 48), 0.6, seed), mat('#ffffff', { transparent: true, opacity: 0.55, side: THREE.DoubleSide }), -0.57);
+  foam.rotation.x = -Math.PI / 2; foam.castShadow = false; g.add(foam);
+  const grass = mesh(lathe([[grassR + 0.8, 0.07], [grassR, 0.16], [grassR - 1.5, 0.2], [0, 0.2]], seed + 5, 0.8), mat(grassColor, { side: THREE.DoubleSide }));
+  grass.position.set(grassAt[0], 0, grassAt[1]); g.add(grass);
   return g;
 }
-scene.add(island(HOME_R, '#7cb342', 3));
-const GROUND = 0.2;
+// A flat patch of another colour lying on the grass.
+function patch(x, z, rad, color, seed) {
+  const m = mesh(wobble(new THREE.CircleGeometry(rad, 18), rad * 0.18, seed), mat(color, { polygonOffset: true, polygonOffsetFactor: -1 - seed % 3, polygonOffsetUnits: -2 }), 0.205);
+  m.rotation.x = -Math.PI / 2; m.position.x = x; m.position.z = z; return m;
+}
+// Merge a static group into one mesh per material: a few draw calls instead of hundreds, so phones stay smooth.
+function bake(group, shadows = true) {
+  group.updateMatrixWorld(true);
+  const byMat = new Map();
+  group.traverse((m) => {
+    if (!m.isMesh) return;
+    const geo = m.geometry.index ? m.geometry.toNonIndexed() : m.geometry.clone(); geo.applyMatrix4(m.matrixWorld);
+    for (const k of Object.keys(geo.attributes)) if (!['position', 'normal', 'uv'].includes(k)) geo.deleteAttribute(k);
+    if (!byMat.has(m.material)) byMat.set(m.material, []); byMat.get(m.material).push(geo);
+  });
+  const out = new THREE.Group();
+  for (const [material, geos] of byMat) {
+    const merged = new THREE.Mesh(mergeGeometries(geos), material); geos.forEach((x) => x.dispose());
+    merged.castShadow = shadows && !material.transparent; merged.receiveShadow = true; out.add(merged);
+  }
+  return out;
+}
+// Put a piece on the beach at its height; lean palms out to sea.
+function onShore(g, piece, x, z, r, lean = 0) {
+  const y = shoreY(Math.hypot(x, z), r);
+  if (lean) { const w = new THREE.Group(); piece.rotation.z = lean; w.add(piece); w.rotation.y = Math.atan2(z, -x); piece = w; }
+  piece.position.set(x, y, z); g.add(piece); return piece;
+}
 
-// The far island: rendered from regions[]; hills, a peak and forest suggest a richer geography.
+// The home island: sand on the sides, a few palms and rocks on the shore (scenery only, not resource nodes).
+function homeIsland() {
+  const r = HOME_R, g = island(r, '#7cb342', 3);
+  [[-6, -5, 4.5, '#8bc34a'], [7, 12, 3.5, '#689f38'], [-11, 11, 3, '#8bc34a'], [12, -12, 3.2, '#689f38'], [-14, -13, 2.5, '#9ccc65']]
+    .forEach(([x, z, rad, c], i) => g.add(patch(x, z, rad, c, 20 + i)));
+  [[-19, 9], [18, 9], [-9, -20], [20, -3], [6, 20.5], [-15, 15]].forEach(([x, z], i) => { const p = KIT.palm(i % 2 ? '#43a047' : '#66bb6a'), k = (r + 2.5) / Math.hypot(x, z); p.scale.setScalar(0.9 + (i % 3) * 0.12); onShore(g, p, x * k, z * k, r, 0.22); });
+  [[22, -9], [-23, -4], [12, -21], [-4, 23.5], [16, 18], [-20, -14]].forEach(([x, z], i) => { const k = KIT.rocks(i % 2 ? '#9e9e9e' : '#8a8a8a'); k.rotation.y = i * 1.7; k.scale.setScalar(0.8 + (i % 3) * 0.25); onShore(g, k, x, z, r); });
+  [[-17, 2], [17, 2], [3, 18], [-3, -18.5], [10, 15], [-12, -15], [14, -14]].forEach(([x, z], i) => { const t = KIT.tuft(i % 2 ? '#9ccc65' : '#aed581'); t.position.set(x, GROUND, z); g.add(t); });
+  return bake(g);
+}
+scene.add(homeIsland());
+
+// The far island, from regions[]: a beach in the south (facing home), an open area of low plants in the middle, jungle in the north.
+const FAR = { key: null, obj: null };
 function farIsland(region) {
-  const g = island(region.radius, '#689f38', 17);
-  const hills = [[-15, -10, 9, 7], [12, 5, 7, 5], [0, -25, 14, 13], [20, -18, 6, 4], [-22, 12, 5, 4]];
-  hills.forEach(([x, z, r, h], i) => { const m = mesh(jitter(new THREE.ConeGeometry(r, h, 7), 0.5, 30 + i), mat(i === 2 ? '#8d8d8d' : '#558b2f'), h / 2); m.position.x = x; m.position.z = z; g.add(m); });
-  const snow = mesh(new THREE.ConeGeometry(4, 3.4, 7), mat('#f5f5f5'), 11.3); snow.position.set(0, 11.3, -25); g.add(snow);
-  for (let i = 0; i < 26; i++) { const a = i * 2.39, d = 10 + (i * 7) % 26; const t = KIT.pine('#2e7d32'); t.position.set(Math.cos(a) * d + 8, GROUND, Math.sin(a) * d + 10); t.scale.setScalar(1.6); g.add(t); }
-  g.position.set(region.center[0], 0, region.center[1]);
-  return g;
+  const key = JSON.stringify([region.center, region.radius]);
+  if (FAR.key === key) return FAR.obj;
+  const R = region.radius, s = R / 70, rand = rng(17), g = new THREE.Group();
+  const grassR = R * 0.81, grassZ = -R * 0.14;           // grass sits north of centre: the south rim stays a wide beach
+  g.add(island(R, '#8bc34a', 17, grassR, [0, grassZ]));
+  const jungle = { x: 0, z: -R * 0.55, r: R * 0.45 };   // jungle floor
+  g.add(patch(jungle.x, jungle.z, jungle.r, '#33691e', 31));
+  g.add(patch(jungle.x, jungle.z + jungle.r * 0.75, jungle.r * 0.55, '#558b2f', 32)); // jungle edge, between jungle and open area
+  const onGrass = (x, z) => Math.hypot(x, z - grassZ) < grassR - 2;
+  const inJungle = (x, z) => Math.hypot(x - jungle.x, z - jungle.z) < jungle.r - 1;
+  // A green peak and two hills, covered by the jungle (no snow in the tropics).
+  [[-0.15, -0.68, 0.2, 0.24, '#2e7d32'], [0.22, -0.5, 0.11, 0.1, '#33691e'], [-0.3, -0.42, 0.09, 0.08, '#388e3c']].forEach(([x, z, r, h, c], i) => {
+    const m = mesh(jitter(new THREE.ConeGeometry(R * r, R * h, 8), 0.6, 30 + i), mat(c), R * h / 2); m.position.x = x * R; m.position.z = z * R; g.add(m); });
+  const peaks = [[-0.15, -0.68, 0.2], [0.22, -0.5, 0.11], [-0.3, -0.42, 0.09]].map(([x, z, r]) => [x * R, z * R, r * R]);
+  const offPeak = (x, z) => peaks.every(([px, pz, pr]) => Math.hypot(x - px, z - pz) > pr * 0.85);
+  const scatter = (n, test, put) => { for (let i = 0, tries = 0; i < n && tries < n * 30; tries++) { const a = rand() * Math.PI * 2, d = Math.sqrt(rand()) * R; const x = Math.cos(a) * d, z = Math.sin(a) * d; if (test(x, z)) { put(x, z, i); i++; } } };
+  const add = (piece, x, z, k = 1) => { piece.position.set(x, GROUND, z); piece.rotation.y = rand() * 6.28; piece.scale.setScalar(k); g.add(piece); };
+  // Jungle: tall umbrella trees, banana plants, ferns underneath.
+  const canopy = ['#1b5e20', '#2e7d32', '#388e3c'];
+  scatter(Math.round(85 * s * s), (x, z) => inJungle(x, z) && offPeak(x, z), (x, z, i) => add(i % 6 === 5 ? KIT.palm('#2e7d32') : KIT.jungleTree(canopy[i % 3]), x, z, 1.1 + rand() * 0.6));
+  scatter(Math.round(40 * s * s), (x, z) => inJungle(x, z) && offPeak(x, z), (x, z) => add(KIT.banana(), x, z, 1 + rand() * 0.5));
+  scatter(Math.round(70 * s * s), (x, z) => inJungle(x, z), (x, z) => add(KIT.fern(rand() < 0.5 ? '#43a047' : '#2e7d32'), x, z, 1 + rand()));
+  // Peak slopes: a few trees climbing the green peak.
+  peaks.forEach(([px, pz, pr], j) => { for (let i = 0; i < 6; i++) { const a = i * 1.05 + j, d = pr * (0.55 + 0.1 * (i % 2)); const t = KIT.jungleTree(canopy[i % 3]); const h = R * [0.24, 0.1, 0.08][j] * (1 - d / pr); t.position.set(px + Math.cos(a) * d, h, pz + Math.sin(a) * d); t.scale.setScalar(0.9); g.add(t); } });
+  // Open area: grass tufts, flowers, low shrubs, a few palms and lone trees.
+  const open = (x, z) => onGrass(x, z) && !inJungle(x, z) && offPeak(x, z);
+  scatter(Math.round(110 * s * s), open, (x, z, i) => add(KIT.tuft(['#9ccc65', '#aed581', '#7cb342'][i % 3]), x, z, 1 + rand() * 0.8));
+  scatter(Math.round(45 * s * s), open, (x, z, i) => add(KIT.flower(['#ff7043', '#ec407a', '#ffca28', '#ab47bc'][i % 4]), x, z, 1.2 + rand() * 0.8));
+  scatter(Math.round(28 * s * s), open, (x, z) => add(KIT.shrub(rand() < 0.5 ? '#558b2f' : '#689f38'), x, z, 1 + rand()));
+  scatter(6, open, (x, z) => add(KIT.palm(), x, z, 1.3 + rand() * 0.3));
+  scatter(3, open, (x, z) => add(KIT.jungleTree('#388e3c'), x, z, 1.2));
+  // Beach: leaning palms along the grass edge, rocks, shells.
+  for (let i = 0; i < 7; i++) { const a = Math.PI * (0.18 + 0.64 * i / 6), x = Math.cos(a) * (grassR + 1), z = grassZ + Math.sin(a) * (grassR + 1); const p = KIT.palm(i % 2 ? '#43a047' : '#66bb6a'); p.scale.setScalar(1.3); const w = new THREE.Group(); p.rotation.z = 0.25; w.add(p); w.rotation.y = Math.atan2(z, -x); w.position.set(x, 0.05, z); g.add(w); }
+  scatter(8, (x, z) => !onGrass(x, z) && Math.hypot(x, z) < R + 5 && z > 0, (x, z, i) => { const k = KIT.rocks(i % 2 ? '#9e9e9e' : '#a1887f'); k.position.set(x, shoreY(Math.hypot(x, z), R), z); k.rotation.y = rand() * 6.28; k.scale.setScalar(1 + rand() * 0.8); g.add(k); });
+  scatter(18, (x, z) => !onGrass(x, z) && Math.hypot(x, z) < R + 1 && z > 0, (x, z, i) => { const sh = KIT.shell(i % 3 ? '#f8bbd0' : '#fff3e0'); sh.position.set(x, 0.05, z); sh.rotation.y = rand() * 6.28; g.add(sh); });
+  const out = bake(g, false);
+  out.position.set(region.center[0], 0, region.center[1]);
+  FAR.key = key; FAR.obj = out;
+  return out;
 }
 
 // ---------------- dynamic layer ----------------
@@ -412,7 +527,7 @@ $('chatForm').onsubmit = async (ev) => {
 // ---------------- camera ----------------
 let follow = -1; let tween = null;
 function flyTo(pos, target) { tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: new THREE.Vector3(...pos), t1: new THREE.Vector3(...target), k: 0 }; }
-const VIEWS = { overview: [[0, 20, 30], [0, 0, 0]], top: [[0, 52, 0.1], [0, 0, 0]], horizon: [[0, 9, 14], [0, 2, -60]] };
+const VIEWS = { overview: [[0, 20, 30], [0, 0, 0]], top: [[0, 52, 0.1], [0, 0, 0]], horizon: [[0, 12, 16], [0, 2, -80]] };
 document.querySelectorAll('[data-view]').forEach((b) => b.onclick = () => { follow = -1; $('btnFollow').classList.remove('on'); flyTo(...VIEWS[b.dataset.view]); });
 $('btnFollow').onclick = () => {
   if (!followables.length) return; follow = (follow + 1) % (followables.length + 1);

@@ -60,6 +60,7 @@ ADMIRES = {"Nilo": "Bram", "Bram": "Sélie", "Sélie": "Nilo"}  # SOCIETY.md: th
 BARTER_ON = False  # evening barter, switched off 2026-10-26 until Spark and Claude finish the economy reflection (box 00_Inbox)
 BARTER_PRICE = 3  # evening barter: shells paid into the pot for one item
 GIFT_COMPANY = 15  # a gift at the fire: company for the giver and the receiver
+FAR_ISLAND = {"center": [0, -120], "radius": 70}  # enlarged 2026-10-25 (owner): beach, open area, jungle; same ~22 m water gap
 
 
 def new_shelter():
@@ -124,6 +125,14 @@ class Sim:
         self.proposals = proposals if proposals is not None else {"items": []}
         self.events = []
         self.spots = load_world_spots()
+        self.migrate_regions()
+
+    def migrate_regions(self):
+        """Keep the far island at its current size and place (render-only data, no rule reads it)."""
+        for r in self.s.get("regions", []):
+            if r.get("id") == "far":
+                r["center"] = list(FAR_ISLAND["center"])
+                r["radius"] = FAR_ISLAND["radius"]
 
     # ---------- chronicle ----------
     def chronicle(self, text, kind="event"):
