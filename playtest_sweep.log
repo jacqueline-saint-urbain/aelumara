@@ -61,3 +61,13 @@ WHAT THE POT BUYS (new, commit 64ad730) — full audit over the 30 days (audit h
 - Ledger totals: pot_in 30 (= morning stone arrivals: 30); pot_out 40 = shifts paid to residents 26 (final balances by resident: Bram 7, Sélie 3, Nilo 16) + meals paid 14; payments by project: {"raft": 19, "shelter": 7}.
 - No negative value in the ledger: yes; the pot never went below 0; all 30 evening summaries in the Book carry their "Ledger:" line.
 - Company at zero: 298 resident-ticks out of 2160 (target: under 300).
+
+POT MEAL THRESHOLD (MEAL_POT_MIN = 5, commit 694dc89) — final confirmation sweep, spark, 2026-10-25
+Tests first: test_sim.py 29/29 passed, including test_the_pot_keeps_a_reserve_for_work_shifts and test_an_empty_pot_does_not_stop_the_shared_meal.
+- Pot curve, balance at end of day: start 12; D1 10, D2 11, D3 8, D4 6, D5 6, D6 4, D7 3, D8 3, D9 3, D10 2, D11 1, D12 1, D13 1, D14 1, D15 1, D16 1, D17 1, D18 2, D19 3, D20 4, D21 5, D22 5, D23 5, D24 5, D25 5, D26 5, D27 5, D28 5, D29 5, D30 6; end 6.
+- End-of-day minimum: 1 (days 11 to 17); absolute minimum (per tick): 1; maximum: 13; ticks with the pot at 0: 0; days ending at 0: none — the closing criterion is met.
+- Shared meals: 21 served (including 6 feasts, always tied to full stores), 9 paid 1 shell by the pot, 12 served while the pot was at or under the reserve of 5 — a low pot never blocked a meal, and no meal was ever paid at or under the reserve (threshold violations: none).
+- Shifts paid by the pot: 27 shells earned by residents over the 30 days.
+- Ledger totals: pot_in 30 (= morning stone arrivals: 30); pot_out 36 = shifts paid 27 + meals paid 9. Pot chain verified day by day: each archived balance = the previous day's balance + pot_in − pot_out, 30 out of 30 days; final balance reconciled with the current day's ledger: yes. No negative value in the pot, the stores, the shells or the ledger: yes.
+- Company at zero: 298 resident-ticks out of 2160 (target: under 300 — met).
+- Verdict: with the reserve in place, the pot never touches 0 over 30 days, and meals are never blocked. The topic "what the pot buys" can be closed.
