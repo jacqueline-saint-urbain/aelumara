@@ -61,7 +61,7 @@ ADMIRES = {"Nilo": "Bram", "Bram": "Sélie", "Sélie": "Nilo"}  # SOCIETY.md: th
 BARTER_ON = False  # evening barter, switched off 2026-10-26 until Spark and Claude finish the economy reflection (box 00_Inbox)
 BARTER_PRICE = 3  # evening barter: shells paid into the pot for one item
 GIFT_COMPANY = 15  # a gift at the fire: company for the giver and the receiver
-FAR_ISLAND = {"center": [0, -136], "radius": 236, "shape": "long"}  # owner 2026-10-26: long irregular island ~470 x 170 m, ~22 m of sea from home; radius = half length
+FAR_ISLAND = {"center": [0, -150], "radius": 236, "shape": "long"}  # owner 2026-10-26: long irregular island ~470 x 170 m, ~36 m of sea from home; radius = half length
 
 
 def new_shelter():

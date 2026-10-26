@@ -841,7 +841,7 @@ def test_the_far_island_is_migrated_to_its_enlarged_size():
                         {"id": "far", "name": "Horizon Island", "center": [0, -95], "radius": 45, "discovered": False}]
     engine.Sim(state, make_book())
     far = state["regions"][1]
-    assert far["center"] == [0, -136] and far["radius"] == 236 and far["shape"] == "long"
+    assert far["center"] == [0, -150] and far["radius"] == 236 and far["shape"] == "long"
     assert far["discovered"] is False and state["regions"][0]["radius"] == 20
 
 

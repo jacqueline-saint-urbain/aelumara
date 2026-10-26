@@ -389,6 +389,7 @@ const LONG = (() => {
 })();
 
 const FAR = { key: null, obj: null };
+const FAR_CENTER = [0, -150];  // same as FAR_ISLAND in sim.py: about 36 m of sea between the two islands
 function farIsland(region) {
   const key = JSON.stringify(region.center);
   if (FAR.key === key) return FAR.obj;
@@ -442,7 +443,9 @@ function farIsland(region) {
     if (L.riverDist(x, z) < 4) continue; const k = KIT.rocks(i % 2 ? '#9e9e9e' : '#a1887f'); k.position.set(x, L.groundY(x, z), z); k.rotation.y = rand() * 6.28; k.scale.setScalar(1 + rand() * 1.2); g.add(k); }
   scatter(45, (x, z) => L.onBeach(x, z) && L.riverDist(x, z) > 3, (x, z, i) => { const sh = KIT.shell(i % 3 ? '#f8bbd0' : '#fff3e0'); sh.position.set(x, 0.05, z); sh.rotation.y = rand() * 6.28; g.add(sh); });
   const out = bake(g, false);
-  out.position.set(region.center[0], 0, region.center[1]);
+  // The long shape needs its own spot: use it even before sim.py has migrated state.json, so the islands never overlap.
+  const c = region.shape === 'long' ? region.center : FAR_CENTER;
+  out.position.set(c[0], 0, c[1]);
   FAR.key = key; FAR.obj = out;
   return out;
 }
@@ -601,7 +604,7 @@ $('chatForm').onsubmit = async (ev) => {
 // ---------------- camera ----------------
 let follow = -1; let tween = null;
 function flyTo(pos, target) { tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: new THREE.Vector3(...pos), t1: new THREE.Vector3(...target), k: 0 }; }
-const VIEWS = { overview: [[0, 20, 30], [0, 0, 0]], top: [[0, 52, 0.1], [0, 0, 0]], horizon: [[0, 14, 18], [0, 2, -110]] };
+const VIEWS = { overview: [[0, 20, 30], [0, 0, 0]], top: [[0, 52, 0.1], [0, 0, 0]], horizon: [[0, 14, 18], [0, 2, -120]] };
 document.querySelectorAll('[data-view]').forEach((b) => b.onclick = () => { follow = -1; $('btnFollow').classList.remove('on'); flyTo(...VIEWS[b.dataset.view]); });
 $('btnFollow').onclick = () => {
   if (!followables.length) return; follow = (follow + 1) % (followables.length + 1);
