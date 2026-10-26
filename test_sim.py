@@ -3,8 +3,8 @@
 Written by spark under the role split adopted 2026-10-25: every rule the
 engine claims to enforce gets a test, and a rule counts as done only when
 its test passes. The three rule families covered here are the ones named
-in the room: raft completion, the evening fire (le feu du soir), and the
-morning stone shell (la pierre du matin) — plus the shared-project shell
+in the room: raft completion, the evening fire, and the
+morning stone shell — plus the shared-project shell
 payment from SOCIETY.md §4.
 
 Run from the repo root:  python3 -m pytest test_sim.py -v
@@ -79,7 +79,7 @@ def make_state(npcs, projects=None, pot=12):
 
 
 def make_book():
-    return {"title": "Le Livre de l'île", "entries": []}
+    return {"title": "The Book of the Island", "entries": []}
 
 
 def run_tick(sim_obj, when):
@@ -93,7 +93,7 @@ def entries(book, kind):
 # ---------------------------------------------------------------- raft ---
 
 def raft_project(have):
-    return {"id": "raft", "name": "radeau", "type": "raft", "pos": [0, 5],
+    return {"id": "raft", "name": "raft", "type": "raft", "pos": [0, 5],
             "status": "building", "needs": {"wood": 30, "fiber": 12}, "have": have}
 
 
@@ -369,7 +369,7 @@ def test_no_provisions_before_enough_food_or_before_the_raft_is_built():
 
 
 # --------------------------------------------------------------- ledger ---
-# Registre du jour (SOCIETY.md §4, agreed in #aelumara 2026-10-25): each
+# Daily ledger (SOCIETY.md §4, agreed in #aelumara 2026-10-25): each
 # island day the engine records stores in/out, deliveries to the shared
 # project and pot in/out; at day's end the day is archived with the pot
 # balance and each resident's shells. Nothing hidden: every food, wood or
@@ -433,8 +433,8 @@ def test_ledger_history_keeps_the_last_14_days():
 
 
 # -------------------------------------------------------------- shelter ---
-# « Le pot achète quoi » (#aelumara, 2026-10-25): once the raft is built the
-# pot only grows. The second shared project, l'abri (tech tree step 2),
+# "What the pot buys" (#aelumara, 2026-10-25): once the raft is built the
+# pot only grows. The second shared project, the shelter (tech tree step 2),
 # starts by itself; its work shifts are paid from the pot again. The pot
 # also pays 1 shell for each shared meal at the fire (the feast still
 # depends on full stores only).

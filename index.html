@@ -282,7 +282,7 @@ function render() {
     if (!e || !inDisc(e.pos)) continue;
     const o = (KIT[e.type] || fallback)(e.color || '#bbbbbb', e); o.rotation.y = Number(e.rot) || 0;
     o.scale.setScalar(Math.min(Math.max(Number(e.scale) || 1, 0.3), 3));
-    place(o, e.pos, { title: e.label || e.type, body: [e.note, [e.type, e.by && 'par ' + e.by, e.added].filter(Boolean).join(' · ')] });
+    place(o, e.pos, { title: e.label || e.type, body: [e.note, [e.type, e.by && 'by ' + e.by, e.added].filter(Boolean).join(' · ')] });
   }
   for (const n of (state?.nodes || [])) {
     if (!inDisc(n.pos)) continue;
@@ -291,7 +291,7 @@ function render() {
   }
   for (const p of (state?.projects || [])) {
     const pr = p.status === 'done' ? 100 : progressOf(p); const o = (p.type === 'shelter' ? shelter : raft)(pr);
-    place(o, p.pos, { title: `Le ${p.name} — ${pr} %`, body: Object.entries(p.needs).map(([r, q]) => `${r === 'wood' ? 'Bois' : r === 'fiber' ? 'Fibres' : r} : ${p.have[r] || 0}/${q}`) });
+    place(o, p.pos, { title: `The ${p.name} — ${pr}%`, body: Object.entries(p.needs).map(([r, q]) => `${r === 'wood' ? 'Wood' : r === 'fiber' ? 'Fiber' : r}: ${p.have[r] || 0}/${q}`) });
     const tag = textSprite(`${p.type === 'shelter' ? '🛖' : '🛶'} ${p.name} ${pr} %`, { size: 0.5 }); tag.position.set(p.pos[0], 2.6, p.pos[1]); dyn.add(tag);
   }
   for (const npc of (state?.npcs || [])) {
@@ -319,7 +319,7 @@ function render() {
 let drawerTab = null;
 const bar = (v, max, color) => `<div class="bar"><i style="width:${Math.max(0, Math.min(100, 100 * v / max))}%;background:${color}"></i></div>`;
 function dashHTML() {
-  const s = data.state; if (!s) return '<p>Pas encore de simulation.</p>';
+  const s = data.state; if (!s) return '<p>No simulation yet.</p>';
   const parts = [];
   for (const p of s.projects) {
     const pr = p.status === 'done' ? 100 : progressOf(p);
@@ -333,10 +333,10 @@ function dashHTML() {
     <div class="row muted"><span>Hunger</span><span>${n.needs.hunger}</span></div>${bar(n.needs.hunger, 100, n.needs.hunger > 60 ? 'var(--bad)' : 'var(--warn)')}
     <div class="row muted"><span>Energy</span><span>${Math.round(n.needs.energy)}</span></div>${bar(n.needs.energy, 100, 'var(--ok)')}
     <div class="row muted"><span>Company</span><span>${n.needs.company == null ? '–' : Math.round(n.needs.company)}</span></div>${bar(n.needs.company ?? 0, 100, '#c77dff')}
-    <div class="muted">${esc(n.role || '')}${n.role ? ' · ' : ''}Delivered ${n.delivered || 0} resources · ${n.shells || 0} 🐚${n.say ? ' · « ' + esc(n.say) + ' »' : ''}</div></div>`);
+    <div class="muted">${esc(n.role || '')}${n.role ? ' · ' : ''}Delivered ${n.delivered || 0} resources · ${n.shells || 0} 🐚${n.say ? ' · “' + esc(n.say) + '”' : ''}</div></div>`);
   const nodes = s.nodes.filter((n) => n.resource);
   const sum = (r) => Math.floor(nodes.filter((n) => n.resource === r).reduce((a, n) => a + n.stock, 0));
-  parts.push(`<div class="card"><h3>🌿 Nature</h3><div class="row"><span>Bois sur pied</span><span>${sum('wood')}</span></div><div class="row"><span>Baies</span><span>${sum('food')}</span></div><div class="row"><span>Fibres</span><span>${sum('fiber')}</span></div></div>`);
+  parts.push(`<div class="card"><h3>🌿 Nature</h3><div class="row"><span>Standing wood</span><span>${sum('wood')}</span></div><div class="row"><span>Berries</span><span>${sum('food')}</span></div><div class="row"><span>Fiber</span><span>${sum('fiber')}</span></div></div>`);
   return parts.join('');
 }
 function bookHTML() {

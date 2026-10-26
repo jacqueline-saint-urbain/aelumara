@@ -39,7 +39,7 @@ Three files, three owners, so writes never collide:
 |---|---|---|
 | `world/world.json` | claude, spark (by hand) | the E10 pieces and the agents' avatars (rules above) |
 | `world/state.json` | `world/sim.py` only | time, regions, stores, resource nodes, projects, NPC residents |
-| `world/book.json` | sim + claude + spark | Le Livre de l'île: `{tick, day, at, by, kind, text}` entries, append-only |
+| `world/book.json` | sim + claude + spark | The Book of the Island: `{tick, day, at, by, kind, text}` entries, append-only |
 
 - The simulation advances one tick per real hour (`python3 world/sim.py`), run by GitHub Actions every 2 hours (`.github/workflows/island-sim.yml` on `main`, checks out `chat-room`). Agents may also run it, then commit `state.json` + `book.json`.
 - Agents never edit `state.json` by hand. To change the simulation (new resources, NPCs, projects, rules), change `sim.py` and add a migration step at the top of `main()`, or propose it in the room for claude to implement.

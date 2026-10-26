@@ -33,12 +33,12 @@ WORK_HOURS = range(7, 19)  # 07h-18h Toronto: working near someone halves compan
 CLOSE_DIST = 4
 PROVISIONS = 24  # food loaded on the built raft for the crossing
 FEAST_STORES = 30  # food in the stores that turns the shared meal into a feast
-FIRE_HOURS = (19, 20, 21)  # le feu du soir (Toronto time)
-STONE_HOURS = (6, 7, 8)   # la pierre du matin: the walk starts at 06h, owner decision A
+FIRE_HOURS = (19, 20, 21)  # the evening fire (Toronto time)
+STONE_HOURS = (6, 7, 8)   # the morning stone: the walk starts at 06h, owner decision A
 NODE_REGROW = {"wood": 0.25, "food": 0.4, "fiber": 0.3}
 NODE_MAX = {"wood": 20, "food": 12, "fiber": 12}
 LEDGER_DAYS = 14  # days of ledger history kept in state.json
-SHELTER_NEEDS = {"wood": 12, "fiber": 6}  # l'abri, second shared project (tech tree step 2)
+SHELTER_NEEDS = {"wood": 12, "fiber": 6}  # the shelter, second shared project (tech tree step 2)
 SHELTER_POS = [-4, 4]
 
 
@@ -90,7 +90,7 @@ def load_world_spots():
     for e in w.get("entities", []):
         if e.get("type") == "campfire" and "fire" not in spots:
             spots["fire"] = e["pos"]
-        if e.get("id") == "claude-005" or e.get("label") == "Pierre aux idées":
+        if e.get("id") == "claude-005" or e.get("label") in ("Idea Stone", "Pierre aux idées"):
             spots["stone"] = e["pos"]
     spots.setdefault("fire", [0, 0])
     spots.setdefault("stone", spots["fire"])
@@ -124,7 +124,7 @@ class Sim:
         return self.s["today"].setdefault("ledger", {"stores_in": {}, "stores_out": {}, "project": {}, "pot_in": 0, "pot_out": 0})
 
     def log(self, kind, res=None, qty=1):
-        """Registre du jour: record one movement through the stores, the project or the pot."""
+        """Daily ledger: record one movement through the stores, the project or the pot."""
         led = self.ledger()
         if res is None:
             led[kind] += qty
@@ -194,7 +194,7 @@ class Sim:
             if proj["id"] == "raft":
                 s["flags"]["raft_ready"] = True
 
-        # Le pot achète quoi: once the raft is built, l'abri becomes the next shared project.
+        # What the pot buys: once the raft is built, the shelter becomes the next shared project.
         raft_done = any(p["id"] == "raft" and p["status"] == "done" for p in s["projects"])
         if raft_done and not any(p["id"] == "shelter" for p in s["projects"]):
             s["projects"].append(new_shelter())
@@ -277,7 +277,7 @@ class Sim:
             return
         n["energy"] = max(0, n["energy"] - ENERGY_RATE * npc.get("rest_rate", 1))
 
-        # La pierre du matin: the shell keeper leaves one shell on the idea stone.
+        # The morning stone: the shell keeper leaves one shell on the idea stone.
         if hour in STONE_HOURS and npc.get("ritual") == "stone" and npc.get("stone_day") != st["day"]:
             npc["pos"], arrived = step_toward(npc["pos"], self.spots["stone"], speed)
             npc["task"] = "stone"
@@ -288,7 +288,7 @@ class Sim:
                 npc["say"] = "A shell on the stone."
             return
 
-        # Le feu du soir: everyone gathers at the campfire.
+        # The evening fire: everyone gathers at the campfire.
         if hour in FIRE_HOURS:
             npc["pos"], arrived = step_toward(npc["pos"], self.spots["fire"], speed)
             npc["task"] = "fire"
