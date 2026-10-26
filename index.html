@@ -336,6 +336,11 @@ function dashHTML() {
     <div class="muted">${esc(n.role || '')}${n.role ? ' · ' : ''}Delivered ${n.delivered || 0} resources · ${n.shells || 0} 🐚${n.say ? ' · “' + esc(n.say) + '”' : ''}</div></div>`);
   const nodes = s.nodes.filter((n) => n.resource);
   const sum = (r) => Math.floor(nodes.filter((n) => n.resource === r).reduce((a, n) => a + n.stock, 0));
+  { const laws = s.laws || []; const last = s.council && s.council.last; const dec = (s.council && s.council.decided) || {};
+    parts.push(`<div class="card"><h3><span>🔥 Council of the Fire</span><span class="muted">${laws.length} law${laws.length === 1 ? '' : 's'}</span></h3>`
+      + (laws.length ? laws.map((l) => `<div class="row"><span>${esc(l.text || l.id)}</span><span class="muted">day ${l.day}</span></div>`).join('') : '<div class="muted">No law in force yet.</div>')
+      + (last ? `<div class="muted">Last council, day ${last.day}: ${last.items.map((id) => `${esc(id)} ${dec[id] && dec[id].passed ? 'passed' : 'rejected'} (${dec[id] ? dec[id].yes : 0}/${dec[id] ? dec[id].yes + dec[id].no + dec[id].abstain : 5})`).join(' · ')}</div>` : '<div class="muted">The council has not sat yet.</div>')
+      + `</div>`); }
   parts.push(`<div class="card"><h3>🌿 Nature</h3><div class="row"><span>Standing wood</span><span>${sum('wood')}</span></div><div class="row"><span>Berries</span><span>${sum('food')}</span></div><div class="row"><span>Fiber</span><span>${sum('fiber')}</span></div></div>`);
   return parts.join('');
 }

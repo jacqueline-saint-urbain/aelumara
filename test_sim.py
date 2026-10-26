@@ -524,3 +524,103 @@ def test_the_pot_keeps_a_reserve_for_work_shifts():
     engine.Sim(state, book).evening_fire()
     assert state["pot"] == engine.MEAL_POT_MIN
     assert state["stores"]["food"] == pytest.approx(4.0, abs=0.01)
+
+
+# -------------------------------------------------------------- council ---
+# Council of the Fire v1 (#ile-politique, 2026-10-25). Agents put items on
+# the Idea Stone in proposals.json; the engine alone writes state.json.
+# Each evening, after the summary, the council reads up to 3 open items.
+# Residents vote from their lowest need (wellbeing = 100 - hunger, energy,
+# company): yes if the item raises it, no if it lowers it, else abstain.
+# Agents vote in proposals.json; a missing agent vote is an abstention.
+# An item passes with 3 yes out of 5 seats. A passed law turns on its effect.
+
+def item(iid, effect, raises=(), lowers=(), votes=None):
+    return {"id": iid, "text": f"Law {iid}", "by": "spark", "effect": effect,
+            "raises": list(raises), "lowers": list(lowers), "votes": votes or {}}
+
+
+YES = {"vote": "yes", "reason": "test"}
+NO = {"vote": "no", "reason": "test"}
+
+
+def council_sim(items, needs=None):
+    state, book = fire_state()
+    for npc in state["npcs"]:
+        npc["needs"] = dict(needs or {"hunger": 10, "energy": 15, "company": 60})
+    state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
+    sim_obj = engine.Sim(state, book, proposals={"items": items})
+    return sim_obj, state, book
+
+
+def test_residents_vote_for_an_item_that_raises_their_lowest_need():
+    sim_obj, state, book = council_sim([item("l2", "no_work_below_20", raises=["energy"],
+                                             votes={"spark": YES})])
+    sim_obj.evening_fire()
+    result = state["council"]["decided"]["l2"]
+    assert result["yes"] == 4 and result["passed"] is True  # 3 residents + Spark
+    assert [l["effect"] for l in state["laws"]] == ["no_work_below_20"]
+    council = entries(book, "council")
+    assert len(council) == 1 and "passed" in council[0]["text"]
+
+
+def test_residents_vote_against_an_item_that_lowers_their_lowest_need():
+    sim_obj, state, book = council_sim([item("x", "launch_ritual", lowers=["energy"],
+                                             votes={"spark": YES, "claude": YES})])
+    sim_obj.evening_fire()
+    result = state["council"]["decided"]["x"]
+    assert (result["yes"], result["no"]) == (2, 3)
+    assert result["passed"] is False
+    assert state.get("laws", []) == []
+
+
+def test_indifferent_residents_abstain_and_two_agents_are_not_a_majority():
+    sim_obj, state, book = council_sim([item("l1", "common_wood", votes={"spark": YES, "claude": YES})])
+    sim_obj.evening_fire()
+    result = state["council"]["decided"]["l1"]
+    assert (result["yes"], result["no"], result["abstain"]) == (2, 0, 3)
+    assert result["passed"] is False
+
+
+def test_council_reads_at_most_three_items_and_each_only_once():
+    items = [item(f"i{k}", "common_wood") for k in range(5)]
+    sim_obj, state, book = council_sim(items)
+    sim_obj.evening_fire()
+    assert sorted(state["council"]["decided"]) == ["i0", "i1", "i2"]
+    sim_obj.evening_fire()
+    assert sorted(state["council"]["decided"]) == ["i0", "i1", "i2", "i3", "i4"]
+    assert len(entries(book, "council")) == 2
+
+
+def test_law_no_work_below_20_stops_project_work_but_not_eating():
+    proj = raft_project({})
+    bram = make_npc("npc-1", "Bram", pos=[-12, -8], needs={"hunger": 10, "energy": 100, "company": 15})
+    state = make_state([bram, sleeper("npc-2", "Sélie"), sleeper("npc-3", "Nilo")], projects=[proj])
+    state["laws"] = [{"id": "l2", "effect": "no_work_below_20", "text": "", "day": 1}]
+    sim_obj = engine.Sim(state, make_book(), proposals={"items": []})
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))  # 10h Toronto
+    assert bram["task"] == "rest"
+    assert bram["carry"] == {}
+    # Survival is never blocked: a hungry resident still eats from the stores.
+    bram["needs"]["hunger"] = 70
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 15, 0, tzinfo=UTC))
+    assert bram["task"] == "eat"
+
+
+def test_without_the_law_a_tired_resident_still_works():
+    proj = raft_project({})
+    bram = make_npc("npc-1", "Bram", pos=[-12, -8], needs={"hunger": 10, "energy": 100, "company": 15})
+    state = make_state([bram, sleeper("npc-2", "Sélie"), sleeper("npc-3", "Nilo")], projects=[proj])
+    sim_obj = engine.Sim(state, make_book(), proposals={"items": []})
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))
+    assert bram["task"].startswith("gather_")
+
+
+def test_law_launch_ritual_lifts_company_of_those_present_at_the_launch():
+    bram = make_npc("npc-1", "Bram", pos=[0, 5], carry={"wood": 1}, needs={"hunger": 0, "energy": 100, "company": 30})
+    state = make_state([bram, sleeper("npc-2", "Sélie"), sleeper("npc-3", "Nilo")],
+                       projects=[raft_project({"wood": 29, "fiber": 12})], pot=0)
+    state["laws"] = [{"id": "l3", "effect": "launch_ritual", "text": "", "day": 1}]
+    run_tick(engine.Sim(state, make_book(), proposals={"items": []}), dt.datetime(2026, 10, 25, 19, 0, tzinfo=UTC))
+    assert bram["needs"]["company"] == pytest.approx(30 - 1 + engine.LAUNCH_COMPANY)
+    assert state["npcs"][1]["needs"]["company"] == pytest.approx(49.5)  # asleep far away (next to Nilo): not present

@@ -21,6 +21,7 @@ import random
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATE = os.path.join(HERE, "state.json")
 BOOK = os.path.join(HERE, "book.json")
+PROPOSALS = os.path.join(HERE, "proposals.json")  # the Idea Stone: written by agents, read by the engine
 TZ_OFFSET_HOURS = -4  # America/Toronto (EDT); only used for night hours
 MAX_TICKS = 48
 SPEED = 6.0  # map units per tick
@@ -40,6 +41,11 @@ NODE_MAX = {"wood": 20, "food": 12, "fiber": 12}
 LEDGER_DAYS = 14  # days of ledger history kept in state.json
 SHELTER_NEEDS = {"wood": 12, "fiber": 6}  # the shelter, second shared project (tech tree step 2)
 SHELTER_POS = [-4, 4]
+COUNCIL_ITEMS = 3  # items the council reads per evening
+COUNCIL_SEATS = ("spark", "claude")  # agent seats; the residents sit too
+LAW_FLOOR = 20  # law no_work_below_20: no project work while a need is below this
+LAUNCH_COMPANY = 20  # law launch_ritual: company gained by those present at a launch
+LAUNCH_DIST = 6
 MEAL_POT_MIN = 5  # the pot pays the shared meal only above this reserve, kept for work shifts
 
 
@@ -99,9 +105,10 @@ def load_world_spots():
 
 
 class Sim:
-    def __init__(self, state, book):
+    def __init__(self, state, book, proposals=None):
         self.s = state
         self.book = book
+        self.proposals = proposals if proposals is not None else {"items": []}
         self.events = []
         self.spots = load_world_spots()
 
@@ -136,6 +143,49 @@ class Sim:
         s = self.s
         led = dict(self.ledger(), day=day, pot=s["pot"], shells={n["name"]: n.get("shells", 0) for n in s["npcs"]})
         s["ledgers"] = (s.get("ledgers", []) + [led])[-LEDGER_DAYS:]
+
+    # ---------- council of the fire ----------
+    def law(self, effect):
+        return any(l["effect"] == effect for l in self.s.get("laws", []))
+
+    @staticmethod
+    def wellbeing(npc):
+        n = npc["needs"]
+        return {"food": 100 - n["hunger"], "energy": n["energy"], "company": n["company"]}
+
+    def resident_vote(self, npc, it):
+        w = self.wellbeing(npc)
+        lowest = min(w, key=w.get)
+        if lowest in it.get("raises", []):
+            return "yes"
+        if lowest in it.get("lowers", []):
+            return "no"
+        return "abstain"
+
+    def council(self):
+        s = self.s
+        c = s.setdefault("council", {"decided": {}, "last": None})
+        agenda = [it for it in self.proposals.get("items", []) if it["id"] not in c["decided"]][:COUNCIL_ITEMS]
+        if not agenda:
+            return
+        lines = []
+        for it in agenda:
+            votes = {npc["name"]: self.resident_vote(npc, it) for npc in s["npcs"]}
+            reasons = {}
+            for seat in COUNCIL_SEATS:
+                v = it.get("votes", {}).get(seat) or {}
+                votes[seat] = v.get("vote") if v.get("vote") in ("yes", "no") else "abstain"
+                if v.get("reason"):
+                    reasons[seat] = v["reason"]
+            tally = {k: sum(1 for x in votes.values() if x == k) for k in ("yes", "no", "abstain")}
+            passed = tally["yes"] > (len(s["npcs"]) + len(COUNCIL_SEATS)) // 2
+            c["decided"][it["id"]] = dict(tally, passed=passed, day=s["day"], votes=votes)
+            if passed:
+                s.setdefault("laws", []).append({"id": it["id"], "text": it.get("text", ""), "effect": it.get("effect"), "day": s["day"]})
+            why = "; ".join(f"{k}: {r.rstrip('.')}" for k, r in reasons.items())
+            lines.append(f"\"{it.get('text', it['id'])}\" {'passed' if passed else 'rejected'} ({tally['yes']} yes, {tally['no']} no, {tally['abstain']} abstain){'. ' + why if why else ''}.")
+        c["last"] = {"day": s["day"], "items": [it["id"] for it in agenda]}
+        self.chronicle("The Council of the Fire sits. " + " ".join(lines), "council")
 
     def active_project(self):
         return next((p for p in self.s["projects"] if p["status"] == "building"), None)
@@ -187,6 +237,10 @@ class Sim:
             proj["status"] = "done"
             proj["done_tick"] = s["tick"]
             present = ", ".join(n["name"] for n in s["npcs"])
+            if self.law("launch_ritual"):  # the first step: those present share the launch
+                for n in s["npcs"]:
+                    if dist(n["pos"], proj["pos"]) <= LAUNCH_DIST:
+                        n["needs"]["company"] = min(100, n["needs"]["company"] + LAUNCH_COMPANY)
             if proj["id"] == "shelter":
                 self.chronicle(f"First step. The {proj['name']} stands by the fire, roofed with fiber, and {present} stack the first dry wood under it.", "launching")
                 s["flags"]["shelter_ready"] = True
@@ -244,6 +298,7 @@ class Sim:
         line += " " + self.ledger_line()
         st["fires"] = st.get("fires", 0) + (1 if names else 0)
         self.chronicle(line, "summary")
+        self.council()
 
     def ledger_line(self):
         led = self.ledger()
@@ -318,11 +373,14 @@ class Sim:
                     npc["say"] = "Berries!"
                 return
 
+        # Law no_work_below_20: no project work while any need is low; survival above stays allowed.
+        resting = self.law("no_work_below_20") and min(self.wellbeing(npc).values()) < LAW_FLOOR
+
         # Carrying something: bring it where it is needed.
         carry = npc["carry"]
         if carry:
             res, qty = next(iter(carry.items()))
-            proj = self.active_project()
+            proj = None if resting else self.active_project()
             dest = proj["pos"] if proj and res in self.missing(proj) else self.node("stores")["pos"]
             npc["pos"], arrived = step_toward(npc["pos"], dest, speed)
             npc["task"] = "deliver"
@@ -342,6 +400,11 @@ class Sim:
                 npc["carry"] = {}
                 npc["delivered"] = npc.get("delivered", 0) + qty
                 st["today"]["delivered"] += qty
+            return
+
+        if resting:
+            npc["task"] = "rest"
+            npc["say"] = "Not today. I need to get my strength back."
             return
 
         # Choose work: what the project lacks, else food for the stores.
@@ -396,13 +459,14 @@ def main():
     if state is None:
         raise SystemExit("world/state.json missing")
     book = load(BOOK, {"title": "The Book of the Island", "entries": []})
+    proposals = load(PROPOSALS, {"items": []})
 
     now = dt.datetime.fromisoformat(args.now.replace("Z", "+00:00")) if args.now else dt.datetime.now(dt.timezone.utc)
     last = dt.datetime.fromisoformat(state["time"].replace("Z", "+00:00"))
     n = args.ticks if args.ticks is not None else int((now - last).total_seconds() // 3600)
     n = max(0, min(MAX_TICKS, n))
 
-    sim = Sim(state, book)
+    sim = Sim(state, book, proposals)
     for i in range(n):
         when = last + dt.timedelta(hours=i + 1)
         rng = random.Random(state["seed"] * 100003 + state["tick"] + 1)
