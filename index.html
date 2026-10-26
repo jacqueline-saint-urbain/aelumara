@@ -211,6 +211,13 @@ function raft(progress) {
   if (progress < 100) { const frame = mesh(new THREE.BoxGeometry(3.8, 0.05, 4.2), mat('#ffd166', { transparent: true, opacity: 0.25 }), 0.05); g.add(frame); }
   return g;
 }
+function shelter(progress) {
+  const g = new THREE.Group(); const posts = Math.max(1, Math.round(progress / 100 * 4));
+  [[-1.2, -1], [1.2, -1], [1.2, 1], [-1.2, 1]].slice(0, posts).forEach(([x, z]) => { const p = mesh(new THREE.CylinderGeometry(0.1, 0.12, 1.8, 5), mat('#8d6e63'), 0.9); p.position.set(x, 0.9, z); g.add(p); });
+  if (progress >= 50) { const roof = mesh(new THREE.ConeGeometry(2.1, 1.1, 4), mat('#c9b458'), 2.3); roof.rotation.y = Math.PI / 4; g.add(roof); }
+  if (progress < 100) g.add(mesh(new THREE.BoxGeometry(2.8, 0.05, 2.4), mat('#ffd166', { transparent: true, opacity: 0.25 }), 0.05));
+  return g;
+}
 function person(color) {
   const g = new THREE.Group();
   g.add(mesh(new THREE.ConeGeometry(0.42, 1.1, 6), mat(color), 0.55));
@@ -283,9 +290,9 @@ function render() {
     place(o, n.pos, { title: n.label || ({ wood: 'Tree (wood)', food: 'Berry bush', fiber: 'Reeds (fiber)' }[res] || n.type), body: res ? [`Stock: ${Math.floor(n.stock)} ${res === 'wood' ? 'wood' : res === 'food' ? 'berries' : 'fiber'}`] : [] });
   }
   for (const p of (state?.projects || [])) {
-    const pr = p.status === 'done' ? 100 : progressOf(p); const o = raft(pr);
+    const pr = p.status === 'done' ? 100 : progressOf(p); const o = (p.type === 'shelter' ? shelter : raft)(pr);
     place(o, p.pos, { title: `Le ${p.name} — ${pr} %`, body: Object.entries(p.needs).map(([r, q]) => `${r === 'wood' ? 'Bois' : r === 'fiber' ? 'Fibres' : r} : ${p.have[r] || 0}/${q}`) });
-    const tag = textSprite(`🛶 ${p.name} ${pr} %`, { size: 0.5 }); tag.position.set(p.pos[0], 2.6, p.pos[1]); dyn.add(tag);
+    const tag = textSprite(`${p.type === 'shelter' ? '🛖' : '🛶'} ${p.name} ${pr} %`, { size: 0.5 }); tag.position.set(p.pos[0], 2.6, p.pos[1]); dyn.add(tag);
   }
   for (const npc of (state?.npcs || [])) {
     if (!inDisc(npc.pos)) continue;
@@ -316,7 +323,8 @@ function dashHTML() {
   const parts = [];
   for (const p of s.projects) {
     const pr = p.status === 'done' ? 100 : progressOf(p);
-    parts.push(`<div class="card"><h3><span>🛶 ${esc(p.name)}</span><span>${pr} %</span></h3>${bar(pr, 100, 'var(--accent)')}${Object.entries(p.needs).map(([r, q]) => `<div class="row muted"><span>${r === 'wood' ? 'Wood' : 'Fiber'}</span><span>${p.have[r] || 0} / ${q}</span></div>`).join('')}<div class="muted">${p.status === 'done' ? 'Finished — ready to sail.' : 'Under construction on the north beach.'}</div></div>`);
+    const sh = p.type === 'shelter';
+    parts.push(`<div class="card"><h3><span>${sh ? '🛖' : '🛶'} ${esc(p.name)}</span><span>${pr} %</span></h3>${bar(pr, 100, 'var(--accent)')}${Object.entries(p.needs).map(([r, q]) => `<div class="row muted"><span>${r === 'wood' ? 'Wood' : 'Fiber'}</span><span>${p.have[r] || 0} / ${q}</span></div>`).join('')}<div class="muted">${sh ? (p.status === 'done' ? 'Finished — dry wood under cover.' : 'Under construction by the fire; shifts paid from the pot.') : (p.status === 'done' ? 'Finished — ready to sail.' : 'Under construction on the north beach.')}</div></div>`);
   }
   parts.push(`<div class="card"><h3><span>🏚️ Stores</span><span class="muted">tick ${s.tick}</span></h3>${Object.entries(s.stores).map(([r, v]) => `<div class="row"><span>${r === 'food' ? '🫐 Food' : r === 'wood' ? '🪵 Wood' : '🌾 Fiber'}</span><span>${Math.floor(v)}</span></div>`).join('')}</div>`);
   parts.push(`<div class="card"><h3><span>🐚 Economy</span><span class="muted">shells</span></h3><div class="row"><span>Common pot</span><span>${s.pot ?? 0}</span></div>${s.npcs.map((n) => `<div class="row"><span>${esc(n.name)}</span><span>${n.shells || 0}</span></div>`).join('')}${ledgerRows(s.today && s.today.ledger)}<div class="muted">A work shift on a shared project earns 1 shell from the pot. Sélie leaves one on the stone every morning.</div></div>`);

@@ -401,7 +401,7 @@ def test_ledger_counts_food_used_by_the_shared_meal():
     sim_obj.evening_fire()
     assert ledger(state)["stores_out"] == {"food": 6}
     summary = entries(book, "summary")[-1]["text"]
-    assert "Ledger:" in summary and "pot +0 -0" in summary
+    assert "Ledger:" in summary and "pot +0 -1" in summary  # the pot pays the meal
 
 
 def test_ledger_closes_the_day_with_pot_and_shells():
@@ -430,3 +430,85 @@ def test_ledger_history_keeps_the_last_14_days():
         run_tick(sim_obj, dt.datetime(2026, 10, 26, 3, 0, tzinfo=UTC))
     assert len(state["ledgers"]) == 14
     assert state["ledgers"][-1]["day"] == 16
+
+
+# -------------------------------------------------------------- shelter ---
+# « Le pot achète quoi » (#aelumara, 2026-10-25): once the raft is built the
+# pot only grows. The second shared project, l'abri (tech tree step 2),
+# starts by itself; its work shifts are paid from the pot again. The pot
+# also pays 1 shell for each shared meal at the fire (the feast still
+# depends on full stores only).
+
+def test_shelter_project_starts_once_the_raft_is_done():
+    state, book = provisions_state(10)
+    sim_obj = engine.Sim(state, book)
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))
+    shelter = next(p for p in state["projects"] if p["id"] == "shelter")
+    assert shelter["status"] == "building"
+    assert shelter["needs"] == engine.SHELTER_NEEDS
+    assert sim_obj.active_project() is shelter
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 15, 0, tzinfo=UTC))
+    assert len([p for p in state["projects"] if p["id"] == "shelter"]) == 1
+    assert len([e for e in book["entries"] if "shelter" in e["text"]]) == 1
+
+
+def test_no_shelter_while_the_raft_is_building():
+    state, book = provisions_state(10, status="building")
+    state["projects"][0]["have"] = {"wood": 10}
+    run_tick(engine.Sim(state, book), dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))
+    assert not any(p["id"] == "shelter" for p in state["projects"])
+
+
+def test_shelter_shift_is_paid_from_the_pot_and_logged():
+    raft = raft_project({"wood": 30, "fiber": 12})
+    raft["status"] = "done"
+    shelter = dict(engine.new_shelter(), pos=[0, 5])
+    bram = make_npc("npc-1", "Bram", pos=[0, 5], carry={"wood": 2})
+    state = make_state([bram, sleeper("npc-2", "Sélie"), sleeper("npc-3", "Nilo")],
+                       projects=[raft, shelter], pot=20)
+    state["flags"]["raft_ready"] = True
+    book = make_book()
+    run_tick(engine.Sim(state, book), dt.datetime(2026, 10, 25, 19, 0, tzinfo=UTC))
+    assert shelter["have"] == {"wood": 2}
+    assert state["pot"] == 19
+    assert bram["shells"] == 1
+    assert state["today"]["ledger"]["project"] == {"wood": 2}
+
+
+def test_finished_shelter_gets_its_own_launching_entry():
+    raft = raft_project({"wood": 30, "fiber": 12})
+    raft["status"] = "done"
+    shelter = dict(engine.new_shelter(), pos=[0, 5])
+    shelter["have"] = {r: q for r, q in shelter["needs"].items()}
+    shelter["have"]["wood"] -= 1
+    bram = make_npc("npc-1", "Bram", pos=[0, 5], carry={"wood": 1})
+    state = make_state([bram, sleeper("npc-2", "Sélie"), sleeper("npc-3", "Nilo")],
+                       projects=[raft, shelter], pot=5)
+    state["flags"]["raft_ready"] = True
+    book = make_book()
+    run_tick(engine.Sim(state, book), dt.datetime(2026, 10, 25, 19, 0, tzinfo=UTC))
+    assert shelter["status"] == "done"
+    assert state["flags"]["shelter_ready"] is True
+    launch = entries(book, "launching")
+    assert len(launch) == 1 and "shelter" in launch[0]["text"] and "water" not in launch[0]["text"]
+
+
+def test_the_pot_pays_one_shell_for_the_shared_meal():
+    state, book = stone_state(FIRE)
+    state["stores"]["food"] = 10
+    state["pot"] = 5
+    state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
+    sim_obj = engine.Sim(state, book)
+    sim_obj.evening_fire()
+    assert state["pot"] == 4
+    assert state["today"]["ledger"]["pot_out"] == 1
+
+
+def test_an_empty_pot_does_not_stop_the_shared_meal():
+    state, book = stone_state(FIRE)
+    state["stores"]["food"] = 10
+    state["pot"] = 0
+    state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
+    engine.Sim(state, book).evening_fire()
+    assert state["pot"] == 0
+    assert state["stores"]["food"] == pytest.approx(4.0, abs=0.01)

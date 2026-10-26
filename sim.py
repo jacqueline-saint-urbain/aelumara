@@ -38,6 +38,13 @@ STONE_HOURS = (6, 7, 8)   # la pierre du matin: the walk starts at 06h, owner de
 NODE_REGROW = {"wood": 0.25, "food": 0.4, "fiber": 0.3}
 NODE_MAX = {"wood": 20, "food": 12, "fiber": 12}
 LEDGER_DAYS = 14  # days of ledger history kept in state.json
+SHELTER_NEEDS = {"wood": 12, "fiber": 6}  # l'abri, second shared project (tech tree step 2)
+SHELTER_POS = [-4, 4]
+
+
+def new_shelter():
+    return {"id": "shelter", "name": "shelter", "type": "shelter", "pos": list(SHELTER_POS),
+            "status": "building", "needs": dict(SHELTER_NEEDS), "have": {}}
 
 
 def load(path, default):
@@ -179,9 +186,19 @@ class Sim:
             proj["status"] = "done"
             proj["done_tick"] = s["tick"]
             present = ", ".join(n["name"] for n in s["npcs"])
-            self.chronicle(f"First step. The {proj['name']} is finished and slides into the water in front of {present}. It waits on the north beach, ready to sail for the island on the horizon.", "launching")
+            if proj["id"] == "shelter":
+                self.chronicle(f"First step. The {proj['name']} stands by the fire, roofed with fiber, and {present} stack the first dry wood under it.", "launching")
+                s["flags"]["shelter_ready"] = True
+            else:
+                self.chronicle(f"First step. The {proj['name']} is finished and slides into the water in front of {present}. It waits on the north beach, ready to sail for the island on the horizon.", "launching")
             if proj["id"] == "raft":
                 s["flags"]["raft_ready"] = True
+
+        # Le pot achète quoi: once the raft is built, l'abri becomes the next shared project.
+        raft_done = any(p["id"] == "raft" and p["status"] == "done" for p in s["projects"])
+        if raft_done and not any(p["id"] == "shelter" for p in s["projects"]):
+            s["projects"].append(new_shelter())
+            self.chronicle("With the raft built, the residents start a shelter by the fire: dry wood for the crossing, and work paid from the pot again.", "event")
 
         # Provisions for the crossing: the built raft takes food from the stores, once.
         raft = next((p for p in s["projects"] if p["id"] == "raft"), None)
@@ -210,6 +227,9 @@ class Sim:
             feast = st["stores"]["food"] >= FEAST_STORES
             st["stores"]["food"] = round(st["stores"]["food"] - 6, 2)
             self.log("stores_out", "food", 6)
+            if st["pot"] >= 1:  # the pot pays for the shared meal; an empty pot never stops it
+                st["pot"] -= 1
+                self.log("pot_out")
             for npc in st["npcs"]:
                 if npc["id"] in here:
                     npc["needs"]["company"] = min(100, npc["needs"]["company"] + (20 if feast else 10))
