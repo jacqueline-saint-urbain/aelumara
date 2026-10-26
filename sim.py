@@ -54,6 +54,7 @@ TEMPER_MIN_SPREAD = 0.15  # three near-identical temperaments would tell no stor
 LEAN_CLAMP = (0.05, 0.95)  # nobody becomes a machine
 IMITATE_RATE = 0.02  # each evening, 2% of the gap toward the admired person's reputation
 RECALL_RATE = 0.03  # each evening, 3% of the gap back toward one's own temperament (nature recalls)
+HABIT_RATE = 0.02  # each evening, 2% of the gap toward one's own acts of the last 14 days: one becomes what one does
 REPUTATION_DAYS = 14  # a reputation is the share of one's acts for the group over the last 14 days
 # Closed loop Nilo -> Bram -> Sélie -> Nilo: at equilibrium the spread of dispositions keeps
 # p / |1 - (1 - p) w| of the spread of temperaments, p = recall / (recall + imitate), w = e^(2i pi/3).
@@ -216,7 +217,7 @@ class Sim:
         return group
 
     def imitate(self, day):
-        """Socialisation: each evening, move toward the admired person's reputation, then back toward one's nature."""
+        """Socialisation: each evening, move toward the admired person's reputation and one's own acts, then back toward one's nature."""
         npcs = [n for n in self.s["npcs"] if "disposition" in n]
         seen = {}
         for n in npcs:
@@ -228,6 +229,9 @@ class Sim:
             d = n["disposition"]
             if group + alone:
                 d += IMITATE_RATE * (group / (group + alone) - d)
+            group, alone = seen[n["id"]]  # habit: hard times amplify the acts, the habit keeps their trace
+            if group + alone:
+                d += HABIT_RATE * (group / (group + alone) - d)
             d += RECALL_RATE * (n["temperament"] - d)
             n["disposition"] = round(min(LEAN_CLAMP[1], max(LEAN_CLAMP[0], d)), 4)
             n["choices"] = {"group": 0, "self": 0}
@@ -480,8 +484,9 @@ class Sim:
                 npc["fire_hour"] = hour
                 if npc["fire_choice"]:  # staying up tired: a short night
                     npc["short_night"] = True
-            if npc.get("fire_day") == st["day"] and not npc.get("fire_choice", True) and hour > npc.get("fire_hour", hour):
-                # One hour with the others, then good night, before the shared meal.
+            if npc.get("fire_day") == st["day"] and not npc.get("fire_choice", True) and (
+                    hour > npc.get("fire_hour", hour) or hour == FIRE_HOURS[-1]):
+                # One hour with the others, then good night, before the shared meal (at once in the last hour).
                 npc["task"] = "sleep"
                 npc["say"] = "Good night, all. I need my bed."
                 today = st["today"]

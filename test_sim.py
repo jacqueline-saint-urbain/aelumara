@@ -850,6 +850,18 @@ def test_imitation_follows_the_reputation_over_the_last_14_days():
     assert nilo["disposition"] == pytest.approx(expected, abs=1e-4)  # stored to 4 decimals
 
 
+def test_habit_moves_the_disposition_toward_ones_own_acts():
+    state = trait_state()
+    bram, selie, nilo = state["npcs"]
+    for n, adm in ((bram, "npc-2"), (selie, "npc-3"), (nilo, "npc-1")):
+        n.update(temperament=0.4, disposition=0.4, admires=adm, choices={"group": 0, "self": 0})
+    selie["choices"] = {"group": 3, "self": 1}  # Sélie's own day: 3 of 4 for the group
+    engine.Sim(state, make_book()).close_day(1)
+    expected = 0.4 + engine.HABIT_RATE * (0.75 - 0.4)  # Nilo, her model, made no choice: only habit and recall
+    expected += engine.RECALL_RATE * (0.4 - expected)
+    assert selie["disposition"] == pytest.approx(expected, abs=1e-4)
+
+
 def test_the_far_island_is_migrated_to_its_enlarged_size():
     state = barter_state(0, (0, 0, 0))
     state["regions"] = [{"id": "home", "center": [0, 0], "radius": 20},
@@ -897,6 +909,15 @@ def test_who_left_early_misses_the_shared_meal_and_is_named_in_the_summary():
     assert all(o["needs"]["company"] >= 60 for o in state["npcs"][1:])
     summary = entries(sim_obj.book, "summary")[-1]["text"]
     assert "Left early: Bram." in summary and "Absent: Bram" not in summary
+
+
+def test_a_self_choice_at_the_last_fire_hour_leaves_at_once_before_the_meal():
+    state, bram, sim_obj = fire_evening(0.99)
+    bram["fire_day"] = None
+    state["today"]["at_fire"].remove("npc-1")
+    sim_obj.act(bram, FixedRng(0.99), False, engine.FIRE_HOURS[-1])
+    assert bram["task"] == "sleep" and "npc-1" in state["today"]["left_fire"]
+    assert "npc-1" not in state["today"]["at_fire"]
 
 
 def sleep_night(sim_obj, npc, hours=8):
