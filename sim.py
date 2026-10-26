@@ -55,6 +55,7 @@ LEAN_CLAMP = (0.05, 0.95)  # nobody becomes a machine
 IMITATE_RATE = 0.05  # each evening, 5% of the gap toward what the admired person did that day
 RECALL_RATE = 0.02  # each evening, 2% of the gap back toward one's own temperament (nature recalls)
 TIRED_ENERGY = 30  # below this, finishing a delivery for the common project becomes a dilemma
+FIRE_TIRED = 50  # below half energy at the evening fire, staying is a choice (most evenings, for everyone: Spark's grid, 2026-10-26)
 GIVE_FLOOR = 80  # hunger at or above this is survival, never a choice (food wellbeing under LAW_FLOOR)
 ADMIRES = {"Nilo": "Bram", "Bram": "Sélie", "Sélie": "Nilo"}  # SOCIETY.md: the admiration loop
 BARTER_ON = False  # evening barter, switched off 2026-10-26 until Spark and Claude finish the economy reflection (box 00_Inbox)
@@ -190,8 +191,8 @@ class Sim:
 
     @staticmethod
     def lean_words(x):
-        return ("thinks of themself first" if x < 0.4 else "turns to the others first" if x > 0.6
-                else "weighs themself and the others")
+        return ("thinks of their own needs first" if x < 0.4 else "turns to the others first" if x > 0.6
+                else "weighs their own needs against the others'")
 
     @staticmethod
     def lean(npc):
@@ -223,7 +224,7 @@ class Sim:
             if day % 7 == 0:  # a weekly line in the Book only for a real change
                 before = n.get("disposition_week", n["disposition"])
                 if abs(n["disposition"] - before) > 0.1:
-                    way = "more toward the others" if n["disposition"] > before else "more toward themself"
+                    way = "more toward the others" if n["disposition"] > before else "more toward their own needs"
                     self.chronicle(f"Over the week, {n['name']} has turned {way}.", "event")
                 n["disposition_week"] = n["disposition"]
 
@@ -455,6 +456,14 @@ class Sim:
 
         # The evening fire: everyone gathers at the campfire.
         if hour in FIRE_HOURS:
+            # Dilemma, once an evening: tired, stay with the others at the fire or go to sleep now.
+            if n["energy"] < FIRE_TIRED and "disposition" in npc and npc.get("fire_day") != st["day"]:
+                npc["fire_day"] = st["day"]
+                npc["fire_choice"] = self.choose_group(npc, rng)
+            if npc.get("fire_day") == st["day"] and not npc.get("fire_choice", True):
+                npc["task"] = "sleep"
+                npc["say"] = "Not tonight. I need my bed."
+                return
             npc["pos"], arrived = step_toward(npc["pos"], self.spots["fire"], speed)
             npc["task"] = "fire"
             if arrived:

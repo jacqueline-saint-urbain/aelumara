@@ -846,3 +846,32 @@ def test_the_far_island_is_migrated_to_its_enlarged_size():
     assert far["discovered"] is False and state["regions"][0]["radius"] == 20
     gap = math.hypot(*far["center"]) - far["radius"] - 20
     assert 20 <= gap <= 40  # the crossing stays a short stretch of sea
+
+
+def fire_evening(value, energy=40):
+    state = trait_state()
+    bram = state["npcs"][0]
+    bram.update(temperament=0.5, disposition=0.5, admires="npc-2", pos=[0, 0])
+    bram["needs"]["energy"] = energy
+    sim_obj = engine.Sim(state, make_book())
+    sim_obj.act(bram, FixedRng(value), False, 19)
+    return state, bram, sim_obj
+
+
+def test_a_tired_resident_stays_at_the_fire_when_the_lean_says_group():
+    state, bram, _ = fire_evening(0.0)
+    assert bram["task"] == "fire" and "npc-1" in state["today"]["at_fire"]
+    assert bram["choices"] == {"group": 1, "self": 0}
+
+
+def test_a_tired_resident_goes_to_sleep_instead_of_the_fire_when_the_lean_says_self():
+    state, bram, sim_obj = fire_evening(0.99)
+    assert bram["task"] == "sleep" and "npc-1" not in state["today"]["at_fire"]
+    assert bram["choices"] == {"group": 0, "self": 1}
+    sim_obj.act(bram, FixedRng(0.0), False, 20)  # asked once per evening: the choice holds
+    assert bram["choices"] == {"group": 0, "self": 1}
+
+
+def test_no_fire_dilemma_for_a_rested_resident():
+    state, bram, _ = fire_evening(0.99, energy=90)
+    assert bram["task"] == "fire" and "choices" not in bram or bram["choices"] == {"group": 0, "self": 0}
