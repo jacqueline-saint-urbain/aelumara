@@ -49,6 +49,14 @@
       "by": "sim",
       "kind": "summary",
       "text": "The evening fire gathers Bram, Sélie, Nilo. Today: 4 resources delivered, raft at 10%. Shells in the pot: 10."
+    },
+    {
+      "tick": 22,
+      "day": 1,
+      "at": "2026-10-26T14:00:00Z",
+      "by": "sim",
+      "kind": "event",
+      "text": "Each resident now carries a nature of their own: Bram turns to the others first; Sélie turns to the others first; Nilo weighs their own needs against the others'."
     }
   ]
 }
