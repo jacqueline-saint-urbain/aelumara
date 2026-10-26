@@ -1,5 +1,5 @@
-PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur a8d21b0400fd405c8af24494c67c2d81fa6b56d5)
-Contexte : apres provisions ee95d55 - verification spark
+PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur bafbb9baaa0d5385a7d7e21cc9bff0de79279a07)
+Contexte : apres registre du jour f1cb5d0 - verification spark
 Course : 720 ticks = 30 jours d'île, fixture fraîche (voir en-tête de playtest_sweep.py), état vivant jamais touché.
 
 DÉCLENCHEMENTS PAR RÈGLE
@@ -39,9 +39,17 @@ FAITS SAILLANTS
 - Présences au feu par résident (sur 30 soirs) : {"npc-1": 28, "npc-2": 24, "npc-3": 30}.
 - Pierre du matin : 30 arrivées, sur 30 jours distincts.
 - Pot commun : min 3, max 23, fin 23 ; coquillages gagnés par les résidents : 19 ; après le radeau, le pot a encore gagné 20 (pierre du matin) sans aucune dépense possible.
-- Réserves à la fin : {"wood": 0, "fiber": 0, "food": 32.79} ; nourriture au plus bas : 0.13.
+- Réserves à la fin : {"wood": 0, "fiber": 0, "food": 32.79} ; nourriture au plus bas : 0.12.
 - Besoins observés (min/max) : faim 10/100, énergie 16.0/100, compagnie 0/100.
 - Tâches observées : {"deliver": 414, "eat": 180, "fire": 210, "forage": 46, "gather_fiber": 8, "gather_food": 375, "gather_wood": 57, "go_home": 125, "sleep": 655, "stone": 90}.
 - Stocks de nœuds au plus bas : {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 5.6, "food-3": 3.6, "wood-1": 20, "wood-2": 20, "wood-3": 18, "wood-4": 17, "wood-5": 13.25}.
 - État final : tick 720, jour 31, heure d'île 2026-11-25T03:00:00Z.
 
+REGISTRE DU JOUR (nouveau, commit f1cb5d0) — audit complet sur les 30 jours (harnais d'audit : les 30 journées conservées en mémoire, le moteur n'en garde que 14 en production)
+- Chaîne du pot vérifiée jour par jour : départ 12, fin 23, min 3, max 23 ; chaque solde archivé = solde de la veille + pot_in − pot_out, sans exception.
+- Pierre du matin : pot_in = 1 à chacun des 30 jours, total 30 — aucun jour manqué, aucun doublon.
+- Paiements : pot_out total 19 = coquillages finaux des résidents (Bram 4, Sélie 3, Nilo 12) ; les soldes par résident ne diminuent jamais.
+- Après le radeau (terminé jour 10) : pot_out = 0 chaque jour, le pot ne fait que monter, gain net +20 sur les jours 11 à 30 (pierre du matin seule).
+- Réserves réconciliées au centime : solde final = départ + entrées − sorties du registre pour bois, fibre et nourriture (écarts 0,00 partout) ; les sorties de réserves ne contiennent que de la nourriture.
+- Projet : la somme du registre « project » égale le contenu final du radeau (bois 30, fibre 12).
+- Aucune valeur négative nulle part dans le registre ; les 30 résumés du soir du Livre portent leur ligne « Ledger: ».
