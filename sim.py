@@ -476,6 +476,12 @@ class Sim:
                 npc["say"] = "A shell on the stone."
             return
 
+        # An hour before the fire, whoever is far sets off, unless hungry: walking used to eat the fire's hours.
+        if hour == FIRE_HOURS[0] - 1 and n["hunger"] < 60 and dist(npc["pos"], self.spots["fire"]) > speed:
+            npc["pos"], _ = step_toward(npc["pos"], self.spots["fire"], speed)
+            npc["task"] = "fire"
+            return
+
         # The evening fire: everyone gathers at the campfire.
         if hour in FIRE_HOURS:
             # Dilemma, once an evening: tired, stay with the others at the fire or go to sleep now.

@@ -920,6 +920,29 @@ def test_a_self_choice_at_the_last_fire_hour_leaves_at_once_before_the_meal():
     assert "npc-1" not in state["today"]["at_fire"]
 
 
+def before_the_fire(offset, hunger=0):
+    state = trait_state()
+    bram = state["npcs"][0]
+    sim_obj = engine.Sim(state, make_book())
+    fire = sim_obj.spots["fire"]
+    bram.update(pos=[fire[0] + offset, fire[1]])
+    bram["needs"]["hunger"] = hunger
+    sim_obj.act(bram, FixedRng(0.5), False, engine.FIRE_HOURS[0] - 1)
+    return bram, fire
+
+
+def test_far_from_the_fire_one_sets_off_an_hour_early():
+    bram, fire = before_the_fire(15)
+    assert bram["task"] == "fire" and engine.dist(bram["pos"], fire) < 15
+
+
+def test_close_to_the_fire_or_hungry_one_does_not_set_off_early():
+    bram, _ = before_the_fire(3)
+    assert bram["task"] != "fire"
+    bram, _ = before_the_fire(15, hunger=70)
+    assert bram["task"] != "fire"
+
+
 def sleep_night(sim_obj, npc, hours=8):
     for _ in range(hours):
         sim_obj.act(npc, FixedRng(0.5), True, 23)
