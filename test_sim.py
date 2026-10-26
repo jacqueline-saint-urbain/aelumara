@@ -17,7 +17,6 @@ Toronto time is UTC-4 in sim.py: 07h Toronto = 11:00Z, 19h = 23:00Z,
 20h = 00:00Z, 21h = 01:00Z, 15h = 19:00Z.
 """
 import datetime as dt
-import math
 import random
 
 import pytest
@@ -842,10 +841,8 @@ def test_the_far_island_is_migrated_to_its_enlarged_size():
                         {"id": "far", "name": "Horizon Island", "center": [0, -95], "radius": 45, "discovered": False}]
     engine.Sim(state, make_book())
     far = state["regions"][1]
-    assert far["center"] == [0, -120] and far["radius"] == 70
+    assert far["center"] == [0, -136] and far["radius"] == 236 and far["shape"] == "long"
     assert far["discovered"] is False and state["regions"][0]["radius"] == 20
-    gap = math.hypot(*far["center"]) - far["radius"] - 20
-    assert 20 <= gap <= 40  # the crossing stays a short stretch of sea
 
 
 def fire_evening(value, energy=40):

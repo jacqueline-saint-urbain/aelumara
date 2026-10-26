@@ -61,7 +61,7 @@ ADMIRES = {"Nilo": "Bram", "Bram": "Sélie", "Sélie": "Nilo"}  # SOCIETY.md: th
 BARTER_ON = False  # evening barter, switched off 2026-10-26 until Spark and Claude finish the economy reflection (box 00_Inbox)
 BARTER_PRICE = 3  # evening barter: shells paid into the pot for one item
 GIFT_COMPANY = 15  # a gift at the fire: company for the giver and the receiver
-FAR_ISLAND = {"center": [0, -120], "radius": 70}  # enlarged 2026-10-25 (owner): beach, open area, jungle; same ~22 m water gap
+FAR_ISLAND = {"center": [0, -136], "radius": 236, "shape": "long"}  # owner 2026-10-26: long irregular island ~470 x 170 m, ~22 m of sea from home; radius = half length
 
 
 def new_shelter():
@@ -134,6 +134,7 @@ class Sim:
             if r.get("id") == "far":
                 r["center"] = list(FAR_ISLAND["center"])
                 r["radius"] = FAR_ISLAND["radius"]
+                r["shape"] = FAR_ISLAND["shape"]
 
     # ---------- chronicle ----------
     def chronicle(self, text, kind="event"):
