@@ -205,3 +205,42 @@ PRESSURE AMPLIFICATION
 - Across the 24 grid runs: 2,006 dilemmas, 1,333 of them in the pressure zone (a need below the floor), 0 cases of amplification in the wrong direction, mean extra shift +0.090 toward the resident's own side. The amplification rule still points each resident toward their own temperament.
 
 CROSS-CHECKS against Claude's quick run on the same engine: final spread 0.131 (his 0.131), company at zero 468 (his 468), early departures 13 (his 12 — a counting difference on the 21h edge case).
+
+PLAYTEST SWEEP — Aelúmara, sim.py engine (aelumara repository, engine commit fdc2e05)
+Context: traits, third tuning (#ile-economie decision n°34) — Spark's three-part grid. Engine test suite: 61 passed. BARTER_ON is still False. The tuning under test: HABIT_RATE = 0.02 toward one's own acts of the last 14 days, evening order imitation -> habit -> recall (0.03), and a "self" choice at 21h now leaves at once, before the meal.
+Run: 112 runs of 720 ticks from the REAL state of main (tick 26, day 2, pot 8), everything in memory; the live state is never touched. Design: for each resident as target, a full factorial own temperament {0.30, 0.50, 0.70} x admired person's temperament {0.30, 0.50, 0.70} x history seed {2026, 2027, 2028, 2029}, the third resident fixed at the real temperament — 36 runs per target, 108 in all — plus 4 base runs at the real temperaments (Bram 0.643 / Sélie 0.722 / Nilo 0.503) on the same 4 seeds. Temperaments are written into the state copy before the start (temperament = disposition = disposition_week); the engine respects them, ensure_traits only fills gaps. No proposals are loaded, so the council stays asleep, as in the previous sweeps. Dilemmas are observed by wrapping Sim.choose_group (type read from the call site); the engine itself is untouched. Cross-check: the base run on seed 2026 reproduces Claude's quick run on this engine exactly — dispositions 0.708 / 0.725 / 0.549, spread 0.176, company at zero 453.
+
+THREE PARTS (share of the variance of the final dispositions, per resident; lived history measured within temperament cells, so it carries the seed's main effect and all its interactions)
+- Bram: nature 73.5%, milieu (admired: Sélie) 20.1%, lived history 6.4%, nature x milieu 0.0%
+- Sélie: nature 72.7%, milieu (admired: Nilo) 23.4%, lived history 3.7%, nature x milieu 0.2%
+- Nilo: nature 83.8%, milieu (admired: Bram) 10.9%, lived history 5.1%, nature x milieu 0.2%
+- Seed main effects alone, for reference: 2.1 / 0.7 / 2.3%. The model is essentially additive in the two temperaments (interactions ~0).
+- Verdict on the ~70% mark: FAILED on nature for all three residents — but far closer than the second tuning (89.7–93.2%, with milieu confounded into temperament there). Milieu is now a real, separately measured force (10.9–23.4%). Lived history weighs 3.7–6.4%: real and consistent, but small.
+- Does lived history act through pressure exposure, as the habit design hoped? Pooled within-cell correlation over the 108 grid runs: a resident who met more pressure dilemmas than their cell average does NOT end further from that average (r = −0.07 for |deviation|, r = +0.09 for deviation toward their own side). No detectable pressure channel at day 30: the habit term gives history some weight, but not measurably through the hard moments.
+
+SPREAD (relative criterion: keep at least half of the temperament spread, absolute floor 0.08, by real movement)
+- Base runs (temperament spread 0.219): kept 80.2% (seed 2026), 45.6% (2027), 65.7% (2028), 49.7% (2029) — mean 60.3%; 2 of 4 seeds pass both halves of the criterion.
+- Grid: 83 of the 92 runs whose temperament spread is at least 0.15 pass (median kept 67.4%). The other 16 runs sit in cells with a temperament spread under 0.15, where the ratio means little; 6 of those 16 still reach the 0.08 floor.
+- Real movement, not immobility: 82–86 dilemmas per base run, and final-disposition trajectory ranges of 0.021–0.150 per resident across the base seeds.
+
+BOUNDS GUARD (decision n°34: fail if more than a third of the runs end with a resident within 0.05 of a bound)
+- PASSED, cleanly: 0 of 112 runs. Across every run, final dispositions stay within [0.196, 0.832]. In 30 days the habit term pins nobody to a bound.
+
+DILEMMAS (base runs, mean per run, group/self)
+- Bram: fire 22/8, portion 0/0, tired 0/0
+- Sélie: fire 24/6, portion 0/0, tired 0/0
+- Nilo: fire 12/6, portion 1/0, tired 2/3
+- About 85 per base run. Grid totals over 108 runs: fire 8,550, portion 207, tired 475 (tired and portion remain almost a Nilo speciality).
+
+PRESSURE AMPLIFICATION
+- 9,571 dilemmas over the 112 runs, 6,132 of them in the pressure zone (a need below the floor). Inverse cases — amplification shrinking or flipping the resident's current lean: 0. Mean extra shift +0.102 toward the resident's own side.
+- The lean lands on the far side of 0.5 from the birth temperament in 279 of 4,797 sided pressure dilemmas (5.8%), always because the disposition itself had crossed 0.5 by socialisation, never because amplification flipped it. In the base runs, all 14 such cases are Nilo, whose temperament is 0.503 — three thousandths from neutral.
+
+COMPANY AT ZERO, BY HOUR BAND (base runs — the measurement promised before any theory)
+- Mean per run: 405 ticks (seed 2026: 453, the figure from Claude's quick run; across the grid: median 566, min 300, max 1,579).
+- By band (mean per run): day 06:00–19:00 = 268 (66%), fire 19:00–21:00 = 54 (13%), night 21:00–06:00 = 84 (21%).
+- By resident (totals over the 4 base runs): Sélie 891, Nilo 707, Bram 22. The lead rotates between Sélie and Nilo from seed to seed (207/224, 276/135, 160/220, 248/128); Bram is essentially untouched.
+- Reading: the zero-company problem lives in the working day, not at the fire and not at night — the fire dilemma is not its source.
+
+SHORT-NIGHT CAP (85)
+- Confirmed everywhere: 5,237 stayed-tired nights across the 112 runs, overnight maximum energy exactly 85.0 every time, zero exceedances. Energy at 06:00 (base runs): stayed tired 80.6 (n = 234), left early 95.2 (n = 77), no dilemma 94.0 (n = 49).
