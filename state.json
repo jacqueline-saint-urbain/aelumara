@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 27,
+  "tick": 28,
   "day": 2,
-  "time": "2026-10-26T19:00:00Z",
+  "time": "2026-10-26T20:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 2.8
+    "food": 1.8
   },
   "nodes": [
     {
@@ -67,7 +67,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.75,
+      "stock": 19.0,
       "pos": [
         -12,
         -8
@@ -77,7 +77,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 16.75,
+      "stock": 17.0,
       "pos": [
         -15,
         -2
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 13.75,
+      "stock": 14.0,
       "pos": [
         15,
         -7
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.6,
+      "stock": 11.0,
       "pos": [
         -8,
         9
@@ -157,7 +157,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.1,
+      "stock": 10.4,
       "pos": [
         -4,
         -16
@@ -199,13 +199,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 65,
-        "energy": 60,
-        "company": 29.0
+        "hunger": 20,
+        "energy": 56,
+        "company": 28.0
       },
-      "task": "forage",
+      "task": "eat",
       "carry": {},
-      "say": "You don't talk about a raft. You build it.",
+      "say": "A meal from the stores.",
       "delivered": 3,
       "shells": 1,
       "temperament": 0.643,
@@ -224,8 +224,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6,
-        4
+        4.35,
+        9.77
       ],
       "talent": "food",
       "likes": "food",
@@ -233,13 +233,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 25,
-        "energy": 60,
-        "company": 56
+        "hunger": 30,
+        "energy": 56,
+        "company": 54
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
-      "say": "A meal from the stores.",
+      "say": "The tide always brings something back. You have to be there when it goes out.",
       "delivered": 5,
       "shells": 1,
       "stone_day": 1,
@@ -259,19 +259,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -4.46,
-        -0.2
+        -7.69,
+        8.2
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 20,
-        "energy": 40.0,
-        "company": 34.0
+        "hunger": 25,
+        "energy": 34.0,
+        "company": 33.0
       },
-      "task": "eat",
+      "task": "gather_food",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 6,
@@ -295,7 +295,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 2.2
+        "food": 3.2
       },
       "project": {
         "fiber": 2
