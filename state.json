@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 41,
+  "tick": 42,
   "day": 2,
-  "time": "2026-10-27T09:00:00Z",
+  "time": "2026-10-27T10:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 1.8
+    "food": 0.8
   },
   "nodes": [
     {
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 17.25,
+      "stock": 17.5,
       "pos": [
         15,
         -7
@@ -199,13 +199,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 85,
-        "energy": 100,
-        "company": 40.5
+        "hunger": 40,
+        "energy": 96,
+        "company": 39.5
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 3,
       "shells": 1,
       "temperament": 0.643,
@@ -227,8 +227,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        12,
-        3
+        6.28,
+        1.18
       ],
       "talent": "food",
       "likes": "food",
@@ -236,11 +236,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 95,
-        "energy": 85,
-        "company": 78
+        "hunger": 100,
+        "energy": 81,
+        "company": 76
       },
-      "task": "sleep",
+      "task": "stone",
       "carry": {
         "food": 3
       },
@@ -258,8 +258,7 @@
       },
       "fire_day": 2,
       "fire_choice": true,
-      "fire_hour": 19,
-      "short_night": true
+      "fire_hour": 19
     },
     {
       "id": "npc-3",
@@ -268,19 +267,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -0.5
+        -6.58,
+        6.93
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 90,
-        "energy": 100,
-        "company": 45.5
+        "hunger": 95,
+        "energy": 94.0,
+        "company": 44.5
       },
-      "task": "sleep",
+      "task": "forage",
       "carry": {
         "fiber": 2
       },
@@ -312,7 +311,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 3.2
+        "food": 4.2
       },
       "project": {
         "fiber": 2
