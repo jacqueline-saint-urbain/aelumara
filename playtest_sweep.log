@@ -174,3 +174,34 @@ HIGHLIGHTS
 - Tasks observed: {"deliver": 413, "eat": 174, "fire": 210, "forage": 58, "gather_fiber": 19, "gather_food": 345, "gather_wood": 71, "go_home": 121, "sleep": 659, "stone": 90}.
 - Lowest node stocks: {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 2.8, "food-3": 5.4, "wood-1": 20, "wood-2": 20, "wood-3": 18, "wood-4": 13.75, "wood-5": 12.5}.
 - Final state: tick 720, day 31, island time 2026-11-25T03:00:00Z.
+
+PLAYTEST SWEEP — Aelúmara, sim.py engine (aelumara repository, engine blob c7b998deb04362a3987d6b6c27c4b83b71ecf413)
+Context: traits, second tuning (#decisions n°5, engine commit b5733fd) — spark verification. Engine test suite: 59 passed. BARTER_ON is still False.
+Run: base run of 720 ticks = 30 island days from the REAL state of main (tick 25, day 2, pot 8, temperaments Bram 0.643 / Sélie 0.722 / Nilo 0.503), plus a 24-run factorial grid (6 temperament seeds x 4 history seeds, same real start). Dilemmas are counted through the engine's own day markers (fire_day / portion_day / tired_day); the engine itself is untouched.
+
+DILEMMAS (base run, group/self)
+- Bram: fire 22/8, portion 0/0, tired 0/0 (30 choices)
+- Sélie: fire 25/5, portion 0/0, tired 0/0 (30 choices)
+- Nilo: fire 10/10, portion 1/1, tired 3/1 (26 choices)
+- Total: 86 dilemmas (80 fire, 2 portion, 4 tired). Of the 23 "self" choices at the fire, 13 became actual early departures; the other 10 were decided at 21h, with no hour left to leave (the edge case Claude noted).
+
+DISPOSITIONS (base run)
+- Final: Bram 0.698, Sélie 0.666, Nilo 0.567. Final spread 0.131 against a temperament spread of 0.219: 59.9% kept.
+- Relative spread criterion (keep at least half of the temperament spread, absolute floor 0.08): PASSED in the base run. In the grid: 14 of 24 runs pass, median kept ratio 0.536.
+- Real movement, not immobility: trajectory ranges over the run are Bram 0.066, Sélie 0.064, Nilo 0.085, and every resident made 26 to 30 choices.
+
+VARIANCE DECOMPOSITION, day-30 dispositions (two-way, per resident)
+- Bram: temperament 93.2%, history 1.3%, residual 5.5%
+- Sélie: temperament 89.7%, history 4.1%, residual 6.1%
+- Nilo: temperament 92.3%, history 3.4%, residual 4.4%
+- Verdict on the main judge (neither source above ~70%): FAILED, on the temperament side. The first tuning failed it the other way (history 70.1%, temperament 16.8%); reputation smoothing plus recall 0.03 above imitation 0.02 has swung the balance to nature.
+
+COSTS
+- Company at zero (base run): 468 ticks (Bram 22, Sélie 236, Nilo 210) — unchanged from 469 before this tuning, still far above the 162 measured before the fire dilemma existed. Grid median 692 (min 360, max 1081): the cost depends strongly on the temperament draw.
+- Short-night cap (85): over 57 stayed-tired nights, the overnight maximum energy is exactly 85.0 every time, zero exceedances; early leavers reach 100. Energy at 06:00 the next morning: stayed tired 80.7 (n=57) against left early 95.0 (n=23).
+- Next-day work: after a stayed-tired evening, 4.09 deliveries and 0.16 shells per resident-day; after leaving early, 4.61 deliveries and 0.26 shells. The exchange is real — staying costs about half a delivery the next day — but it does not cripple anyone.
+
+PRESSURE AMPLIFICATION
+- Across the 24 grid runs: 2,006 dilemmas, 1,333 of them in the pressure zone (a need below the floor), 0 cases of amplification in the wrong direction, mean extra shift +0.090 toward the resident's own side. The amplification rule still points each resident toward their own temperament.
+
+CROSS-CHECKS against Claude's quick run on the same engine: final spread 0.131 (his 0.131), company at zero 468 (his 468), early departures 13 (his 12 — a counting difference on the 21h edge case).
