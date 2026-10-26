@@ -10,6 +10,7 @@ Mise à jour : 2026-10-25. Sur GitHub, appuie sur une image pour l'agrandir.
 |---|---|---|---|
 | [Kenney](https://kenney.nl/assets/category:3D) | CC0 | 50 packs, environ 4 700 modèles, format glb (3 packs de personnages animés en FBX) | [kenney/README.md](kenney/README.md) |
 | [Quaternius](https://quaternius.com/) | CC0 | 14 packs low-poly (médiane 1 500 triangles ou moins), OBJ, FBX et un pack glTF | [quaternius/README.md](quaternius/README.md) |
+| [Free Game Assets / CraftPix](https://free-game-assets.itch.io/) | gratuit, licence CraftPix à vérifier | 9 packs (plantes, pierres, arbres, animal sauvage, palmier, décor, médiéval) ; fichiers bruts dans box, pas ici | [free-game-assets/README.md](free-game-assets/README.md) |
 | [KayKit](https://kaylousberg.itch.io/) | CC0 | 4 packs (forêt, outils, ressources, cimetière), format glTF, FBX et OBJ | [kaykit/README.md](kaykit/README.md) |
 
 Aucun crédit n'est exigé (CC0). Les glb et glTF se chargent directement dans [Three.js](https://threejs.org/), les OBJ et FBX aussi avec leurs chargeurs.
@@ -79,6 +80,42 @@ KayKit · 105 modèles · dossier [`kaykit/kaykit-forest`](kaykit/kaykit-forest)
 
 <img src="kaykit/kaykit-forest/Preview-1.png" width="480">
 
+
+### Free Tropical Palm Tree
+
+Free Game Assets · 20 palmiers, FBX · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-tropical-palm-tree-3d-low-poly-pack)
+
+<img src="craftpix-previews/tropical-palm.png" width="480">
+
+### Free Bush
+
+Free Game Assets · 20 buissons, FBX · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-bush-3d-low-poly-pack)
+
+<img src="craftpix-previews/free-bush-3d-low-poly-pack.png" width="480">
+
+### Free Desert Plants
+
+Free Game Assets · 20 plantes du désert, FBX · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-desert-plants-3d-low-poly-pack)
+
+<img src="craftpix-previews/free-desert-plants-3d-low-poly-pack.png" width="480">
+
+### Free Shrubs, Flowers and Mushrooms
+
+Free Game Assets · 20 arbustes, fleurs et champignons, FBX · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-shrubs-flowers-and-mushrooms-3d-low-poly-pack)
+
+<img src="craftpix-previews/free-shrubs-flowers-and-mushrooms-3d-low-poly-pack.png" width="480">
+
+### Free Stone
+
+Free Game Assets · 40 pierres, FBX · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-stone-3d-low-poly-pack)
+
+<img src="craftpix-previews/free-stone-3d-low-poly-pack.png" width="480">
+
+### Free Tree
+
+Free Game Assets · 21 arbres, FBX (à écarter : feuillus et pins) · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-tree-3d-low-poly-models)
+
+<img src="craftpix-previews/free-tree-3d-low-poly-models.png" width="480">
 
 ## ⛵ Bateaux, mer et pirates
 
@@ -267,6 +304,12 @@ Quaternius · 4 modèles · dossier [`quaternius/lowpoly-animated-monsters`](qua
 <img src="quaternius/lowpoly-animated-monsters/Preview.png" width="480">
 
 
+### Free Wild Animal
+
+Free Game Assets · 20 animaux sauvages, FBX · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-wild-animal-3d-low-poly-models)
+
+<img src="craftpix-previews/free-wild-animal-3d-low-poly-models.png" width="480">
+
 ## 🏰 Donjons, cavernes et fantasy
 
 Grottes, ruines, coffres, tonneaux, armes médiévales.
@@ -317,6 +360,12 @@ KayKit · 63 modèles · dossier [`kaykit/halloween-bits`](kaykit/halloween-bits
 <img src="kaykit/halloween-bits/Preview-1.png" width="480">
 
 
+### Free Medieval Props
+
+Free Game Assets · 28 accessoires médiévaux, FBX · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-medieval-props-3d-low-poly-models)
+
+<img src="craftpix-previews/free-medieval-props-3d-low-poly-models.png" width="480">
+
 ## 🍎 Objets, nourriture et intérieur
 
 Baies, repas, meubles de cabane, étals, décors de fête.
@@ -357,6 +406,12 @@ Kenney · 20 modèles · dossier [`kenney/mini-arcade`](kenney/mini-arcade) · [
 
 <img src="kenney/mini-arcade/Preview.png" width="480">
 
+
+### Free Environment Props
+
+Free Game Assets · 28 accessoires de décor, FBX · dossier `box/05_Attachments/assets-craftpix/` · [page](https://free-game-assets.itch.io/free-environment-props-3d-low-poly-pack)
+
+<img src="craftpix-previews/free-environment-props-3d-low-poly-pack.png" width="480">
 
 ## 🚗 Véhicules
 
