@@ -366,3 +366,67 @@ def test_no_provisions_before_enough_food_or_before_the_raft_is_built():
     run_tick(engine.Sim(state, book), dt.datetime(2026, 10, 25, 14, 0, tzinfo=UTC))
     assert state["projects"][0].get("provisions", 0) == 0
     assert not state["flags"].get("raft_provisioned")
+
+
+# --------------------------------------------------------------- ledger ---
+# Registre du jour (SOCIETY.md §4, agreed in #aelumara 2026-10-25): each
+# island day the engine records stores in/out, deliveries to the shared
+# project and pot in/out; at day's end the day is archived with the pot
+# balance and each resident's shells. Nothing hidden: every food, wood or
+# shell movement through the stores or the pot appears in the ledger.
+
+def ledger(state):
+    return state["today"]["ledger"]
+
+
+def test_ledger_counts_the_morning_shell_as_pot_in():
+    state, book = stone_state(STONE)
+    run_tick(engine.Sim(state, book), dt.datetime(2026, 10, 25, 11, 0, tzinfo=UTC))
+    assert ledger(state)["pot_in"] == 1
+    assert ledger(state)["pot_out"] == 0
+
+
+def test_ledger_counts_a_project_delivery_and_its_shell():
+    sim_obj, state, book = bram_delivering({"wood": 10, "fiber": 12}, pot=5)
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 19, 0, tzinfo=UTC))
+    assert ledger(state)["project"] == {"wood": 1}
+    assert ledger(state)["pot_out"] == 1
+
+
+def test_ledger_counts_food_used_by_the_shared_meal():
+    state, book = stone_state(FIRE)
+    state["stores"]["food"] = 10
+    state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
+    sim_obj = engine.Sim(state, book)
+    sim_obj.evening_fire()
+    assert ledger(state)["stores_out"] == {"food": 6}
+    summary = entries(book, "summary")[-1]["text"]
+    assert "Ledger:" in summary and "pot +0 -0" in summary
+
+
+def test_ledger_closes_the_day_with_pot_and_shells():
+    state, book = stone_state(STONE)
+    state["stores"]["food"] = 20
+    sim_obj = engine.Sim(state, book)
+    run_tick(sim_obj, dt.datetime(2026, 10, 25, 11, 0, tzinfo=UTC))  # morning shell
+    state["npcs"][0]["shells"] = 3
+    state["tick"] = 23  # next tick rolls the day over
+    run_tick(sim_obj, dt.datetime(2026, 10, 26, 3, 0, tzinfo=UTC))
+    day1 = state["ledgers"][-1]
+    assert day1["day"] == 1
+    assert day1["pot_in"] == 1
+    assert day1["pot"] == 13
+    assert day1["shells"] == {"Bram": 3, "Sélie": 0, "Nilo": 0}
+    # Day 2 starts fresh; overnight spoilage is the first thing it records.
+    assert ledger(state)["pot_in"] == 0
+    assert ledger(state)["stores_out"]["food"] == pytest.approx(2.0, abs=0.01)
+
+
+def test_ledger_history_keeps_the_last_14_days():
+    state, book = stone_state([15, 15])
+    sim_obj = engine.Sim(state, book)
+    for d in range(16):
+        state["tick"] = 24 * (d + 1) - 1
+        run_tick(sim_obj, dt.datetime(2026, 10, 26, 3, 0, tzinfo=UTC))
+    assert len(state["ledgers"]) == 14
+    assert state["ledgers"][-1]["day"] == 16

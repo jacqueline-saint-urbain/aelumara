@@ -249,6 +249,14 @@ function farIsland(region) {
 // ---------------- dynamic layer ----------------
 const dyn = new THREE.Group(); scene.add(dyn);
 const pickables = []; const floaters = []; const followables = [];
+const ledgerRows = (l) => {
+  if (!l) return '';
+  const fmt = (d) => Object.entries(d || {}).map(([r, q]) => `${+q.toFixed(2)} ${esc(r)}`).join(', ') || '—';
+  return `<div class="row"><span>Today: stores in</span><span>${fmt(l.stores_in)}</span></div>`
+    + `<div class="row"><span>Today: stores out</span><span>${fmt(l.stores_out)}</span></div>`
+    + `<div class="row"><span>Today: to the project</span><span>${fmt(l.project)}</span></div>`
+    + `<div class="row"><span>Today: pot</span><span>+${l.pot_in} / −${l.pot_out}</span></div>`;
+};
 const inDisc = (p, r = HOME_R - 0.5) => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite) && Math.hypot(p[0], p[1]) <= r;
 function place(obj, pos, info) {
   obj.position.set(pos[0], GROUND, pos[1]); obj.userData.info = info;
@@ -311,7 +319,7 @@ function dashHTML() {
     parts.push(`<div class="card"><h3><span>🛶 ${esc(p.name)}</span><span>${pr} %</span></h3>${bar(pr, 100, 'var(--accent)')}${Object.entries(p.needs).map(([r, q]) => `<div class="row muted"><span>${r === 'wood' ? 'Wood' : 'Fiber'}</span><span>${p.have[r] || 0} / ${q}</span></div>`).join('')}<div class="muted">${p.status === 'done' ? 'Finished — ready to sail.' : 'Under construction on the north beach.'}</div></div>`);
   }
   parts.push(`<div class="card"><h3><span>🏚️ Stores</span><span class="muted">tick ${s.tick}</span></h3>${Object.entries(s.stores).map(([r, v]) => `<div class="row"><span>${r === 'food' ? '🫐 Food' : r === 'wood' ? '🪵 Wood' : '🌾 Fiber'}</span><span>${Math.floor(v)}</span></div>`).join('')}</div>`);
-  parts.push(`<div class="card"><h3><span>🐚 Economy</span><span class="muted">shells</span></h3><div class="row"><span>Common pot</span><span>${s.pot ?? 0}</span></div>${s.npcs.map((n) => `<div class="row"><span>${esc(n.name)}</span><span>${n.shells || 0}</span></div>`).join('')}<div class="muted">A work shift on a shared project earns 1 shell from the pot. Sélie leaves one on the stone every morning.</div></div>`);
+  parts.push(`<div class="card"><h3><span>🐚 Economy</span><span class="muted">shells</span></h3><div class="row"><span>Common pot</span><span>${s.pot ?? 0}</span></div>${s.npcs.map((n) => `<div class="row"><span>${esc(n.name)}</span><span>${n.shells || 0}</span></div>`).join('')}${ledgerRows(s.today && s.today.ledger)}<div class="muted">A work shift on a shared project earns 1 shell from the pot. Sélie leaves one on the stone every morning.</div></div>`);
   parts.push(`<div class="card"><h3>🔥 Culture</h3><div class="row"><span>Evening fires held</span><span>${s.fires || 0}</span></div><div class="row"><span>At the fire today</span><span>${(s.today?.at_fire || []).length} / ${s.npcs.length}</span></div><div class="muted">The evening fire (7–9 pm) and the morning stone (7 am) — rituals proposed by Spark.</div></div>`);
   for (const n of s.npcs) parts.push(`<div class="card"><h3><span style="color:${n.color}">● ${esc(n.name)}</span><span class="muted">${esc(TASKS[n.task] || n.task)}</span></h3>
     <div class="row muted"><span>Hunger</span><span>${n.needs.hunger}</span></div>${bar(n.needs.hunger, 100, n.needs.hunger > 60 ? 'var(--bad)' : 'var(--warn)')}

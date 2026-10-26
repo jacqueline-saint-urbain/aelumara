@@ -37,6 +37,7 @@ FIRE_HOURS = (19, 20, 21)  # le feu du soir (Toronto time)
 STONE_HOURS = (6, 7, 8)   # la pierre du matin: the walk starts at 06h, owner decision A
 NODE_REGROW = {"wood": 0.25, "food": 0.4, "fiber": 0.3}
 NODE_MAX = {"wood": 20, "food": 12, "fiber": 12}
+LEDGER_DAYS = 14  # days of ledger history kept in state.json
 
 
 def load(path, default):
@@ -112,6 +113,22 @@ class Sim:
             return None
         return min(candidates, key=lambda n: dist(pos, n["pos"]))
 
+    def ledger(self):
+        return self.s["today"].setdefault("ledger", {"stores_in": {}, "stores_out": {}, "project": {}, "pot_in": 0, "pot_out": 0})
+
+    def log(self, kind, res=None, qty=1):
+        """Registre du jour: record one movement through the stores, the project or the pot."""
+        led = self.ledger()
+        if res is None:
+            led[kind] += qty
+        else:
+            led[kind][res] = round(led[kind].get(res, 0) + qty, 2)
+
+    def close_day(self, day):
+        s = self.s
+        led = dict(self.ledger(), day=day, pot=s["pot"], shells={n["name"]: n.get("shells", 0) for n in s["npcs"]})
+        s["ledgers"] = (s.get("ledgers", []) + [led])[-LEDGER_DAYS:]
+
     def active_project(self):
         return next((p for p in self.s["projects"] if p["status"] == "building"), None)
 
@@ -125,10 +142,15 @@ class Sim:
         s["time"] = when.strftime("%Y-%m-%dT%H:%M:%SZ")
         new_day = s["tick"] // 24 + 1
         if new_day != s["day"]:
+            s.setdefault("today", {"delivered": 0, "at_fire": []})
+            self.close_day(s["day"])
             s["day"] = new_day
             s["today"] = {"delivered": 0, "at_fire": []}
             # Stored food spoils: unused stores lose 10% each island day.
-            s["stores"]["food"] = round(s["stores"]["food"] * 0.9, 2)
+            spoiled = round(s["stores"]["food"] * 0.1, 2)
+            s["stores"]["food"] = round(s["stores"]["food"] - spoiled, 2)
+            if spoiled:
+                self.log("stores_out", "food", spoiled)
         s.setdefault("today", {"delivered": 0, "at_fire": []})
         hour = local_hour(when)
 
@@ -168,6 +190,7 @@ class Sim:
             load_now = min(PROVISIONS - raft.get("provisions", 0), s["stores"]["food"] - FEAST_STORES)
             if load_now > 0:
                 s["stores"]["food"] = round(s["stores"]["food"] - load_now, 2)
+                self.log("stores_out", "food", round(load_now, 2))
                 raft["provisions"] = round(raft.get("provisions", 0) + load_now, 2)
                 if raft["provisions"] >= PROVISIONS:
                     s["flags"]["raft_provisioned"] = True
@@ -186,6 +209,7 @@ class Sim:
             # Full stores make the meal a feast: same 6 food, more company.
             feast = st["stores"]["food"] >= FEAST_STORES
             st["stores"]["food"] = round(st["stores"]["food"] - 6, 2)
+            self.log("stores_out", "food", 6)
             for npc in st["npcs"]:
                 if npc["id"] in here:
                     npc["needs"]["company"] = min(100, npc["needs"]["company"] + (20 if feast else 10))
@@ -196,8 +220,16 @@ class Sim:
         line = f"The evening fire gathers {', '.join(names) if names else 'no one'}. Today: {st['today']['delivered']} resources delivered, raft at {pr}%. Shells in the pot: {st['pot']}.{meal}"
         if missing:
             line += f" Absent: {', '.join(missing)}."
+        line += " " + self.ledger_line()
         st["fires"] = st.get("fires", 0) + (1 if names else 0)
         self.chronicle(line, "summary")
+
+    def ledger_line(self):
+        led = self.ledger()
+        fmt = lambda d: ", ".join(f"{q:g} {r}" for r, q in sorted(d.items())) or "nothing"
+        shells = ", ".join(f"{n['name']} {n.get('shells', 0)}" for n in self.s["npcs"])
+        return (f"Ledger: stores in {fmt(led['stores_in'])}, out {fmt(led['stores_out'])}; "
+                f"to the project {fmt(led['project'])}; pot +{led['pot_in']} -{led['pot_out']}; shells: {shells}.")
 
     def act(self, npc, rng, night, hour):
         st = self.s
@@ -232,6 +264,7 @@ class Sim:
             if arrived:
                 npc["stone_day"] = st["day"]
                 st["pot"] += 1
+                self.log("pot_in")
                 npc["say"] = "A shell on the stone."
             return
 
@@ -249,6 +282,7 @@ class Sim:
         if n["hunger"] >= 60:
             if st["stores"]["food"] >= 1:
                 st["stores"]["food"] = round(st["stores"]["food"] - 1, 2)
+                self.log("stores_out", "food", 1)
                 n["hunger"] = max(0, n["hunger"] - 50)
                 npc["task"] = "eat"
                 npc["say"] = "A meal from the stores."
@@ -275,12 +309,15 @@ class Sim:
                 if proj and res in self.missing(proj):
                     before = self.progress(proj)
                     proj["have"][res] = proj["have"].get(res, 0) + qty
+                    self.log("project", res, qty)
                     self.milestones(proj, before)
                     if st["pot"] >= 1:  # a work shift on a shared project earns a shell
                         st["pot"] -= 1
+                        self.log("pot_out")
                         npc["shells"] = npc.get("shells", 0) + 1
                 else:
                     st["stores"][res] = round(st["stores"].get(res, 0) + qty, 2)
+                    self.log("stores_in", res, qty)
                 npc["carry"] = {}
                 npc["delivered"] = npc.get("delivered", 0) + qty
                 st["today"]["delivered"] += qty
