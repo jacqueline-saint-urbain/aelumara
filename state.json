@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 34,
+  "tick": 35,
   "day": 2,
-  "time": "2026-10-27T02:00:00Z",
+  "time": "2026-10-27T03:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -77,7 +77,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.5,
+      "stock": 18.75,
       "pos": [
         -15,
         -2
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 15.5,
+      "stock": 15.75,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.0,
+      "stock": 11.4,
       "pos": [
         4,
         11
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.5,
+      "stock": 11.8,
       "pos": [
         -16,
         6
@@ -192,20 +192,20 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        7.83,
-        7.05
+        9,
+        8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 40,
-        "company": 47.5
+        "hunger": 55,
+        "energy": 52,
+        "company": 46.5
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {},
-      "say": "Good night, all. I need my bed.",
+      "say": "Good night.",
       "delivered": 3,
       "shells": 1,
       "temperament": 0.643,
@@ -227,8 +227,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        4.31,
-        1.01
+        10.12,
+        2.51
       ],
       "talent": "food",
       "likes": "food",
@@ -236,9 +236,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
+        "hunger": 65,
         "energy": 36,
-        "company": 92
+        "company": 90
       },
       "task": "go_home",
       "carry": {
@@ -276,9 +276,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 52.0,
-        "company": 52.5
+        "hunger": 60,
+        "energy": 64.0,
+        "company": 51.5
       },
       "task": "sleep",
       "carry": {
