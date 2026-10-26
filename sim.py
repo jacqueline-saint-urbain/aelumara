@@ -47,6 +47,8 @@ LAW_FLOOR = 20  # law no_work_below_20: no project work while a need is below th
 LAUNCH_COMPANY = 20  # law launch_ritual: company gained by those present at a launch
 LAUNCH_DIST = 6
 MEAL_POT_MIN = 5  # the pot pays the shared meal only above this reserve, kept for work shifts
+BARTER_PRICE = 3  # evening barter: shells paid into the pot for one item
+GIFT_COMPANY = 15  # a gift at the fire: company for the giver and the receiver
 
 
 def new_shelter():
@@ -289,6 +291,7 @@ class Sim:
                 if npc["id"] in here:
                     npc["needs"]["company"] = min(100, npc["needs"]["company"] + (20 if feast else 10))
             meal = " A feast was shared from the full stores." if feast else " A shared meal was cooked from the stores."
+        meal += self.barter(here)
         missing = [n["name"] for n in st["npcs"] if n["id"] not in here]
         proj = self.active_project() or next((p for p in st["projects"] if p["id"] == "raft"), None)
         pr = 100 if proj and proj["status"] == "done" else (self.progress(proj) if proj else 0)
@@ -299,6 +302,29 @@ class Sim:
         st["fires"] = st.get("fires", 0) + (1 if names else 0)
         self.chronicle(line, "summary")
         self.council()
+
+    def barter(self, here):
+        """One barter per evening: the present resident who bartered least buys the item of the day."""
+        st = self.s
+        buyers = [n for n in st["npcs"] if n["id"] in here and n.get("shells", 0) >= BARTER_PRICE]
+        if not buyers:
+            return ""
+        buyer = min(buyers, key=lambda n: n.get("barters", 0))
+        tool = st["day"] % 2 == 0  # a tool on even days, a gift on odd days
+        others = [n for n in st["npcs"] if n["id"] in here and n is not buyer]
+        if not tool and not others:  # a gift needs someone to give it to
+            return ""
+        buyer["shells"] -= BARTER_PRICE
+        buyer["barters"] = buyer.get("barters", 0) + 1
+        st["pot"] += BARTER_PRICE
+        self.log("pot_in", qty=BARTER_PRICE)
+        if tool:  # one extra unit per gathering, tomorrow only
+            buyer["tool_day"] = st["day"] + 1
+            return f" {buyer['name']} trades {BARTER_PRICE} shells for a tool for tomorrow."
+        friend = min(others, key=lambda n: n["needs"]["company"])
+        for n in (buyer, friend):
+            n["needs"]["company"] = min(100, n["needs"]["company"] + GIFT_COMPANY)
+        return f" {buyer['name']} trades {BARTER_PRICE} shells for a gift for {friend['name']}."
 
     def ledger_line(self):
         led = self.ledger()
@@ -428,6 +454,8 @@ class Sim:
             npc["task"] = "gather_" + res
             if arrived:
                 amount = 3 if npc.get("talent") == res else 2
+                if npc.get("tool_day") == st["day"]:  # bought at last evening's barter
+                    amount += 1
                 take = min(amount, int(target["stock"]))
                 if take >= 1:
                     target["stock"] = round(target["stock"] - take, 2)

@@ -624,3 +624,83 @@ def test_law_launch_ritual_lifts_company_of_those_present_at_the_launch():
     run_tick(engine.Sim(state, make_book(), proposals={"items": []}), dt.datetime(2026, 10, 25, 19, 0, tzinfo=UTC))
     assert bram["needs"]["company"] == pytest.approx(30 - 1 + engine.LAUNCH_COMPANY)
     assert state["npcs"][1]["needs"]["company"] == pytest.approx(49.5)  # asleep far away (next to Nilo): not present
+
+
+# --------------------------------------------------------------- barter ---
+# Evening barter (#ile-economie, 2026-10-26): shells get a personal use.
+# One barter per evening at the fire, price BARTER_PRICE, paid into the pot.
+# The item alternates by day: a tool on even days (one extra unit per
+# gathering, the next day only), a gift on odd days (company for giver and
+# receiver, now). The buyer is the present resident who bartered least,
+# so the richest wallet does not take every evening.
+
+def barter_state(day, shells):
+    npcs = [make_npc(f"npc-{i}", name, shells=s, needs={"hunger": 0, "energy": 100, "company": c})
+            for i, (name, s, c) in enumerate(zip(("Bram", "Sélie", "Nilo"), shells, (50, 30, 60)), 1)]
+    state = make_state(npcs, pot=8)
+    state["day"] = day
+    state["stores"]["food"] = 0  # no shared meal: isolate the barter
+    state["today"] = {"delivered": 0, "at_fire": [n["id"] for n in npcs]}
+    return state
+
+
+def test_one_barter_per_evening_paid_into_the_pot():
+    state = barter_state(2, (3, 3, 12))
+    engine.Sim(state, make_book()).evening_fire()
+    assert sum(n["shells"] for n in state["npcs"]) == 18 - engine.BARTER_PRICE
+    assert state["pot"] == 8 + engine.BARTER_PRICE
+    assert state["today"]["ledger"]["pot_in"] == engine.BARTER_PRICE
+
+
+def test_on_even_days_the_tool_helps_gathering_the_next_day_only():
+    state = barter_state(2, (3, 0, 0))
+    sim_obj = engine.Sim(state, make_book())
+    sim_obj.evening_fire()
+    bram = state["npcs"][0]
+    assert bram["tool_day"] == 3
+    # Next morning Bram gathers wood for the raft: 2 + 1 with the tool.
+    state["projects"].append(raft_project({}))
+    state["stores"]["food"] = 10
+    state["day"] = 3
+    bram.update(pos=[-12, -8], carry={})
+    sim_obj.act(bram, random.Random(1), False, 10)
+    assert bram["carry"] == {"wood": 3}
+    state["day"] = 4
+    bram.update(pos=[-12, -8], carry={})
+    sim_obj.act(bram, random.Random(1), False, 10)
+    assert bram["carry"] == {"wood": 2}
+
+
+def test_on_odd_days_the_gift_goes_to_the_loneliest_and_lifts_both():
+    state = barter_state(3, (3, 0, 0))
+    engine.Sim(state, make_book()).evening_fire()
+    bram, selie, nilo = state["npcs"]
+    assert bram["needs"]["company"] == 50 + engine.GIFT_COMPANY
+    assert selie["needs"]["company"] == 30 + engine.GIFT_COMPANY  # lowest company
+    assert nilo["needs"]["company"] == 60
+
+
+def test_the_buyer_is_whoever_bartered_least_not_the_richest():
+    state = barter_state(2, (3, 3, 12))
+    state["npcs"][2]["barters"] = 1  # Nilo already bought once
+    engine.Sim(state, make_book()).evening_fire()
+    assert state["npcs"][2]["shells"] == 12
+    assert state["npcs"][0]["shells"] == 0  # Bram: fewest barters, first in line
+
+
+def test_no_barter_without_enough_shells_or_absent():
+    state = barter_state(2, (2, 2, 2))
+    engine.Sim(state, make_book()).evening_fire()
+    assert state["pot"] == 8
+    state = barter_state(2, (0, 0, 5))
+    state["today"]["at_fire"] = ["npc-1", "npc-2"]  # Nilo is not at the fire
+    engine.Sim(state, make_book()).evening_fire()
+    assert state["npcs"][2]["shells"] == 5
+
+
+def test_the_barter_is_told_in_the_evening_summary():
+    state = barter_state(3, (3, 0, 0))
+    book = make_book()
+    engine.Sim(state, book).evening_fire()
+    line = entries(book, "summary")[-1]["text"]
+    assert "Bram trades 3 shells for a gift for Sélie" in line
