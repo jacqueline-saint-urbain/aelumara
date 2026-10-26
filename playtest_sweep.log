@@ -1,63 +1,63 @@
-PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur d7e7f5480306596730f588b7c56fc7bd6b6a9e9f)
-Contexte : après « le pot achète quoi » (commit 64ad730) — vérification spark
-Course : 720 ticks = 30 jours d'île, fixture fraîche (voir en-tête de playtest_sweep.py), état vivant jamais touché.
+PLAYTEST SWEEP — Aelúmara, sim.py engine (aelumara repository, engine blob d7e7f5480306596730f588b7c56fc7bd6b6a9e9f)
+Context: after "what the pot buys" (commit 64ad730) — spark verification
+Run: 720 ticks = 30 island days, fresh fixture (see the header of playtest_sweep.py), live state never touched.
 
-DÉCLENCHEMENTS PAR RÈGLE
-- Achèvement du radeau (statut done + drapeau raft_ready) : 1
-- Entrée « launching » dans le Livre : 2
-- Jalons de progression 25/50/75 % dans le Livre : 6
-- Livraisons au projet (quantité totale) : 61
-- Paiements d'un coquillage par livraison au projet : 26
-- Livraisons aux réserves (hors projet) : 362
-- Pierre du matin : arrivée de Sélie à 07 h (+1 coquillage au pot) : 30
-- Feu du soir : résumé du soir dans le Livre : 30
-- Feu du soir : au moins un résident présent : 30
-- Feu du soir : les trois résidents présents : 24
-- Repas pris aux réserves (tâche eat) : 165
-- Cueillette de baies quand les réserves sont vides (tâche forage) : 80
-- Sommeil avec regain d'énergie (tâche sleep) : 659
-- Repos faute de ressource à ramasser (tâche rest) : 0
-- Phrase signature d'un résident (probabilité 8 % par tick) : 108
-- Faim au plafond (100) : 120
-- Énergie à zéro : 0
-- Compagnie à zéro : 298
-- Nœud de ressource épuisé (stock < 1, donc ignoré par les résidents) : 1
-- Réserves de nourriture à zéro au début d'un tick : 0
-- Après le radeau : récolte de bois ou de fibre : 49
-- Après le radeau : paiement d'un coquillage : 8
-- Abri : démarrage automatique une fois le radeau fini : 1
-- Abri : achèvement (statut done + drapeau shelter_ready) : 1
-- Livraisons à l'abri (quantité totale) : 19
-- Quarts de l'abri payés par le pot : 7
-- Repas partagé servi au feu du soir (repas et festins) : 21
-- Repas payé par le pot (1 coquillage) : 14
-- Repas servi avec un pot vide (jamais bloqué) : 7
-- Festin servi (réserves pleines) : 6
+RULE FIRINGS
+- Raft completion (status done + raft_ready flag): 1
+- "launching" entry in the Book: 2
+- Progress milestones 25/50/75% in the Book: 6
+- Deliveries to the project (total quantity): 61
+- One-shell payments per delivery to the project: 26
+- Deliveries to stores (outside the project): 362
+- Morning stone: Sélie arrives at 07:00 (+1 shell to the pot): 30
+- Evening fire: evening summary in the Book: 30
+- Evening fire: at least one resident present: 30
+- Evening fire: all three residents present: 24
+- Meals taken from stores (eat task): 165
+- Berry gathering when stores are empty (forage task): 80
+- Sleep with energy regain (sleep task): 659
+- Rest for lack of a resource to gather (rest task): 0
+- Resident signature line (8% probability per tick): 108
+- Hunger at the ceiling (100): 120
+- Energy at zero: 0
+- Company at zero: 298
+- Resource node depleted (stock < 1, so ignored by residents): 1
+- Food stores at zero at the start of a tick: 0
+- After the raft: wood or fiber gathering: 49
+- After the raft: one-shell payment: 8
+- Shelter: starts automatically once the raft is done: 1
+- Shelter: completion (status done + shelter_ready flag): 1
+- Deliveries to the shelter (total quantity): 19
+- Shelter shifts paid by the pot: 7
+- Shared meal served at the evening fire (meals and feasts): 21
+- Meal paid by the pot (1 shell): 14
+- Meal served with an empty pot (never blocked): 7
+- Feast served (stores full): 6
 
-RÈGLES JAMAIS DÉCLENCHÉES
-- Repos faute de ressource à ramasser (tâche rest)
-- Énergie à zéro
-- Réserves de nourriture à zéro au début d'un tick
+RULES THAT NEVER FIRED
+- Rest for lack of a resource to gather (rest task)
+- Energy at zero
+- Food stores at zero at the start of a tick
 
-FAITS SAILLANTS
-- Radeau terminé : tick 230, jour 10 (drapeau raft_ready = True).
-- Abri : démarré tout seul au tick 230, jour 10 (juste après le radeau) ; terminé au tick 394, jour 17 (drapeau shelter_ready = True) ; 19 unités livrées, 7 quarts payés par le pot.
-- Livre : 39 entrées, par genre : {"event": 1, "launching": 2, "progress": 6, "summary": 30}.
-- Compteur de feux (state.fires) à la fin : 30 ; soirs avec au moins un présent : 30 ; soirs vides : 0 ; soirs au complet : 24.
-- Présences au feu par résident (sur 30 soirs) : {"npc-1": 28, "npc-2": 24, "npc-3": 30}.
-- Pierre du matin : 30 arrivées, sur 30 jours distincts.
-- Pot commun : min 0, max 13, fin 2 ; coquillages gagnés par les résidents : 26 ; repas payés par le pot : 14 ; après le radeau, le pot a gagné 20 (pierre du matin) et dépensé 19 (quarts de l'abri 7 + repas 11 + reste).
-- Réserves à la fin : {"wood": 0, "fiber": 0, "food": 27.0} ; nourriture au plus bas : 0.12.
-- Besoins observés (min/max) : faim 10/100, énergie 16.0/100, compagnie 0/100.
-- Tâches observées : {"deliver": 400, "eat": 165, "fire": 210, "forage": 80, "gather_fiber": 22, "gather_food": 321, "gather_wood": 92, "go_home": 121, "sleep": 659, "stone": 90}.
-- Stocks de nœuds au plus bas : {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 3.4, "food-3": 3.6, "wood-1": 20, "wood-2": 18, "wood-3": 18, "wood-4": 17, "wood-5": 13.25}.
-- État final : tick 720, jour 31, heure d'île 2026-11-25T03:00:00Z.
+HIGHLIGHTS
+- Raft completed: tick 230, day 10 (raft_ready flag = True).
+- Shelter: started on its own at tick 230, day 10 (right after the raft); completed at tick 394, day 17 (shelter_ready flag = True); 19 units delivered, 7 shifts paid by the pot.
+- Book: 39 entries, by kind: {"event": 1, "launching": 2, "progress": 6, "summary": 30}.
+- Fire counter (state.fires) at the end: 30; evenings with at least one resident present: 30; empty evenings: 0; full evenings: 24.
+- Fire attendance by resident (over 30 evenings): {"npc-1": 28, "npc-2": 24, "npc-3": 30}.
+- Morning stone: 30 arrivals, over 30 distinct days.
+- Shared pot: min 0, max 13, end 2; shells earned by residents: 26; meals paid by the pot: 14; after the raft, the pot gained 20 (morning stone) and spent 19 (shelter shifts 7 + meals 11 + remainder).
+- Final stores: {"wood": 0, "fiber": 0, "food": 27.0}; lowest food: 0.12.
+- Needs observed (min/max): hunger 10/100, energy 16.0/100, company 0/100.
+- Tasks observed: {"deliver": 400, "eat": 165, "fire": 210, "forage": 80, "gather_fiber": 22, "gather_food": 321, "gather_wood": 92, "go_home": 121, "sleep": 659, "stone": 90}.
+- Lowest node stocks: {"fiber-1": 10, "fiber-2": 8.6, "food-1": 0.0, "food-2": 3.4, "food-3": 3.6, "wood-1": 20, "wood-2": 18, "wood-3": 18, "wood-4": 17, "wood-5": 13.25}.
+- Final state: tick 720, day 31, island time 2026-11-25T03:00:00Z.
 
-LE POT ACHÈTE QUOI (nouveau, commit 64ad730) — audit complet sur les 30 jours (harnais d'audit : les 30 journées conservées en mémoire, le moteur n'en garde que 14 en production)
-- Courbe du pot, solde en fin de journée : départ 12 ; J1 10, J2 11, J3 8, J4 6, J5 6, J6 3, J7 1, J8 1, J9 1, J10 0, J11 0, J12 0, J13 0, J14 0, J15 0, J16 0, J17 0, J18 1, J19 1, J20 1, J21 1, J22 1, J23 1, J24 1, J25 1, J26 1, J27 1, J28 1, J29 1, J30 2 ; fin 2.
-- Minimum de fin de journée : 0 au jour 10 ; minimum absolu (par tick) : 0 ; maximum : 13 ; ticks avec un pot à 0 : 176 ; jours terminés à 1 ou moins : [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29].
-- Repas partagés : 21 servis (dont 6 festins, toujours liés aux réserves pleines), 14 payés 1 coquillage par le pot, 7 servi(s) avec un pot vide — le pot vide n'a bloqué aucun repas (la phrase du repas figure dans le résumé du soir chaque fois).
-- Chaîne du pot vérifiée jour par jour : chaque solde archivé = solde de la veille + pot_in − pot_out, sans exception ; solde final réconcilié avec le registre du jour en cours : oui.
-- Totaux du registre : pot_in 30 (= arrivées de la pierre du matin : 30) ; pot_out 40 = quarts payés aux résidents 26 (soldes finaux par résident : Bram 7, Sélie 3, Nilo 16) + repas payés 14 ; paiements par projet : {"raft": 19, "shelter": 7}.
-- Aucune valeur négative dans le registre : oui ; le pot n'est jamais passé sous 0 ; les 30 résumés du soir du Livre portent leur ligne « Ledger: ».
-- Compagnie à zéro : 298 ticks-résidents sur 2160 (cible : sous 300).
+WHAT THE POT BUYS (new, commit 64ad730) — full audit over the 30 days (audit harness: the 30 days kept in memory, the engine keeps only 14 in production)
+- Pot curve, balance at end of day: start 12; D1 10, D2 11, D3 8, D4 6, D5 6, D6 3, D7 1, D8 1, D9 1, D10 0, D11 0, D12 0, D13 0, D14 0, D15 0, D16 0, D17 0, D18 1, D19 1, D20 1, D21 1, D22 1, D23 1, D24 1, D25 1, D26 1, D27 1, D28 1, D29 1, D30 2; end 2.
+- End-of-day minimum: 0 on day 10; absolute minimum (per tick): 0; maximum: 13; ticks with the pot at 0: 176; days ending at 1 or less: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29].
+- Shared meals: 21 served (including 6 feasts, always tied to full stores), 14 paid 1 shell by the pot, 7 served with an empty pot — the empty pot never blocked a meal (the meal sentence appears in the evening summary every time).
+- Pot chain verified day by day: each archived balance = the previous day's balance + pot_in − pot_out, without exception; final balance reconciled with the current day's ledger: yes.
+- Ledger totals: pot_in 30 (= morning stone arrivals: 30); pot_out 40 = shifts paid to residents 26 (final balances by resident: Bram 7, Sélie 3, Nilo 16) + meals paid 14; payments by project: {"raft": 19, "shelter": 7}.
+- No negative value in the ledger: yes; the pot never went below 0; all 30 evening summaries in the Book carry their "Ledger:" line.
+- Company at zero: 298 resident-ticks out of 2160 (target: under 300).

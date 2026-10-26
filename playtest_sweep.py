@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
-"""Passe de jeu (playtest sweep) pour le moteur d'Aelúmara (tâche 2 de la répartition Spark/Claude).
+"""Playtest sweep for the Aelúmara engine (task 2 of the Spark/Claude split).
 
-Fait tourner le moteur RÉEL (sim.py du dépôt aelumara, importé tel quel) pendant
-30 jours d'île (720 ticks) à partir d'une fixture fraîche construite ici même.
-L'état vivant du dépôt n'est jamais touché : tout se passe en mémoire.
+Runs the REAL engine (sim.py from the aelumara repository, imported as-is) for
+30 island days (720 ticks) from a fresh fixture built right here.
+The repository's live state is never touched: everything happens in memory.
 
-Pour chaque règle du moteur, le script compte combien de fois elle se déclenche.
-À la fin, il liste les règles qui ne se sont JAMAIS déclenchées.
+For each engine rule, the script counts how many times it fires.
+At the end, it lists the rules that NEVER fired.
 
-Fixture fraîche (départ) :
-- tick 0, jour 1, horloge 2026-10-26T03:00:00Z (premier tick = minuit, heure de Toronto selon le décalage fixe -4 du moteur)
-- pot commun : 12 coquillages ; réserves : bois 0, fibre 0, nourriture 6
-- nœuds de ressources pleins (stock au maximum prévu par le moteur)
-- radeau : 0/30 bois, 0/12 fibre, statut « building »
-- résidents : besoins faim 50, énergie 80, compagnie 50 ; aucun porté, 0 livraison, 0 coquillage
-- positions de départ : chacun chez soi (Bram hutte 1, Sélie hutte 2, Nilo au feu)
-- Livre vide, compteur de feux à 0
+Fresh fixture (start):
+- tick 0, day 1, clock 2026-10-26T03:00:00Z (first tick = midnight, Toronto time according to the engine's fixed -4 offset)
+- shared pot: 12 shells; stores: wood 0, fiber 0, food 6
+- resource nodes full (stock at the maximum set by the engine)
+- raft: 0/30 wood, 0/12 fiber, status "building"
+- residents: needs hunger 50, energy 80, company 50; nothing carried, 0 deliveries, 0 shells
+- starting positions: each at home (Bram hut 1, Sélie hut 2, Nilo at the fire)
+- Empty book, fire counter at 0
 
-La boucle de ticks reproduit exactement celle de sim.py main() :
-graine du générateur = seed * 100003 + tick + 1, un tick = une heure d'île.
+The tick loop reproduces exactly the one in sim.py main():
+generator seed = seed * 100003 + tick + 1, one tick = one island hour.
 """
 import copy
 import datetime as dt
@@ -33,8 +33,8 @@ spec = importlib.util.spec_from_file_location("aelumara_sim", os.path.join(HERE,
 sim_mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sim_mod)
 
-TICKS = 720  # 30 jours d'île
-SIM_BLOB = sys.argv[1] if len(sys.argv) > 1 else "version du dépôt"
+TICKS = 720  # 30 island days
+SIM_BLOB = sys.argv[1] if len(sys.argv) > 1 else "repository version"
 RUN_LABEL = sys.argv[2] if len(sys.argv) > 2 else ""
 
 
@@ -57,7 +57,7 @@ def fresh_fixture():
         p["status"] = "building"
         p["have"] = {}
         p.pop("done_tick", None)
-    home_pos = {"npc-1": [9, 8], "npc-2": [12, 3], "npc-3": None}  # Nilo : le feu (spots)
+    home_pos = {"npc-1": [9, 8], "npc-2": [12, 3], "npc-3": None}  # Nilo: the fire (spots)
     for npc in s["npcs"]:
         npc["needs"] = {"hunger": 50, "energy": 80, "company": 50}
         npc["carry"] = {}
@@ -68,14 +68,14 @@ def fresh_fixture():
         npc.pop("stone_day", None)
         if home_pos[npc["id"]] is not None:
             npc["pos"] = list(home_pos[npc["id"]])
-    book = {"title": "Le Livre de l'île", "entries": []}
+    book = {"title": "The Book of the Island", "entries": []}
     return s, book
 
 
 def main():
     state, book = fresh_fixture()
     sim = sim_mod.Sim(state, book)
-    # Nilo dort au feu : sa position de départ est celle du feu dans world.json.
+    # Nilo sleeps at the fire: his starting position is the fire's in world.json.
     for npc in state["npcs"]:
         if npc["id"] == "npc-3":
             npc["pos"] = list(sim.spots["fire"])
@@ -122,7 +122,7 @@ def main():
     for i in range(TICKS):
         when = last + dt.timedelta(hours=i + 1)
         hour = sim_mod.local_hour(when)
-        # --- instantané avant ---
+        # --- snapshot before ---
         pot_b = state["pot"]
         shells_b = {n["id"]: n.get("shells", 0) for n in state["npcs"]}
         deliv_b = {n["id"]: n.get("delivered", 0) for n in state["npcs"]}
@@ -138,7 +138,7 @@ def main():
         sim.tick(rng, when)
         stats["ticks"] += 1
 
-        # --- comparaisons après ---
+        # --- comparisons after ---
         proj = state["projects"][0]
         have_a = sum(proj["have"].values())
         deliv_delta = sum(state["npcs"][k].get("delivered", 0) - deliv_b[state["npcs"][k]["id"]] for k in range(len(state["npcs"])))
@@ -220,60 +220,60 @@ def main():
     stats["node_ever_below_1"] = sorted(stats["node_ever_below_1"])
 
     rules = [
-        ("Achèvement du radeau (statut done + drapeau raft_ready)", 1 if stats["raft_done_tick"] else 0),
-        ("Entrée « launching » dans le Livre", stats["book_by_kind"].get("launching", 0)),
-        ("Jalons de progression 25/50/75 % dans le Livre", stats["book_by_kind"].get("progress", 0)),
-        ("Livraisons au projet (quantité totale)", stats["deliveries_to_project_qty"]),
-        ("Paiements d'un coquillage par livraison au projet", stats["shell_payments"]),
-        ("Livraisons aux réserves (hors projet)", stats["deliveries_to_stores_qty"]),
-        ("Pierre du matin : arrivée de Sélie à 07 h (+1 coquillage au pot)", stats["stone_arrivals"]),
-        ("Feu du soir : résumé du soir dans le Livre", stats["book_by_kind"].get("summary", 0)),
-        ("Feu du soir : au moins un résident présent", stats["evenings_with_someone"]),
-        ("Feu du soir : les trois résidents présents", stats["evenings_all_present"]),
-        ("Repas pris aux réserves (tâche eat)", stats["eat_count"]),
-        ("Cueillette de baies quand les réserves sont vides (tâche forage)", stats["forage_count"]),
-        ("Sommeil avec regain d'énergie (tâche sleep)", stats["sleep_ticks"]),
-        ("Repos faute de ressource à ramasser (tâche rest)", stats["rest_count"]),
-        ("Phrase signature d'un résident (probabilité 8 % par tick)", stats["signature_line_fired"]),
-        ("Faim au plafond (100)", stats["hunger_hit_100"]),
-        ("Énergie à zéro", stats["energy_hit_0"]),
-        ("Compagnie à zéro", stats["company_hit_0"]),
-        ("Nœud de ressource épuisé (stock < 1, donc ignoré par les résidents)", len(stats["node_ever_below_1"])),
-        ("Réserves de nourriture à zéro au début d'un tick", stats["stores_food_zero_ticks"]),
-        ("Après le radeau : récolte de bois ou de fibre", stats["post_raft_gather_wood_fiber"]),
-        ("Après le radeau : paiement d'un coquillage", stats["post_raft_shell_payments"]),
+        ("Raft completion (status done + raft_ready flag)", 1 if stats["raft_done_tick"] else 0),
+        ("\"launching\" entry in the Book", stats["book_by_kind"].get("launching", 0)),
+        ("Progress milestones 25/50/75% in the Book", stats["book_by_kind"].get("progress", 0)),
+        ("Deliveries to the project (total quantity)", stats["deliveries_to_project_qty"]),
+        ("One-shell payments per delivery to the project", stats["shell_payments"]),
+        ("Deliveries to stores (outside the project)", stats["deliveries_to_stores_qty"]),
+        ("Morning stone: Sélie arrives at 07:00 (+1 shell to the pot)", stats["stone_arrivals"]),
+        ("Evening fire: evening summary in the Book", stats["book_by_kind"].get("summary", 0)),
+        ("Evening fire: at least one resident present", stats["evenings_with_someone"]),
+        ("Evening fire: all three residents present", stats["evenings_all_present"]),
+        ("Meals taken from stores (eat task)", stats["eat_count"]),
+        ("Berry gathering when stores are empty (forage task)", stats["forage_count"]),
+        ("Sleep with energy regain (sleep task)", stats["sleep_ticks"]),
+        ("Rest for lack of a resource to gather (rest task)", stats["rest_count"]),
+        ("Resident signature line (8% probability per tick)", stats["signature_line_fired"]),
+        ("Hunger at the ceiling (100)", stats["hunger_hit_100"]),
+        ("Energy at zero", stats["energy_hit_0"]),
+        ("Company at zero", stats["company_hit_0"]),
+        ("Resource node depleted (stock < 1, so ignored by residents)", len(stats["node_ever_below_1"])),
+        ("Food stores at zero at the start of a tick", stats["stores_food_zero_ticks"]),
+        ("After the raft: wood or fiber gathering", stats["post_raft_gather_wood_fiber"]),
+        ("After the raft: one-shell payment", stats["post_raft_shell_payments"]),
     ]
 
     out = []
-    out.append(f"PASSE DE JEU — Aelúmara, moteur sim.py (dépôt aelumara, blob du moteur {SIM_BLOB})")
+    out.append(f"PLAYTEST SWEEP — Aelúmara, sim.py engine (aelumara repository, engine blob {SIM_BLOB})")
     if RUN_LABEL:
-        out.append(f"Contexte : {RUN_LABEL}")
-    out.append(f"Course : {stats['ticks']} ticks = 30 jours d'île, fixture fraîche (voir en-tête de playtest_sweep.py), état vivant jamais touché.")
+        out.append(f"Context: {RUN_LABEL}")
+    out.append(f"Run: {stats['ticks']} ticks = 30 island days, fresh fixture (see the header of playtest_sweep.py), live state never touched.")
     out.append("")
-    out.append("DÉCLENCHEMENTS PAR RÈGLE")
+    out.append("RULE FIRINGS")
     for name, count in rules:
-        out.append(f"- {name} : {count}")
+        out.append(f"- {name}: {count}")
     out.append("")
-    out.append("RÈGLES JAMAIS DÉCLENCHÉES")
+    out.append("RULES THAT NEVER FIRED")
     never = [name for name, count in rules if count == 0]
     if never:
         for name in never:
             out.append(f"- {name}")
     else:
-        out.append("- (aucune)")
+        out.append("- (none)")
     out.append("")
-    out.append("FAITS SAILLANTS")
-    out.append(f"- Radeau terminé : tick {stats['raft_done_tick']}, jour {stats['raft_done_day']} (drapeau raft_ready = {state['flags'].get('raft_ready')}).")
-    out.append(f"- Livre : {len(book['entries'])} entrées, par genre : {json.dumps(stats['book_by_kind'], ensure_ascii=False, sort_keys=True)}.")
-    out.append(f"- Compteur de feux (state.fires) à la fin : {stats['fires_counter_end']} ; soirs avec au moins un présent : {stats['evenings_with_someone']} ; soirs vides : {stats['evenings_empty']} ; soirs au complet : {stats['evenings_all_present']}.")
-    out.append(f"- Présences au feu par résident (sur 30 soirs) : {json.dumps(stats['at_fire_by_npc'], ensure_ascii=False, sort_keys=True)}.")
-    out.append(f"- Pierre du matin : {stats['stone_arrivals']} arrivées, sur {len(stats['stone_days'])} jours distincts.")
-    out.append(f"- Pot commun : min {stats['pot_min']}, max {stats['pot_max']}, fin {state['pot']} ; coquillages gagnés par les résidents : {stats['shell_payments']} ; après le radeau, le pot a encore gagné {stats['post_raft_pot_gain']} (pierre du matin) sans aucune dépense possible.")
-    out.append(f"- Réserves à la fin : {json.dumps(state['stores'], ensure_ascii=False)} ; nourriture au plus bas : {stats['stores_food_min']}.")
-    out.append(f"- Besoins observés (min/max) : faim {stats['needs_min']['hunger']}/{stats['needs_max']['hunger']}, énergie {stats['needs_min']['energy']}/{stats['needs_max']['energy']}, compagnie {stats['needs_min']['company']}/{stats['needs_max']['company']}.")
-    out.append(f"- Tâches observées : {json.dumps(stats['task_counts'], ensure_ascii=False, sort_keys=True)}.")
-    out.append(f"- Stocks de nœuds au plus bas : {json.dumps(stats['node_min_stock'], ensure_ascii=False, sort_keys=True)}.")
-    out.append(f"- État final : tick {state['tick']}, jour {state['day']}, heure d'île {state['time']}.")
+    out.append("HIGHLIGHTS")
+    out.append(f"- Raft completed: tick {stats['raft_done_tick']}, day {stats['raft_done_day']} (raft_ready flag = {state['flags'].get('raft_ready')}).")
+    out.append(f"- Book: {len(book['entries'])} entries, by kind: {json.dumps(stats['book_by_kind'], ensure_ascii=False, sort_keys=True)}.")
+    out.append(f"- Fire counter (state.fires) at the end: {stats['fires_counter_end']}; evenings with at least one resident present: {stats['evenings_with_someone']}; empty evenings: {stats['evenings_empty']}; full evenings: {stats['evenings_all_present']}.")
+    out.append(f"- Fire attendance by resident (over 30 evenings): {json.dumps(stats['at_fire_by_npc'], ensure_ascii=False, sort_keys=True)}.")
+    out.append(f"- Morning stone: {stats['stone_arrivals']} arrivals, over {len(stats['stone_days'])} distinct days.")
+    out.append(f"- Shared pot: min {stats['pot_min']}, max {stats['pot_max']}, end {state['pot']}; shells earned by residents: {stats['shell_payments']}; after the raft, the pot gained another {stats['post_raft_pot_gain']} (morning stone) with no possible expense.")
+    out.append(f"- Final stores: {json.dumps(state['stores'], ensure_ascii=False)}; lowest food: {stats['stores_food_min']}.")
+    out.append(f"- Needs observed (min/max): hunger {stats['needs_min']['hunger']}/{stats['needs_max']['hunger']}, energy {stats['needs_min']['energy']}/{stats['needs_max']['energy']}, company {stats['needs_min']['company']}/{stats['needs_max']['company']}.")
+    out.append(f"- Tasks observed: {json.dumps(stats['task_counts'], ensure_ascii=False, sort_keys=True)}.")
+    out.append(f"- Lowest node stocks: {json.dumps(stats['node_min_stock'], ensure_ascii=False, sort_keys=True)}.")
+    out.append(f"- Final state: tick {state['tick']}, day {state['day']}, island time {state['time']}.")
     report = "\n".join(out) + "\n"
     with open(os.path.join(HERE, "playtest_sweep.log"), "w", encoding="utf-8") as f:
         f.write(report)
