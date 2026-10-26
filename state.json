@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 26,
+  "tick": 27,
   "day": 2,
-  "time": "2026-10-26T18:00:00Z",
+  "time": "2026-10-26T19:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 0.8
+    "food": 2.8
   },
   "nodes": [
     {
@@ -67,7 +67,7 @@
       "id": "wood-1",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.5,
+      "stock": 18.75,
       "pos": [
         -12,
         -8
@@ -77,7 +77,7 @@
       "id": "wood-2",
       "type": "palm",
       "resource": "wood",
-      "stock": 16.5,
+      "stock": 16.75,
       "pos": [
         -15,
         -2
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 13.5,
+      "stock": 13.75,
       "pos": [
         15,
         -7
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.2,
+      "stock": 10.6,
       "pos": [
         -8,
         9
@@ -157,7 +157,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 9.8,
+      "stock": 10.1,
       "pos": [
         -4,
         -16
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -4.46,
-        -0.2
+        -6.61,
+        5.4
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 60,
-        "energy": 64,
-        "company": 29.5
+        "hunger": 65,
+        "energy": 60,
+        "company": 29.0
       },
       "task": "forage",
       "carry": {},
@@ -224,8 +224,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        3.3,
-        4.96
+        6,
+        4
       ],
       "talent": "food",
       "likes": "food",
@@ -233,16 +233,14 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 20,
-        "energy": 64,
-        "company": 58
+        "hunger": 25,
+        "energy": 60,
+        "company": 56
       },
       "task": "deliver",
-      "carry": {
-        "food": 3
-      },
+      "carry": {},
       "say": "A meal from the stores.",
-      "delivered": 2,
+      "delivered": 5,
       "shells": 1,
       "stone_day": 1,
       "temperament": 0.722,
@@ -269,13 +267,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 65,
-        "energy": 46.0,
-        "company": 34.5
+        "hunger": 20,
+        "energy": 40.0,
+        "company": 34.0
       },
-      "task": "forage",
+      "task": "eat",
       "carry": {},
-      "say": "What's that, over there?",
+      "say": "A meal from the stores.",
       "delivered": 6,
       "shells": 3,
       "temperament": 0.503,
@@ -290,12 +288,14 @@
   ],
   "pot": 8,
   "today": {
-    "delivered": 2,
+    "delivered": 5,
     "at_fire": [],
     "ledger": {
-      "stores_in": {},
+      "stores_in": {
+        "food": 3
+      },
       "stores_out": {
-        "food": 1.2
+        "food": 2.2
       },
       "project": {
         "fiber": 2
