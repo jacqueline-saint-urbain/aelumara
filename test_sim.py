@@ -496,11 +496,11 @@ def test_finished_shelter_gets_its_own_launching_entry():
 def test_the_pot_pays_one_shell_for_the_shared_meal():
     state, book = stone_state(FIRE)
     state["stores"]["food"] = 10
-    state["pot"] = 5
+    state["pot"] = 8
     state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
     sim_obj = engine.Sim(state, book)
     sim_obj.evening_fire()
-    assert state["pot"] == 4
+    assert state["pot"] == 7
     assert state["today"]["ledger"]["pot_out"] == 1
 
 
@@ -511,4 +511,16 @@ def test_an_empty_pot_does_not_stop_the_shared_meal():
     state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
     engine.Sim(state, book).evening_fire()
     assert state["pot"] == 0
+    assert state["stores"]["food"] == pytest.approx(4.0, abs=0.01)
+
+
+def test_the_pot_keeps_a_reserve_for_work_shifts():
+    # Spark's sweep (2026-10-25): paying every meal left the pot empty 8 days
+    # in a row. The pot now pays the meal only above MEAL_POT_MIN (5).
+    state, book = stone_state(FIRE)
+    state["stores"]["food"] = 10
+    state["pot"] = engine.MEAL_POT_MIN
+    state["today"] = {"delivered": 0, "at_fire": ["npc-1", "npc-2"]}
+    engine.Sim(state, book).evening_fire()
+    assert state["pot"] == engine.MEAL_POT_MIN
     assert state["stores"]["food"] == pytest.approx(4.0, abs=0.01)

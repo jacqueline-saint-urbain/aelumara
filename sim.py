@@ -40,6 +40,7 @@ NODE_MAX = {"wood": 20, "food": 12, "fiber": 12}
 LEDGER_DAYS = 14  # days of ledger history kept in state.json
 SHELTER_NEEDS = {"wood": 12, "fiber": 6}  # the shelter, second shared project (tech tree step 2)
 SHELTER_POS = [-4, 4]
+MEAL_POT_MIN = 5  # the pot pays the shared meal only above this reserve, kept for work shifts
 
 
 def new_shelter():
@@ -227,7 +228,7 @@ class Sim:
             feast = st["stores"]["food"] >= FEAST_STORES
             st["stores"]["food"] = round(st["stores"]["food"] - 6, 2)
             self.log("stores_out", "food", 6)
-            if st["pot"] >= 1:  # the pot pays for the shared meal; an empty pot never stops it
+            if st["pot"] > MEAL_POT_MIN:  # the pot pays for the shared meal; a low pot never stops it
                 st["pot"] -= 1
                 self.log("pot_out")
             for npc in st["npcs"]:
