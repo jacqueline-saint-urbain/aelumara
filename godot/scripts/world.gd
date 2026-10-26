@@ -34,6 +34,7 @@ func _ready() -> void:
 	_fresh_water()
 	var flora := preload("res://scripts/flora.gd").new()
 	flora.name = "Flora"
+	flora.rig = rig
 	add_child(flora)
 	sim = preload("res://scripts/sim_layer.gd").new()
 	sim.name = "Sim"

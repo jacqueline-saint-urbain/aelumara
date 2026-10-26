@@ -94,3 +94,17 @@ def test_flora_stands_on_land_and_out_of_the_river():
                 continue
             d = np.min(np.hypot(pts[:, 0, None] - (river[None, :, 0] + cx), pts[:, 2, None] - (river[None, :, 1] + cz)), axis=1)
             assert d.min() > 2.0, f"{layer['name']} in the Aubeline"
+
+
+def test_resource_trees_are_spread_out_and_listed():
+    info, rec = _flora()
+    listed = json.load(open(os.path.join(ROOT, "godot", "terrain", "resource_trees.json")))
+    pts = []
+    for layer in info["layers"]:
+        for m in layer["models"]:
+            pts += [(x, z) for x, _, z, _, _ in rec[m["offset"]:m["offset"] + m.get("resource", 0)]]
+    assert len(pts) == listed["count"] == len(listed["trees"]) > 100
+    p = np.array(pts)
+    d = np.hypot(p[:, 0, None] - p[None, :, 0], p[:, 1, None] - p[None, :, 1]) + np.eye(len(p)) * 1e9
+    assert d.min() >= 11.0 - 1e-3
+    assert {t["island"] for t in listed["trees"]} == {"home", "far"}

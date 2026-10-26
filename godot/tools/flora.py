@@ -13,6 +13,12 @@ zone by zone, as the owner asked on 2026-10-26:
 Writes godot/terrain/flora.json (layers and models) and flora.bin (float32 records
 x, y, z, rotation, size in metres; Godot scales each model so that its height, or half its
 width for flat and wide plants, matches that size).
+
+Trees come in two kinds (owner's request, 2026-10-26): resource trees, spread at least
+RESOURCE_SPACING metres apart, which the islanders can use and which are always drawn, and decor
+trees, which Godot hides around the camera when it is zoomed in so the residents stay visible.
+Inside each tree model the resource trees come first ("resource" = how many); their list is also
+written to godot/terrain/resource_trees.json for the simulation.
 Deterministic: fixed seeds.
 
 Usage: python3 godot/tools/flora.py   (after terrain.py)
@@ -92,6 +98,10 @@ LAYERS = [
     ("rocks_small", ROCKS_SMALL, 90, False), ("forest_floor", FOREST_FLOOR, 60, False),
     ("flowers", FLOWERS, 60, False), ("grass", GRASS, 45, False), ("lilies", LILIES, 160, False),
 ]
+
+
+TREE_LAYERS = ("palms", "jungle_trees", "mountain_main", "mountain_other", "plains_trees")
+RESOURCE_SPACING = 11.0   # metres between two resource trees
 
 
 def jittered(rng, x0, x1, z0, z1, spacing):
@@ -239,25 +249,61 @@ def far(placer, g):
     placer.add("lilies", rng, mx + r * np.cos(a), mz + r * np.sin(a), np.full(18, lake_level + 0.03), sink=0)
 
 
+def pick_resource_trees(placer):
+    """Marks a spread-out subset of the trees as resource trees: visited in a fixed random order, a tree
+    becomes a resource tree when no resource tree stands within RESOURCE_SPACING of it."""
+    trees = [(name, i) for name in TREE_LAYERS for i in range(len(placer.out[name]))]
+    rng = np.random.default_rng(303)
+    cell = RESOURCE_SPACING
+    grid, chosen = {}, set()
+    for k in rng.permutation(len(trees)):
+        name, i = trees[k]
+        _, x, _, z, _, _ = placer.out[name][i]
+        cx, cz = int(x // cell), int(z // cell)
+        near = (grid.get((cx + a, cz + b), ()) for a in (-1, 0, 1) for b in (-1, 0, 1))
+        if any(math.hypot(x - px, z - pz) < RESOURCE_SPACING for pts in near for px, pz in pts):
+            continue
+        grid.setdefault((cx, cz), []).append((x, z))
+        chosen.add((name, i))
+    return chosen
+
+
 def main():
     placer = Placer()
     home(placer, terrain.home_island())
     far(placer, terrain.far_island())
-    layers, recs = [], []
+    chosen = pick_resource_trees(placer)
+    layers, recs, resource = [], [], []
     for name, (models, _), fade, shadow in LAYERS:
         items = placer.out[name]
         entry = {"name": name, "fade": fade, "shadow": shadow, "models": []}
         for mi, path in enumerate(models):
-            mine = [it[1:] for it in items if it[0] == mi]
-            if not mine:
+            res = [it for i, it in enumerate(items) if it[0] == mi and (name, i) in chosen]
+            rest = [it for i, it in enumerate(items) if it[0] == mi and (name, i) not in chosen]
+            if not res and not rest:
                 continue
-            entry["models"].append({"path": "res://models/" + path, "offset": len(recs), "count": len(mine)})
-            recs.extend(mine)
+            model = {"path": "res://models/" + path, "offset": len(recs), "count": len(res) + len(rest)}
+            if name in TREE_LAYERS:
+                model["resource"] = len(res)
+            entry["models"].append(model)
+            for _, x, y, z, _, h in res:
+                island = "home" if math.hypot(x, z) < 46 else "far"   # Trio Island's grid is -46..46
+                resource.append({"kind": name, "model": os.path.splitext(os.path.basename(path))[0],
+                                 "island": island, "pos": [round(x, 2), round(z, 2)], "y": round(y, 2),
+                                 "height": round(h, 1)})
+            recs.extend(it[1:] for it in res + rest)
         layers.append(entry)
+    resource.sort(key=lambda r: (r["island"] != "home", r["pos"][1], r["pos"][0]))
+    for n, r in enumerate(resource):
+        r["id"] = f"tree-{n + 1:03d}"
+    with open(os.path.join(OUT, "resource_trees.json"), "w") as f:
+        json.dump({"about": "Resource trees of the Godot world (godot/tools/flora.py): always drawn, at least "
+                            f"{RESOURCE_SPACING:g} m apart. pos = [x, z] in sim coordinates, y = ground height.",
+                   "count": len(resource), "trees": [{"id": r.pop("id"), **r} for r in resource]}, f, indent=1)
     np.array(recs, np.float32).tofile(os.path.join(OUT, "flora.bin"))
     with open(os.path.join(OUT, "flora.json"), "w") as f:
         json.dump({"record": ["x", "y", "z", "rotation", "height"], "count": len(recs), "layers": layers}, f, indent=1)
-    print("flora:", len(recs), {n: len(v) for n, v in placer.out.items()})
+    print("flora:", len(recs), {n: len(v) for n, v in placer.out.items()}, "resource trees:", len(resource))
 
 
 if __name__ == "__main__":

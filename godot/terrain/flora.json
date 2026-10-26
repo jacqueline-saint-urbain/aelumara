@@ -16,62 +16,74 @@
     {
      "path": "res://models/kenney-nature/tree_palm.glb",
      "offset": 0,
-     "count": 31
+     "count": 31,
+     "resource": 7
     },
     {
      "path": "res://models/kenney-nature/tree_palmBend.glb",
      "offset": 31,
-     "count": 32
+     "count": 32,
+     "resource": 9
     },
     {
      "path": "res://models/kenney-nature/tree_palmTall.glb",
      "offset": 63,
-     "count": 25
+     "count": 25,
+     "resource": 7
     },
     {
      "path": "res://models/kenney-nature/tree_palmDetailedTall.glb",
      "offset": 88,
-     "count": 27
+     "count": 27,
+     "resource": 4
     },
     {
      "path": "res://models/kenney-pirate/palm-bend.glb",
      "offset": 115,
-     "count": 26
+     "count": 26,
+     "resource": 4
     },
     {
      "path": "res://models/kenney-pirate/palm-detailed-bend.glb",
      "offset": 141,
-     "count": 34
+     "count": 34,
+     "resource": 4
     },
     {
      "path": "res://models/kenney-pirate/palm-detailed-straight.glb",
      "offset": 175,
-     "count": 24
+     "count": 24,
+     "resource": 5
     },
     {
      "path": "res://models/kenney-pirate/palm-straight.glb",
      "offset": 199,
-     "count": 23
+     "count": 23,
+     "resource": 4
     },
     {
      "path": "res://models/quaternius-nature/PalmTree_1.obj",
      "offset": 222,
-     "count": 33
+     "count": 33,
+     "resource": 8
     },
     {
      "path": "res://models/quaternius-nature/PalmTree_2.obj",
      "offset": 255,
-     "count": 24
+     "count": 24,
+     "resource": 4
     },
     {
      "path": "res://models/quaternius-nature/PalmTree_3.obj",
      "offset": 279,
-     "count": 23
+     "count": 23,
+     "resource": 3
     },
     {
      "path": "res://models/quaternius-nature/PalmTree_4.obj",
      "offset": 302,
-     "count": 25
+     "count": 25,
+     "resource": 5
     }
    ]
   },
@@ -83,42 +95,50 @@
     {
      "path": "res://models/kaykit-forest/Tree_1_C_Color1.gltf",
      "offset": 327,
-     "count": 70
+     "count": 70,
+     "resource": 4
     },
     {
      "path": "res://models/kaykit-forest/Tree_2_D_Color1.gltf",
      "offset": 397,
-     "count": 76
+     "count": 76,
+     "resource": 4
     },
     {
      "path": "res://models/kaykit-forest/Tree_2_E_Color1.gltf",
      "offset": 473,
-     "count": 85
+     "count": 85,
+     "resource": 12
     },
     {
      "path": "res://models/kaykit-forest/Tree_3_C_Color1.gltf",
      "offset": 558,
-     "count": 109
+     "count": 109,
+     "resource": 10
     },
     {
      "path": "res://models/kaykit-forest/Tree_4_C_Color1.gltf",
      "offset": 667,
-     "count": 85
+     "count": 85,
+     "resource": 10
     },
     {
      "path": "res://models/quaternius-nature/CommonTree_5.obj",
      "offset": 752,
-     "count": 80
+     "count": 80,
+     "resource": 10
     },
     {
      "path": "res://models/kenney-nature/tree_detailed.glb",
      "offset": 832,
-     "count": 65
+     "count": 65,
+     "resource": 13
     },
     {
      "path": "res://models/kenney-nature/tree_oak.glb",
      "offset": 897,
-     "count": 78
+     "count": 78,
+     "resource": 10
     }
    ]
   },
@@ -130,27 +150,32 @@
     {
      "path": "res://models/kaykit-forest/Tree_2_A_Color1.gltf",
      "offset": 975,
-     "count": 65
+     "count": 65,
+     "resource": 9
     },
     {
      "path": "res://models/kaykit-forest/Tree_2_B_Color1.gltf",
      "offset": 1040,
-     "count": 75
+     "count": 75,
+     "resource": 11
     },
     {
      "path": "res://models/kaykit-forest/Tree_2_C_Color1.gltf",
      "offset": 1115,
-     "count": 89
+     "count": 89,
+     "resource": 10
     },
     {
      "path": "res://models/kaykit-forest/Tree_2_D_Color1.gltf",
      "offset": 1204,
-     "count": 75
+     "count": 75,
+     "resource": 12
     },
     {
      "path": "res://models/kaykit-forest/Tree_2_E_Color1.gltf",
      "offset": 1279,
-     "count": 69
+     "count": 69,
+     "resource": 9
     }
    ]
   },
@@ -162,22 +187,26 @@
     {
      "path": "res://models/kaykit-forest/Tree_4_A_Color1.gltf",
      "offset": 1348,
-     "count": 16
+     "count": 16,
+     "resource": 2
     },
     {
      "path": "res://models/kaykit-forest/Tree_4_B_Color1.gltf",
      "offset": 1364,
-     "count": 8
+     "count": 8,
+     "resource": 1
     },
     {
      "path": "res://models/kenney-nature/tree_tall.glb",
      "offset": 1372,
-     "count": 16
+     "count": 16,
+     "resource": 0
     },
     {
      "path": "res://models/kenney-nature/tree_simple.glb",
      "offset": 1388,
-     "count": 10
+     "count": 10,
+     "resource": 0
     }
    ]
   },
@@ -189,42 +218,50 @@
     {
      "path": "res://models/kenney-nature/tree_plateau.glb",
      "offset": 1398,
-     "count": 2
+     "count": 2,
+     "resource": 1
     },
     {
      "path": "res://models/kenney-nature/tree_plateau.glb",
      "offset": 1400,
-     "count": 4
+     "count": 4,
+     "resource": 3
     },
     {
      "path": "res://models/kaykit-forest/Tree_1_A_Color1.gltf",
      "offset": 1404,
-     "count": 3
+     "count": 3,
+     "resource": 3
     },
     {
      "path": "res://models/kaykit-forest/Tree_1_B_Color1.gltf",
      "offset": 1407,
-     "count": 3
+     "count": 3,
+     "resource": 2
     },
     {
      "path": "res://models/kaykit-forest/Tree_3_A_Color1.gltf",
      "offset": 1410,
-     "count": 4
+     "count": 4,
+     "resource": 4
     },
     {
      "path": "res://models/kaykit-forest/Tree_3_B_Color1.gltf",
      "offset": 1414,
-     "count": 6
+     "count": 6,
+     "resource": 3
     },
     {
      "path": "res://models/quaternius-nature/CommonTree_3.obj",
      "offset": 1420,
-     "count": 3
+     "count": 3,
+     "resource": 2
     },
     {
      "path": "res://models/quaternius-nature/CommonTree_4.obj",
      "offset": 1423,
-     "count": 3
+     "count": 3,
+     "resource": 2
     }
    ]
   },

@@ -19,9 +19,9 @@ The 3D world of [aelumara.pages.dev](https://aelumara.pages.dev/) in Godot 4.7: 
 | `scripts/world.gd` | builds the scene from `terrain/` |
 | `scripts/heightfield.gd` | `height_at(x, z)` so anything can stand on the relief |
 | `scripts/camera_rig.gd` | touch camera (mouse works too), views and following |
-| `tools/flora.py` | places the CC0 flora and rocks zone by zone → `terrain/flora.json` + `flora.bin` |
+| `tools/flora.py` | places the CC0 flora and rocks zone by zone → `terrain/flora.json` + `flora.bin`; picks the resource trees (at least 11 m apart) → `terrain/resource_trees.json` |
 | `models/` | the CC0 models used (Kenney, KayKit, Quaternius), see `models/CREDITS.md` |
-| `scripts/flora.gd`, `scripts/models.gd` | draw the flora with chunked MultiMeshes and generated levels of detail |
+| `scripts/flora.gd`, `scripts/models.gd` | draw the flora with chunked MultiMeshes and generated levels of detail; zoomed in, decor trees around the camera's target make room, resource trees stay |
 | `scripts/sim_layer.gd`, `scripts/props.gd` | residents, resource nodes, projects, `world.json` pieces and avatars, from `state.json` and `world.json` |
 | `scripts/bridge.gd` | messages with the web page around the canvas (views, follow, zoom, tapped object) |
 | `export_presets.cfg`, `tools/build_site.sh` | web export (Compatibility renderer, no threads) and site assembly |
