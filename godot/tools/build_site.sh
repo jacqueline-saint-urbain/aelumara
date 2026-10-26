@@ -11,7 +11,7 @@ ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 rm -rf "$SITE"
 mkdir -p "$SITE/godot"
 cp "$ROOT/index.html" "$SITE/"
-find "$EXPORT" -maxdepth 1 -name "index.*" ! -name "*.import" -exec cp {} "$SITE/godot/" ;
+find "$EXPORT" -maxdepth 1 -name "index.*" ! -name "*.import" -exec cp {} "$SITE/godot/" \;
 rm "$SITE/godot/index.wasm"
 ( cd "$SITE/godot" && split -b 20m -d "$EXPORT/index.wasm" index.wasm.part )
 python3 - "$SITE/godot" <<'PY'
