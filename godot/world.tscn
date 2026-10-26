@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_world"]
+[ext_resource type="Script" path="res://scripts/camera_rig.gd" id="2_rig"]
+
+[sub_resource type="ProceduralSkyMaterial" id="Sky_mat"]
+sky_top_color = Color(0.32, 0.6, 0.86, 1)
+sky_horizon_color = Color(0.7, 0.85, 0.93, 1)
+ground_horizon_color = Color(0.7, 0.85, 0.93, 1)
+ground_bottom_color = Color(0.1, 0.3, 0.45, 1)
+sun_angle_max = 20.0
+
+[sub_resource type="Sky" id="Sky_res"]
+sky_material = SubResource("Sky_mat")
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 2
+sky = SubResource("Sky_res")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.6
+ambient_light_energy = 0.8
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.7, 0.85, 0.93, 1)
+fog_density = 0.0009
+fog_sky_affect = 0.3
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_world")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.9, 0.6, 0)
+light_energy = 1.25
+shadow_enabled = true
+directional_shadow_max_distance = 300.0
+
+[node name="CameraRig" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -70)
+script = ExtResource("2_rig")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+far = 2500.0

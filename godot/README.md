@@ -1,25 +1,41 @@
-# Aelúmara ground for Godot
+# Aelúmara in Godot
 
-A small Godot 4 project with the **ground only** of the two islands (grass, sand, wet sand, foam, mountain, hills, cascade, river, jungle floor). There are no plants, rocks or buildings in it. The owner asked for this on 2026-10-26 to try building the world with her finger in Godot on an Android tablet.
+The 3D world of [aelumara.pages.dev](https://aelumara.pages.dev/) in Godot 4.7: the relief and textures of the two islands, the sea, the river Aubeline, the cascade and Lac d'Aube on top of Mont Séréval. The plan is in the owner's vault; this folder follows it step by step (relief first, then the CC0 low-poly flora, then the sim's villagers and objects).
 
-## Open it on an Android tablet
+## Run it
 
-1. Install the **Godot Engine** editor from the Google Play Store. See the [Android editor docs](https://docs.godotengine.org/en/stable/tutorials/editor/using_the_android_editor.html).
-2. Download [`aelumara-ground.zip`](https://github.com/jacqueline-saint-urbain/aelumara/raw/main/godot/aelumara-ground.zip).
-3. In Godot's project manager, tap **Import**, pick the zip, and choose an empty folder. Then open the project.
-4. Press ▶ (Run). One finger turns the camera, two fingers zoom and move it, and the buttons jump between the islands.
+- **Desktop**: open `project.godot` in Godot 4.7.2 and press ▶.
+- **Android tablet**: install the Godot editor from the Play Store ([docs](https://docs.godotengine.org/en/stable/tutorials/editor/using_the_android_editor.html)), import this `godot/` folder (or the zip published next to the web build), then press ▶. One finger turns the camera, two fingers zoom and move it.
 
 ## Files
 
-| file | what |
+| path | what |
 |---|---|
-| `aelumara_ground.glb` | both islands' ground; Trio Island at the origin, Horizon Island at `[0, -150]` |
-| `main.tscn` | sea, sun, sky, fog, the ground, the camera and the buttons |
-| `camera_rig.gd` | touch camera (mouse works too) |
-| `ui.gd` | island buttons and help line |
+| `tools/terrain.py` | generates the relief: height grids, texture weights, river, lake, sea depth. Deterministic (fixed seeds). |
+| `tools/test_terrain.py` | checks every sim position stands on dry, gentle ground, the river runs downhill, the islands don't touch |
+| `terrain/` | generated: `home.*`, `far.*` (grid `.bin` float32 + mesh `.glb`), `water.glb`, `sea_depth.png`, `meta.json` |
+| `textures/` | 512 px CC0 ground textures from ambientCG, see `CREDITS.md` |
+| `shaders/` | `terrain` (5-layer blend, triplanar rock), `sea` (depth colour, foam, waves), `flow` (river, cascade, lake) |
+| `scripts/world.gd` | builds the scene from `terrain/` |
+| `scripts/heightfield.gd` | `height_at(x, z)` so anything can stand on the relief |
+| `scripts/camera_rig.gd` | touch camera (mouse works too) |
 
-Units are metres, Y is up, and −Z is north, the same as in `index.html`.
+Units are metres, Y is up, −Z is north, sea level is 0: the same frame as `sim.py` and `index.html`. Trio Island is at the origin, Horizon Island is centred on `[0, -150]`.
 
-## How the glb was made
+## Change the relief
 
-`index.html` builds the islands with `homeIsland(true)` and `farIsland(region, true)`, which skip the plants. The two groups were exported with three.js `GLTFExporter`, with flat normals and patch layers lifted by a few centimetres instead of a polygon offset. If the islands change in `index.html`, export again the same way.
+```
+pip install numpy pillow
+python3 godot/tools/terrain.py          # rewrites godot/terrain/
+python3 -m pytest -q godot/tools/test_terrain.py
+```
+
+Then reopen the project so Godot reimports the files.
+
+## Screenshots without a window
+
+```
+godot --path godot -- --cam=x,z,distance,yaw,pitch
+```
+
+puts the camera on a point of the map, which helps with `--write-movie` captures.

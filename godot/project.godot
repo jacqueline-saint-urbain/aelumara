@@ -1,14 +1,14 @@
 ; Engine configuration file.
-; Aelúmara ground for Godot 4: the two islands' ground only (no plants), with a touch camera.
+; Aelúmara for Godot 4.7: the islands drawn from godot/terrain (see tools/terrain.py).
 
 config_version=5
 
 [application]
 
-config/name="Aelumara Ground"
-config/description="The ground of Trio Island and Horizon Island, exported from the Aelumara page."
-run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.4", "Mobile")
+config/name="Aelumara"
+config/description="The islands of Aelumara: relief, water, plants and the simulation, drawn by Godot."
+run/main_scene="res://world.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
 
@@ -20,4 +20,6 @@ pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
