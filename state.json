@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 42,
+  "tick": 43,
   "day": 2,
-  "time": "2026-10-27T10:00:00Z",
+  "time": "2026-10-27T11:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 17.5,
+      "stock": 17.75,
       "pos": [
         15,
         -7
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 11,
       "pos": [
         -8,
         9
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        11.23,
+        2.43
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 96,
-        "company": 39.5
+        "hunger": 45,
+        "energy": 92,
+        "company": 38.5
       },
-      "task": "eat",
+      "task": "gather_wood",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 3,
@@ -227,8 +227,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -237,8 +237,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 81,
-        "company": 76
+        "energy": 77,
+        "company": 74
       },
       "task": "stone",
       "carry": {
@@ -267,23 +267,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -6.58,
-        6.93
+        -8,
+        9
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 95,
-        "energy": 94.0,
-        "company": 44.5
+        "hunger": 60,
+        "energy": 88.0,
+        "company": 43.5
       },
       "task": "forage",
       "carry": {
         "fiber": 2
       },
-      "say": "What's that, over there?",
+      "say": "Berries!",
       "delivered": 6,
       "shells": 3,
       "temperament": 0.503,
