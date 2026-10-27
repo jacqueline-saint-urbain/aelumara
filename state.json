@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 77,
+  "tick": 78,
   "day": 4,
-  "time": "2026-10-28T21:00:00Z",
+  "time": "2026-10-28T22:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.4,
+      "stock": 11.8,
       "pos": [
         4,
         11
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        3.57,
-        5.02
+        -0.49,
+        0.6
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 52,
-        "company": 5.0
+        "hunger": 50,
+        "energy": 48,
+        "company": 4.0
       },
-      "task": "deliver",
+      "task": "fire",
       "carry": {
         "wood": 3
       },
@@ -239,8 +239,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        4.35,
-        9.77
+        1.38,
+        4.56
       ],
       "talent": "food",
       "likes": "food",
@@ -248,11 +248,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 45,
-        "energy": 37,
-        "company": 59.0
+        "hunger": 50,
+        "energy": 33,
+        "company": 57.0
       },
-      "task": "gather_food",
+      "task": "fire",
       "carry": {},
       "say": "Berries!",
       "delivered": 11,
@@ -287,21 +287,21 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -4.09,
-        0.58
+        -1.5,
+        -0.5
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 60,
-        "energy": 19.0,
-        "company": 35.5
+        "hunger": 65,
+        "energy": 31.0,
+        "company": 34.5
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {},
-      "say": "Berries!",
+      "say": "Good night.",
       "delivered": 10,
       "shells": 5,
       "temperament": 0.503,
