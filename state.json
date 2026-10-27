@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 59,
+  "tick": 60,
   "day": 3,
-  "time": "2026-10-28T03:00:00Z",
+  "time": "2026-10-28T04:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.75,
+      "stock": 19.0,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         4,
         11
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -16,
         6
@@ -199,9 +199,9 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 35,
-        "energy": 52,
-        "company": 22.5
+        "hunger": 40,
+        "energy": 64,
+        "company": 21.5
       },
       "task": "sleep",
       "carry": {
@@ -235,8 +235,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.12,
-        2.51
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -244,15 +244,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 21,
-        "company": 93.0
+        "hunger": 40,
+        "energy": 33,
+        "company": 91.0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "food": 3
       },
-      "say": "A meal from the stores.",
+      "say": "Good night.",
       "delivered": 8,
       "shells": 1,
       "stone_day": 2,
@@ -290,9 +290,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 64.0,
-        "company": 53.0
+        "hunger": 55,
+        "energy": 76.0,
+        "company": 52.0
       },
       "task": "sleep",
       "carry": {
