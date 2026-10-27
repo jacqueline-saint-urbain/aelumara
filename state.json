@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 56,
+  "tick": 57,
   "day": 3,
-  "time": "2026-10-28T00:00:00Z",
+  "time": "2026-10-28T01:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.0,
+      "stock": 18.25,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10.6,
+      "stock": 11.0,
       "pos": [
         4,
         11
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.9,
+      "stock": 11.2,
       "pos": [
         -16,
         6
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        1.39,
-        -5.3
+        4.37,
+        -0.09
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 20,
+        "hunger": 25,
         "energy": 40,
-        "company": 25.5
+        "company": 24.5
       },
-      "task": "sleep",
+      "task": "go_home",
       "carry": {
         "wood": 3
       },
@@ -244,9 +244,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 20,
-        "energy": 25,
-        "company": 74.0
+        "hunger": 25,
+        "energy": 21,
+        "company": 97.0
       },
       "task": "fire",
       "carry": {
@@ -290,9 +290,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 28.0,
-        "company": 56.0
+        "hunger": 40,
+        "energy": 40.0,
+        "company": 55.0
       },
       "task": "sleep",
       "carry": {
@@ -345,7 +345,7 @@
       "npc-1"
     ]
   },
-  "fires": 2,
+  "fires": 3,
   "ledgers": [
     {
       "stores_in": {},

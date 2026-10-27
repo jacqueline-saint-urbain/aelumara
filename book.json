@@ -73,6 +73,14 @@
       "by": "sim",
       "kind": "summary",
       "text": "The evening fire gathers Sélie, Nilo. Today: 5 resources delivered, raft at 26%. Shells in the pot: 8. Left early: Bram. Ledger: stores in 3 food, out 3.2 food; to the project 2 fiber; pot +0 -1; shells: Bram 1, Sélie 1, Nilo 3."
+    },
+    {
+      "tick": 57,
+      "day": 3,
+      "at": "2026-10-28T01:00:00Z",
+      "by": "sim",
+      "kind": "summary",
+      "text": "The evening fire gathers Sélie, Nilo. Today: 5 resources delivered, raft at 31%. Shells in the pot: 8. Left early: Bram. Ledger: stores in 3 food, out 3.08 food; to the project 2 fiber; pot +0 -1; shells: Bram 1, Sélie 1, Nilo 4."
     }
   ]
 }
