@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 69,
+  "tick": 70,
   "day": 3,
-  "time": "2026-10-28T13:00:00Z",
+  "time": "2026-10-28T14:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.8,
+      "stock": 10.2,
       "pos": [
         -8,
         9
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        6.61,
-        -4.83
+        4.48,
+        -10.44
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 84,
-        "company": 12.5
+        "hunger": 50,
+        "energy": 80,
+        "company": 11.5
       },
       "task": "deliver",
       "carry": {
@@ -235,8 +235,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -5.42,
-        3.7
+        -8,
+        9
       ],
       "talent": "food",
       "likes": "food",
@@ -244,15 +244,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 85,
-        "energy": 69,
-        "company": 74.0
+        "hunger": 50,
+        "energy": 65,
+        "company": 72.0
       },
       "task": "forage",
       "carry": {
         "food": 3
       },
-      "say": "A shell on the stone.",
+      "say": "Berries!",
       "delivered": 8,
       "shells": 1,
       "stone_day": 3,
@@ -281,19 +281,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -8,
-        9
+        -4.77,
+        0.6
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 20,
-        "energy": 61.0,
-        "company": 43.5
+        "hunger": 25,
+        "energy": 55.0,
+        "company": 42.5
       },
-      "task": "forage",
+      "task": "deliver",
       "carry": {
         "fiber": 2
       },
