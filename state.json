@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 55,
+  "tick": 56,
   "day": 3,
-  "time": "2026-10-27T23:00:00Z",
+  "time": "2026-10-28T00:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 17.75,
+      "stock": 18.0,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10.2,
+      "stock": 10.6,
       "pos": [
         4,
         11
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.6,
+      "stock": 10.9,
       "pos": [
         -16,
         6
@@ -199,15 +199,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 15,
-        "energy": 44,
-        "company": 26.5
+        "hunger": 20,
+        "energy": 40,
+        "company": 25.5
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {
         "wood": 3
       },
-      "say": "A meal from the stores.",
+      "say": "Good night, all. I need my bed.",
       "delivered": 3,
       "shells": 1,
       "temperament": 0.643,
@@ -235,8 +235,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        0.97,
-        1.48
+        -1.5,
+        -0.5
       ],
       "talent": "food",
       "likes": "food",
@@ -244,9 +244,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 15,
-        "energy": 29,
-        "company": 51.0
+        "hunger": 20,
+        "energy": 25,
+        "company": 74.0
       },
       "task": "fire",
       "carry": {
@@ -290,15 +290,15 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 30,
-        "energy": 16.0,
-        "company": 57.0
+        "hunger": 35,
+        "energy": 28.0,
+        "company": 56.0
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {
         "fiber": 2
       },
-      "say": "What's that, over there?",
+      "say": "Good night.",
       "delivered": 8,
       "shells": 4,
       "temperament": 0.503,
@@ -325,7 +325,8 @@
   "today": {
     "delivered": 5,
     "at_fire": [
-      "npc-3"
+      "npc-3",
+      "npc-2"
     ],
     "ledger": {
       "stores_in": {
@@ -339,7 +340,10 @@
       },
       "pot_in": 0,
       "pot_out": 1
-    }
+    },
+    "left_fire": [
+      "npc-1"
+    ]
   },
   "fires": 2,
   "ledgers": [
