@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 83,
+  "tick": 84,
   "day": 4,
-  "time": "2026-10-29T03:00:00Z",
+  "time": "2026-10-29T04:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -192,22 +192,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        7.83,
-        7.05
+        9,
+        8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 75,
-        "energy": 36,
-        "company": 74.0
+        "hunger": 80,
+        "energy": 48,
+        "company": 73.0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "wood": 3
       },
-      "say": "Berries!",
+      "say": "Good night.",
       "delivered": 3,
       "shells": 1,
       "temperament": 0.643,
@@ -240,8 +240,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.12,
-        2.51
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -249,13 +249,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 75,
-        "energy": 21,
-        "company": 96
+        "hunger": 80,
+        "energy": 33,
+        "company": 94
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {},
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "say": "Good night.",
       "delivered": 11,
       "shells": 1,
       "stone_day": 3,
@@ -297,9 +297,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 90,
-        "energy": 91.0,
-        "company": 29.5
+        "hunger": 95,
+        "energy": 100,
+        "company": 28.5
       },
       "task": "sleep",
       "carry": {},
