@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 76,
+  "tick": 77,
   "day": 4,
-  "time": "2026-10-28T20:00:00Z",
+  "time": "2026-10-28T21:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11,
+      "stock": 11.4,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.6,
+      "stock": 12,
       "pos": [
         -8,
         9
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        4,
-        11
+        3.57,
+        5.02
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 56,
-        "company": 6.0
+        "hunger": 45,
+        "energy": 52,
+        "company": 5.0
       },
-      "task": "forage",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -239,8 +239,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6,
-        4
+        4.35,
+        9.77
       ],
       "talent": "food",
       "likes": "food",
@@ -248,11 +248,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 40,
-        "energy": 41,
-        "company": 61.0
+        "hunger": 45,
+        "energy": 37,
+        "company": 59.0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries!",
       "delivered": 11,
@@ -287,19 +287,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -12.39,
-        4.06
+        -4.09,
+        0.58
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
+        "hunger": 60,
         "energy": 19.0,
-        "company": 36.5
+        "company": 35.5
       },
-      "task": "gather_fiber",
+      "task": "go_home",
       "carry": {},
       "say": "Berries!",
       "delivered": 10,
