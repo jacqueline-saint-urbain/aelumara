@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 72,
+  "tick": 73,
   "day": 4,
-  "time": "2026-10-28T16:00:00Z",
+  "time": "2026-10-28T17:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.0,
+      "stock": 10.4,
       "pos": [
         -8,
         9
@@ -180,7 +180,7 @@
       },
       "have": {
         "wood": 7,
-        "fiber": 6
+        "fiber": 8
       }
     }
   ],
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        2.72,
-        -10.06
+        3.08,
+        -4.07
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 60,
-        "energy": 72,
-        "company": 9.5
+        "hunger": 65,
+        "energy": 68,
+        "company": 8.5
       },
       "task": "forage",
       "carry": {
@@ -239,8 +239,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -8.0,
-        9.0
+        -8,
+        9
       ],
       "talent": "food",
       "likes": "food",
@@ -248,9 +248,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
-        "energy": 57,
-        "company": 68.0
+        "hunger": 25,
+        "energy": 53,
+        "company": 66.0
       },
       "task": "forage",
       "carry": {
@@ -289,25 +289,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        1.69,
-        -16.2
+        2,
+        -17
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 43.0,
-        "company": 40.5
+        "hunger": 40,
+        "energy": 37.0,
+        "company": 39.5
       },
       "task": "deliver",
-      "carry": {
-        "fiber": 2
-      },
+      "carry": {},
       "say": "Berries!",
-      "delivered": 8,
-      "shells": 4,
+      "delivered": 10,
+      "shells": 5,
       "temperament": 0.503,
       "disposition": 0.4749,
       "disposition_week": 0.503,
@@ -331,18 +329,20 @@
       ]
     }
   ],
-  "pot": 9,
+  "pot": 8,
   "today": {
-    "delivered": 0,
+    "delivered": 2,
     "at_fire": [],
     "ledger": {
       "stores_in": {},
       "stores_out": {
         "food": 0.07
       },
-      "project": {},
+      "project": {
+        "fiber": 2
+      },
       "pot_in": 0,
-      "pot_out": 0
+      "pot_out": 1
     }
   },
   "fires": 3,
