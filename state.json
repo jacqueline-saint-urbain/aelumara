@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 107,
+  "tick": 108,
   "day": 5,
-  "time": "2026-10-30T03:00:00Z",
+  "time": "2026-10-30T04:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -97,7 +97,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 18.5,
+      "stock": 18.75,
       "pos": [
         8,
         -12
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.4,
+      "stock": 11.8,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.2,
+      "stock": 11.6,
       "pos": [
         -8,
         9
@@ -157,7 +157,7 @@
       "id": "fiber-2",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -4,
         -16
@@ -192,22 +192,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        7.83,
-        7.05
+        9,
+        8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 35,
-        "energy": 21,
-        "company": 75.5
+        "hunger": 40,
+        "energy": 33,
+        "company": 74.5
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "wood": 3
       },
-      "say": "A meal from the stores.",
+      "say": "Good night.",
       "delivered": 6,
       "shells": 2,
       "temperament": 0.643,
@@ -245,8 +245,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.12,
-        2.51
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -254,15 +254,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 21,
-        "company": 75.0
+        "hunger": 40,
+        "energy": 33,
+        "company": 73.0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "food": 3
       },
-      "say": "A meal from the stores.",
+      "say": "Good night.",
       "delivered": 14,
       "shells": 1,
       "stone_day": 4,
@@ -308,9 +308,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 45,
-        "energy": 64.0,
-        "company": 32.0
+        "hunger": 50,
+        "energy": 76.0,
+        "company": 31.0
       },
       "task": "sleep",
       "carry": {
