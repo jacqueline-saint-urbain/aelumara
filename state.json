@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 92,
+  "tick": 93,
   "day": 4,
-  "time": "2026-10-29T12:00:00Z",
+  "time": "2026-10-29T13:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 1.65
+    "food": 0.65
   },
   "nodes": [
     {
@@ -199,15 +199,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 60,
-        "energy": 73,
-        "company": 65.0
+        "hunger": 15,
+        "energy": 69,
+        "company": 64.0
       },
-      "task": "forage",
+      "task": "eat",
       "carry": {
         "wood": 3
       },
-      "say": "Keep it for Sélie.",
+      "say": "A meal from the stores.",
       "delivered": 3,
       "shells": 1,
       "temperament": 0.643,
@@ -240,8 +240,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -2.8,
-        -1.7
+        -5.42,
+        3.7
       ],
       "talent": "food",
       "likes": "food",
@@ -250,10 +250,10 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 73,
-        "company": 78
+        "energy": 69,
+        "company": 77.0
       },
-      "task": "stone",
+      "task": "forage",
       "carry": {},
       "say": "A shell on the stone.",
       "delivered": 11,
@@ -288,17 +288,17 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -5.32,
-        -0.71
+        -7.71,
+        7.97
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 60,
-        "energy": 82.0,
-        "company": 20.5
+        "hunger": 65,
+        "energy": 76.0,
+        "company": 20.0
       },
       "task": "forage",
       "carry": {},
@@ -342,7 +342,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 2.07
+        "food": 3.07
       },
       "project": {
         "fiber": 2
