@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 94,
+  "tick": 95,
   "day": 4,
-  "time": "2026-10-29T14:00:00Z",
+  "time": "2026-10-29T15:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10,
+      "stock": 9.4,
       "pos": [
         -8,
         9
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 12,
+      "stock": 10,
       "pos": [
         -16,
         6
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        4.45,
-        1.87
+        3.68,
+        -4.08
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 20,
-        "energy": 65,
-        "company": 63.0
+        "hunger": 25,
+        "energy": 61,
+        "company": 62.0
       },
       "task": "deliver",
       "carry": {
@@ -249,9 +249,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
-        "energy": 65,
-        "company": 75.0
+        "hunger": 25,
+        "energy": 61,
+        "company": 74.0
       },
       "task": "forage",
       "carry": {},
@@ -288,21 +288,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -8,
-        9
+        -16,
+        6
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 30,
-        "energy": 70.0,
-        "company": 19.0
+        "hunger": 35,
+        "energy": 64.0,
+        "company": 18.5
       },
-      "task": "forage",
-      "carry": {},
-      "say": "Berries!",
+      "task": "gather_fiber",
+      "carry": {
+        "fiber": 2
+      },
+      "say": "Fiber for the ropes.",
       "delivered": 10,
       "shells": 5,
       "temperament": 0.503,
