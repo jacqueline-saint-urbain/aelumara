@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 99,
+  "tick": 100,
   "day": 5,
-  "time": "2026-10-29T19:00:00Z",
+  "time": "2026-10-29T20:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 3.58
+    "food": 2.58
   },
   "nodes": [
     {
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 8.0,
+      "stock": 8.4,
       "pos": [
         -8,
         9
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.2,
+      "stock": 11.5,
       "pos": [
         -16,
         6
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        6.61,
-        -13.16
+        5.97,
+        -7.19
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 45,
-        "company": 58.5
+        "hunger": 50,
+        "energy": 41,
+        "company": 57.5
       },
-      "task": "gather_wood",
+      "task": "gather_food",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 6,
@@ -242,8 +242,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6,
-        4
+        4.35,
+        9.77
       ],
       "talent": "food",
       "likes": "food",
@@ -251,11 +251,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 45,
-        "energy": 45,
-        "company": 66.0
+        "hunger": 50,
+        "energy": 41,
+        "company": 64.0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 14,
@@ -302,13 +302,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 40.0,
-        "company": 15.0
+        "hunger": 10,
+        "energy": 34.0,
+        "company": 14.0
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {},
-      "say": "Fiber for the ropes.",
+      "say": "A meal from the stores.",
       "delivered": 12,
       "shells": 6,
       "temperament": 0.503,
@@ -348,7 +348,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 0.07
+        "food": 1.07
       },
       "project": {
         "wood": 3,
