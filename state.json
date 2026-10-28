@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 90,
+  "tick": 91,
   "day": 4,
-  "time": "2026-10-29T10:00:00Z",
+  "time": "2026-10-29T11:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        7.38,
+        2.22
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 81,
-        "company": 67.0
+        "hunger": 55,
+        "energy": 77,
+        "company": 66.0
       },
-      "task": "eat",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -239,8 +239,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -249,8 +249,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 81,
-        "company": 82
+        "energy": 77,
+        "company": 80
       },
       "task": "stone",
       "carry": {},
@@ -287,19 +287,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -0.5
+        -2.93,
+        -9.39
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 94.0,
-        "company": 22.5
+        "hunger": 55,
+        "energy": 88.0,
+        "company": 21.5
       },
-      "task": "eat",
+      "task": "gather_fiber",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 10,
