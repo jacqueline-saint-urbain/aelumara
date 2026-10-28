@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 89,
+  "tick": 90,
   "day": 4,
-  "time": "2026-10-29T09:00:00Z",
+  "time": "2026-10-29T10:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 3.65
+    "food": 1.65
   },
   "nodes": [
     {
@@ -199,15 +199,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 100,
-        "energy": 85,
-        "company": 68.0
+        "hunger": 50,
+        "energy": 81,
+        "company": 67.0
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {
         "wood": 3
       },
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 3,
       "shells": 1,
       "temperament": 0.643,
@@ -230,8 +230,7 @@
           0,
           1
         ]
-      ],
-      "short_night": true
+      ]
     },
     {
       "id": "npc-2",
@@ -240,8 +239,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        12,
-        3
+        6.28,
+        1.18
       ],
       "talent": "food",
       "likes": "food",
@@ -250,10 +249,10 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 85,
-        "company": 84
+        "energy": 81,
+        "company": 82
       },
-      "task": "sleep",
+      "task": "stone",
       "carry": {},
       "say": "Good night.",
       "delivered": 11,
@@ -279,8 +278,7 @@
           1,
           0
         ]
-      ],
-      "short_night": true
+      ]
     },
     {
       "id": "npc-3",
@@ -297,13 +295,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 100,
-        "energy": 100,
-        "company": 23.5
+        "hunger": 50,
+        "energy": 94.0,
+        "company": 22.5
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 10,
       "shells": 5,
       "temperament": 0.503,
@@ -342,7 +340,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 0.07
+        "food": 2.07
       },
       "project": {
         "fiber": 2
