@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 88,
+  "tick": 89,
   "day": 4,
-  "time": "2026-10-29T08:00:00Z",
+  "time": "2026-10-29T09:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -201,7 +201,7 @@
       "needs": {
         "hunger": 100,
         "energy": 85,
-        "company": 69.0
+        "company": 68.0
       },
       "task": "sleep",
       "carry": {
@@ -250,8 +250,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 81,
-        "company": 86
+        "energy": 85,
+        "company": 84
       },
       "task": "sleep",
       "carry": {},
@@ -299,7 +299,7 @@
       "needs": {
         "hunger": 100,
         "energy": 100,
-        "company": 24.5
+        "company": 23.5
       },
       "task": "sleep",
       "carry": {},
