@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 93,
+  "tick": 94,
   "day": 4,
-  "time": "2026-10-29T13:00:00Z",
+  "time": "2026-10-29T14:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 10,
       "pos": [
         -8,
         9
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        5.22,
-        7.82
+        4.45,
+        1.87
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 15,
-        "energy": 69,
-        "company": 64.0
+        "hunger": 20,
+        "energy": 65,
+        "company": 63.0
       },
-      "task": "eat",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -240,8 +240,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -5.42,
-        3.7
+        -8,
+        9
       ],
       "talent": "food",
       "likes": "food",
@@ -249,13 +249,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 100,
-        "energy": 69,
-        "company": 77.0
+        "hunger": 60,
+        "energy": 65,
+        "company": 75.0
       },
       "task": "forage",
       "carry": {},
-      "say": "A shell on the stone.",
+      "say": "Berries!",
       "delivered": 11,
       "shells": 1,
       "stone_day": 4,
@@ -288,21 +288,21 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -7.71,
-        7.97
+        -8,
+        9
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 65,
-        "energy": 76.0,
-        "company": 20.0
+        "hunger": 30,
+        "energy": 70.0,
+        "company": 19.0
       },
       "task": "forage",
       "carry": {},
-      "say": "Keep it for Sélie.",
+      "say": "Berries!",
       "delivered": 10,
       "shells": 5,
       "temperament": 0.503,
