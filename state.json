@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 96,
+  "tick": 97,
   "day": 5,
-  "time": "2026-10-29T16:00:00Z",
+  "time": "2026-10-29T17:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 6.8,
+      "stock": 7.2,
       "pos": [
         -8,
         9
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.3,
+      "stock": 10.6,
       "pos": [
         -16,
         6
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        2.91,
-        -10.03
+        2.13,
+        -15.98
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
-        "energy": 57,
-        "company": 61.0
+        "hunger": 35,
+        "energy": 53,
+        "company": 60.0
       },
       "task": "deliver",
       "carry": {
@@ -244,8 +244,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -8,
-        9
+        -2.35,
+        6.98
       ],
       "talent": "food",
       "likes": "food",
@@ -253,11 +253,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 30,
-        "energy": 57,
-        "company": 72.0
+        "hunger": 35,
+        "energy": 53,
+        "company": 70.0
       },
-      "task": "gather_food",
+      "task": "deliver",
       "carry": {
         "food": 3
       },
@@ -298,17 +298,17 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -10.45,
-        -1.09
+        -4.9,
+        -8.18
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 58.0,
-        "company": 17.5
+        "hunger": 45,
+        "energy": 52.0,
+        "company": 16.5
       },
       "task": "deliver",
       "carry": {
