@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 127,
+  "tick": 128,
   "day": 6,
-  "time": "2026-10-30T23:00:00Z",
+  "time": "2026-10-31T00:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -199,9 +199,9 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 29,
-        "company": 81.0
+        "hunger": 60,
+        "energy": 25,
+        "company": 100
       },
       "task": "fire",
       "carry": {
@@ -258,13 +258,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 29,
-        "company": 62.0
+        "hunger": 60,
+        "energy": 25,
+        "company": 60.0
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {},
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "say": "Good night, all. I need my bed.",
       "delivered": 17,
       "shells": 1,
       "stone_day": 5,
@@ -313,13 +313,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 15,
-        "energy": 16.0,
-        "company": 37.5
+        "hunger": 20,
+        "energy": 28.0,
+        "company": 36.5
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {},
-      "say": "A meal from the stores.",
+      "say": "Good night.",
       "delivered": 14,
       "shells": 7,
       "temperament": 0.503,
@@ -359,7 +359,6 @@
     "delivered": 5,
     "at_fire": [
       "npc-1",
-      "npc-2",
       "npc-3"
     ],
     "ledger": {
@@ -374,7 +373,10 @@
       },
       "pot_in": 0,
       "pot_out": 1
-    }
+    },
+    "left_fire": [
+      "npc-2"
+    ]
   },
   "fires": 5,
   "ledgers": [
