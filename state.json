@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 138,
+  "tick": 139,
   "day": 6,
-  "time": "2026-10-31T10:00:00Z",
+  "time": "2026-10-31T11:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 1.52
+    "food": 0.52
   },
   "nodes": [
     {
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        7.38,
+        2.22
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 81,
-        "company": 91
+        "hunger": 55,
+        "energy": 77,
+        "company": 90
       },
-      "task": "eat",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -248,8 +248,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -258,8 +258,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 96,
-        "company": 40.0
+        "energy": 92,
+        "company": 38.0
       },
       "task": "stone",
       "carry": {},
@@ -312,13 +312,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 70,
-        "energy": 94.0,
-        "company": 26.5
+        "hunger": 25,
+        "energy": 88.0,
+        "company": 25.5
       },
-      "task": "forage",
+      "task": "eat",
       "carry": {},
-      "say": "Keep it for Sélie.",
+      "say": "A meal from the stores.",
       "delivered": 14,
       "shells": 7,
       "temperament": 0.503,
@@ -365,7 +365,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 2.06
+        "food": 3.06
       },
       "project": {
         "fiber": 2
