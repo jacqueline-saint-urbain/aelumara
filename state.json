@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 142,
+  "tick": 143,
   "day": 6,
-  "time": "2026-10-31T14:00:00Z",
+  "time": "2026-10-31T15:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 2.52
+    "food": 1.52
   },
   "nodes": [
     {
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.4,
+      "stock": 9.8,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 9.8,
+      "stock": 10.2,
       "pos": [
         -8,
         9
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        3.57,
-        5.02
+        3.14,
+        -0.96
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
-        "energy": 65,
-        "company": 87
+        "hunger": 35,
+        "energy": 61,
+        "company": 86.5
       },
       "task": "deliver",
       "carry": {
@@ -257,13 +257,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
-        "energy": 80,
-        "company": 32.0
+        "hunger": 15,
+        "energy": 76,
+        "company": 30.0
       },
-      "task": "forage",
+      "task": "eat",
       "carry": {},
-      "say": "Berries!",
+      "say": "A meal from the stores.",
       "delivered": 17,
       "shells": 1,
       "stone_day": 6,
@@ -304,20 +304,22 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        4,
+        11
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 70.0,
-        "company": 22.5
+        "hunger": 45,
+        "energy": 64.0,
+        "company": 22.0
       },
-      "task": "deliver",
-      "carry": {},
+      "task": "gather_food",
+      "carry": {
+        "food": 2
+      },
       "say": "Berries for everyone.",
       "delivered": 16,
       "shells": 7,
@@ -365,7 +367,7 @@
         "food": 5
       },
       "stores_out": {
-        "food": 3.06
+        "food": 4.06
       },
       "project": {
         "fiber": 2
