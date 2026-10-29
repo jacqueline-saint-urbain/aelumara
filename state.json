@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 137,
+  "tick": 138,
   "day": 6,
-  "time": "2026-10-31T09:00:00Z",
+  "time": "2026-10-31T10:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 2.52
+    "food": 1.52
   },
   "nodes": [
     {
@@ -199,15 +199,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 100,
-        "energy": 85,
-        "company": 92
+        "hunger": 50,
+        "energy": 81,
+        "company": 91
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {
         "wood": 3
       },
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 6,
       "shells": 2,
       "temperament": 0.643,
@@ -239,8 +239,7 @@
           0
         ]
       ],
-      "portion_day": 4,
-      "short_night": true
+      "portion_day": 4
     },
     {
       "id": "npc-2",
@@ -249,8 +248,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        12,
-        3
+        6.28,
+        1.18
       ],
       "talent": "food",
       "likes": "food",
@@ -259,10 +258,10 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 100,
-        "company": 42.0
+        "energy": 96,
+        "company": 40.0
       },
-      "task": "sleep",
+      "task": "stone",
       "carry": {},
       "say": "The tide always brings something back. You have to be there when it goes out.",
       "delivered": 17,
@@ -305,21 +304,21 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -0.5
+        -6.58,
+        6.93
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 65,
-        "energy": 100,
-        "company": 27.5
+        "hunger": 70,
+        "energy": 94.0,
+        "company": 26.5
       },
-      "task": "sleep",
+      "task": "forage",
       "carry": {},
-      "say": "Good night.",
+      "say": "Keep it for Sélie.",
       "delivered": 14,
       "shells": 7,
       "temperament": 0.503,
@@ -327,7 +326,7 @@
       "disposition_week": 0.503,
       "admires": "npc-1",
       "choices": {
-        "group": 0,
+        "group": 1,
         "self": 1
       },
       "fire_day": 6,
@@ -351,7 +350,7 @@
           1
         ]
       ],
-      "portion_day": 4
+      "portion_day": 6
     }
   ],
   "pot": 7,
@@ -366,7 +365,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 1.06
+        "food": 2.06
       },
       "project": {
         "fiber": 2
