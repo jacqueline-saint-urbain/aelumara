@@ -105,6 +105,14 @@
       "by": "sim",
       "kind": "progress",
       "text": "The raft is 50% built."
+    },
+    {
+      "tick": 129,
+      "day": 6,
+      "at": "2026-10-31T01:00:00Z",
+      "by": "sim",
+      "kind": "summary",
+      "text": "The evening fire gathers Bram, Nilo. Today: 5 resources delivered, raft at 52%. Shells in the pot: 7. Left early: Sélie. Ledger: stores in 3 food, out 1.06 food; to the project 2 fiber; pot +0 -1; shells: Bram 2, Sélie 1, Nilo 7."
     }
   ]
 }
