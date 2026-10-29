@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 116,
+  "tick": 117,
   "day": 5,
-  "time": "2026-10-30T12:00:00Z",
+  "time": "2026-10-30T13:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.4,
+      "stock": 11.8,
       "pos": [
         -8,
         9
@@ -137,7 +137,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         13,
         12
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        8.74,
-        0.78
+        6.61,
+        -4.83
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 73,
-        "company": 66.5
+        "hunger": 45,
+        "energy": 69,
+        "company": 65.5
       },
       "task": "deliver",
       "carry": {
@@ -244,8 +244,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -2.8,
-        -1.7
+        -5.42,
+        3.7
       ],
       "talent": "food",
       "likes": "food",
@@ -253,15 +253,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 80,
-        "energy": 73,
-        "company": 57.0
+        "hunger": 85,
+        "energy": 69,
+        "company": 56.0
       },
-      "task": "stone",
+      "task": "forage",
       "carry": {
         "food": 3
       },
-      "say": "A shell on the stone.",
+      "say": "The tide always brings something back. You have to be there when it goes out.",
       "delivered": 14,
       "shells": 1,
       "stone_day": 5,
@@ -298,17 +298,17 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -4.77,
-        0.6
+        -1.54,
+        -7.8
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 82.0,
-        "company": 23.0
+        "hunger": 55,
+        "energy": 76.0,
+        "company": 22.5
       },
       "task": "deliver",
       "carry": {
