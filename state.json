@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 117,
+  "tick": 118,
   "day": 5,
-  "time": "2026-10-30T13:00:00Z",
+  "time": "2026-10-30T14:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 11,
       "pos": [
         -8,
         9
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        6.61,
-        -4.83
+        4.48,
+        -10.44
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 69,
-        "company": 65.5
+        "hunger": 50,
+        "energy": 65,
+        "company": 64.5
       },
       "task": "deliver",
       "carry": {
@@ -244,8 +244,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -5.42,
-        3.7
+        -8,
+        9
       ],
       "talent": "food",
       "likes": "food",
@@ -253,15 +253,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 85,
-        "energy": 69,
-        "company": 56.0
+        "hunger": 50,
+        "energy": 65,
+        "company": 54.0
       },
       "task": "forage",
       "carry": {
         "food": 3
       },
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "say": "Berries!",
       "delivered": 14,
       "shells": 1,
       "stone_day": 5,
@@ -298,19 +298,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.54,
-        -7.8
+        -4.77,
+        0.6
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 76.0,
-        "company": 22.5
+        "hunger": 60,
+        "energy": 70.0,
+        "company": 21.5
       },
-      "task": "deliver",
+      "task": "forage",
       "carry": {
         "fiber": 2
       },
