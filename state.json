@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 171,
+  "tick": 172,
   "day": 8,
-  "time": "2026-11-01T19:00:00Z",
+  "time": "2026-11-01T20:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 3.33
+    "food": 2.33
   },
   "nodes": [
     {
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 8.2,
+      "stock": 8.6,
       "pos": [
         -8,
         9
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        2.71,
-        -6.94
+        2.29,
+        -12.93
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 45,
-        "company": 82
+        "hunger": 50,
+        "energy": 41,
+        "company": 81
       },
       "task": "deliver",
       "carry": {
@@ -256,8 +256,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6,
-        4
+        4.35,
+        9.77
       ],
       "talent": "food",
       "likes": "food",
@@ -265,11 +265,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 45,
-        "energy": 45,
-        "company": 38.0
+        "hunger": 50,
+        "energy": 41,
+        "company": 36.0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 23,
@@ -328,13 +328,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 40.0,
-        "company": 31.0
+        "hunger": 10,
+        "energy": 34.0,
+        "company": 30.0
       },
-      "task": "gather_food",
+      "task": "eat",
       "carry": {},
-      "say": "What's that, over there?",
+      "say": "A meal from the stores.",
       "delivered": 22,
       "shells": 8,
       "temperament": 0.503,
@@ -386,7 +386,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 0.04
+        "food": 1.04
       },
       "project": {
         "wood": 2
