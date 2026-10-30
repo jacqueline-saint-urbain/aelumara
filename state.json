@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 148,
+  "tick": 149,
   "day": 7,
-  "time": "2026-10-31T20:00:00Z",
+  "time": "2026-10-31T21:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -97,7 +97,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 20,
+      "stock": 17,
       "pos": [
         8,
         -12
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 20,
+      "stock": 18,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 9.8,
+      "stock": 10.2,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 9.2,
+      "stock": 9.6,
       "pos": [
         -8,
         9
@@ -192,20 +192,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        6.61,
-        -13.16
+        8,
+        -12
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 10,
-        "energy": 41,
-        "company": 81.5
+        "hunger": 15,
+        "energy": 37,
+        "company": 80.5
       },
-      "task": "eat",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "task": "gather_wood",
+      "carry": {
+        "wood": 3
+      },
+      "say": "Wood for the raft.",
       "delivered": 9,
       "shells": 3,
       "temperament": 0.643,
@@ -250,8 +252,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        9.8,
-        -0.64
+        13.6,
+        -5.29
       ],
       "talent": "food",
       "likes": "food",
@@ -259,9 +261,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 40,
-        "energy": 56,
-        "company": 21.0
+        "hunger": 45,
+        "energy": 52,
+        "company": 20.0
       },
       "task": "gather_wood",
       "carry": {},
@@ -310,21 +312,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        11.7,
-        -2.97
+        15,
+        -7
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 20,
-        "energy": 34.0,
-        "company": 17.5
+        "hunger": 25,
+        "energy": 28.0,
+        "company": 17.0
       },
       "task": "gather_wood",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "carry": {
+        "wood": 2
+      },
+      "say": "Wood for the raft.",
       "delivered": 20,
       "shells": 7,
       "temperament": 0.503,
