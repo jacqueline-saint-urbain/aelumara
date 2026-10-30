@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 168,
+  "tick": 169,
   "day": 8,
-  "time": "2026-11-01T16:00:00Z",
+  "time": "2026-11-01T17:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11,
+      "stock": 11.4,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 7.0,
+      "stock": 7.4,
       "pos": [
         -8,
         9
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        4,
-        11
+        3.57,
+        5.02
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
-        "energy": 57,
-        "company": 85
+        "hunger": 35,
+        "energy": 53,
+        "company": 84
       },
-      "task": "forage",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -256,8 +256,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -8,
-        9
+        -2.35,
+        6.98
       ],
       "talent": "food",
       "likes": "food",
@@ -265,11 +265,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 30,
-        "energy": 57,
-        "company": 44.0
+        "hunger": 35,
+        "energy": 53,
+        "company": 42.0
       },
-      "task": "gather_food",
+      "task": "deliver",
       "carry": {
         "food": 3
       },
@@ -322,21 +322,21 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        2,
-        -17
+        -1.23,
+        -8.6
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 58.0,
-        "company": 34.0
+        "hunger": 45,
+        "energy": 52.0,
+        "company": 33.0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
-      "say": "Berries!",
+      "say": "What's that, over there?",
       "delivered": 22,
       "shells": 8,
       "temperament": 0.503,
