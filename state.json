@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 156,
+  "tick": 157,
   "day": 7,
-  "time": "2026-11-01T04:00:00Z",
+  "time": "2026-11-01T05:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -97,7 +97,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 18.75,
+      "stock": 19.0,
       "pos": [
         8,
         -12
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 19.75,
+      "stock": 20,
       "pos": [
         15,
         -7
@@ -199,9 +199,9 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 33,
-        "company": 97
+        "hunger": 55,
+        "energy": 45,
+        "company": 96
       },
       "task": "sleep",
       "carry": {
@@ -262,9 +262,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 80,
-        "energy": 48,
-        "company": 67.0
+        "hunger": 85,
+        "energy": 60,
+        "company": 65.0
       },
       "task": "sleep",
       "carry": {},
@@ -322,9 +322,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 60,
-        "energy": 76.0,
-        "company": 45.5
+        "hunger": 65,
+        "energy": 88.0,
+        "company": 44.5
       },
       "task": "sleep",
       "carry": {
