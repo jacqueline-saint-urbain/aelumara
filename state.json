@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 173,
+  "tick": 174,
   "day": 8,
-  "time": "2026-11-01T21:00:00Z",
+  "time": "2026-11-01T22:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 2.33
+    "food": 0.33
   },
   "nodes": [
     {
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 9,
+      "stock": 9.4,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 7.0,
+      "stock": 7.4,
       "pos": [
         -8,
         9
@@ -199,13 +199,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 37,
-        "company": 80
+        "hunger": 10,
+        "energy": 33,
+        "company": 79
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {},
-      "say": "Berries!",
+      "say": "A meal from the stores.",
       "delivered": 12,
       "shells": 4,
       "temperament": 0.643,
@@ -263,15 +263,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 37,
-        "company": 34.0
+        "hunger": 10,
+        "energy": 33,
+        "company": 32.0
       },
-      "task": "gather_food",
+      "task": "eat",
       "carry": {
         "food": 3
       },
-      "say": "Berries for everyone.",
+      "say": "A meal from the stores.",
       "delivered": 23,
       "shells": 1,
       "stone_day": 7,
@@ -320,19 +320,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -8,
-        9
+        -2.92,
+        1.57
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 15,
-        "energy": 28.0,
-        "company": 29.0
+        "hunger": 20,
+        "energy": 22.0,
+        "company": 28.0
       },
-      "task": "gather_food",
+      "task": "fire",
       "carry": {
         "food": 2
       },
@@ -388,7 +388,7 @@
         "food": 3
       },
       "stores_out": {
-        "food": 1.04
+        "food": 3.04
       },
       "project": {
         "wood": 5
