@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 152,
+  "tick": 153,
   "day": 7,
-  "time": "2026-11-01T00:00:00Z",
+  "time": "2026-11-01T01:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 6.37
+    "food": 0.37
   },
   "nodes": [
     {
@@ -97,7 +97,7 @@
       "id": "wood-4",
       "type": "pine",
       "resource": "wood",
-      "stock": 17.75,
+      "stock": 18.0,
       "pos": [
         8,
         -12
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.75,
+      "stock": 19.0,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.4,
+      "stock": 11.8,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.8,
+      "stock": 11.2,
       "pos": [
         -8,
         9
@@ -199,8 +199,8 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
-        "energy": 25,
+        "hunger": 35,
+        "energy": 21,
         "company": 100
       },
       "task": "fire",
@@ -262,9 +262,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
-        "energy": 40,
-        "company": 40.0
+        "hunger": 65,
+        "energy": 36,
+        "company": 73.0
       },
       "task": "fire",
       "carry": {},
@@ -322,9 +322,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 28.0,
-        "company": 39.5
+        "hunger": 45,
+        "energy": 40.0,
+        "company": 48.5
       },
       "task": "sleep",
       "carry": {
@@ -369,7 +369,7 @@
       "portion_day": 6
     }
   ],
-  "pot": 7,
+  "pot": 6,
   "today": {
     "delivered": 10,
     "at_fire": [
@@ -382,16 +382,16 @@
         "food": 7
       },
       "stores_out": {
-        "food": 2.15
+        "food": 8.15
       },
       "project": {
         "wood": 3
       },
       "pot_in": 0,
-      "pot_out": 1
+      "pot_out": 2
     }
   },
-  "fires": 6,
+  "fires": 7,
   "ledgers": [
     {
       "stores_in": {},
