@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 164,
+  "tick": 165,
   "day": 7,
-  "time": "2026-11-01T12:00:00Z",
+  "time": "2026-11-01T13:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.4,
+      "stock": 10.8,
       "pos": [
         -8,
         9
@@ -137,7 +137,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         13,
         12
@@ -192,22 +192,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        8.74,
-        0.78
+        6.61,
+        -4.83
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 73,
-        "company": 89
+        "hunger": 55,
+        "energy": 69,
+        "company": 88
       },
       "task": "deliver",
       "carry": {
         "wood": 3
       },
-      "say": "Berries!",
+      "say": "You don't talk about a raft. You build it.",
       "delivered": 9,
       "shells": 3,
       "temperament": 0.643,
@@ -252,8 +252,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -2.8,
-        -1.7
+        -5.42,
+        3.7
       ],
       "talent": "food",
       "likes": "food",
@@ -262,10 +262,10 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 73,
-        "company": 51.0
+        "energy": 69,
+        "company": 49.0
       },
-      "task": "stone",
+      "task": "forage",
       "carry": {},
       "say": "A shell on the stone.",
       "delivered": 20,
@@ -312,19 +312,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -8,
-        9
+        -4.77,
+        0.6
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 20,
-        "energy": 82.0,
-        "company": 37.5
+        "hunger": 25,
+        "energy": 76.0,
+        "company": 36.5
       },
-      "task": "forage",
+      "task": "deliver",
       "carry": {
         "wood": 2
       },
