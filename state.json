@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 189,
+  "tick": 190,
   "day": 8,
-  "time": "2026-11-02T13:00:00Z",
+  "time": "2026-11-02T14:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 2.33
+    "food": 0.33
   },
   "nodes": [
     {
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -8,
         9
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        13.63,
-        6.03
+        13.0,
+        12.0
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 81,
-        "company": 64
+        "hunger": 50,
+        "energy": 77,
+        "company": 63
       },
-      "task": "gather_wood",
+      "task": "gather_food",
       "carry": {},
       "say": "You don't talk about a raft. You build it.",
       "delivered": 12,
@@ -263,15 +263,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 85,
-        "energy": 69,
-        "company": 27.0
+        "hunger": 40,
+        "energy": 65,
+        "company": 25.0
       },
-      "task": "forage",
+      "task": "eat",
       "carry": {
         "food": 3
       },
-      "say": "A shell on the stone.",
+      "say": "A meal from the stores.",
       "delivered": 23,
       "shells": 1,
       "stone_day": 8,
@@ -328,13 +328,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 61.0,
-        "company": 38.0
+        "hunger": 10,
+        "energy": 55.0,
+        "company": 37.0
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {},
-      "say": "What's that, over there?",
+      "say": "A meal from the stores.",
       "delivered": 24,
       "shells": 8,
       "temperament": 0.503,
@@ -389,7 +389,7 @@
         "food": 5
       },
       "stores_out": {
-        "food": 3.04
+        "food": 5.04
       },
       "project": {
         "wood": 5
