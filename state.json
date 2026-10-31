@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 191,
-  "day": 8,
-  "time": "2026-11-02T15:00:00Z",
+  "tick": 192,
+  "day": 9,
+  "time": "2026-11-02T16:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 0.33
+    "food": 5.3
   },
   "nodes": [
     {
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10,
+      "stock": 10.4,
       "pos": [
         4,
         11
@@ -137,7 +137,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 10,
+      "stock": 9.4,
       "pos": [
         13,
         12
@@ -199,24 +199,24 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 73,
-        "company": 62
+        "hunger": 20,
+        "energy": 69,
+        "company": 61
       },
-      "task": "gather_food",
+      "task": "forage",
       "carry": {
         "food": 2
       },
-      "say": "Berries for everyone.",
+      "say": "Berries!",
       "delivered": 12,
       "shells": 4,
       "temperament": 0.643,
-      "disposition": 0.6513,
+      "disposition": 0.6546,
       "disposition_week": 0.6513,
       "admires": "npc-2",
       "choices": {
         "group": 0,
-        "self": 1
+        "self": 0
       },
       "fire_day": 8,
       "fire_choice": false,
@@ -245,6 +245,10 @@
         [
           1,
           0
+        ],
+        [
+          0,
+          1
         ]
       ],
       "portion_day": 4
@@ -256,8 +260,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        0.58,
-        3.86
+        6,
+        4
       ],
       "talent": "food",
       "likes": "food",
@@ -265,24 +269,22 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 45,
-        "energy": 61,
-        "company": 23.0
+        "hunger": 50,
+        "energy": 57,
+        "company": 21.0
       },
       "task": "deliver",
-      "carry": {
-        "food": 3
-      },
+      "carry": {},
       "say": "A meal from the stores.",
-      "delivered": 23,
+      "delivered": 26,
       "shells": 1,
       "stone_day": 8,
       "temperament": 0.722,
-      "disposition": 0.7154,
+      "disposition": 0.7142,
       "disposition_week": 0.7154,
       "admires": "npc-3",
       "choices": {
-        "group": 1,
+        "group": 0,
         "self": 0
       },
       "fire_day": 8,
@@ -308,6 +310,10 @@
         [
           0,
           1
+        ],
+        [
+          1,
+          0
         ],
         [
           1,
@@ -322,31 +328,29 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        4,
-        11
+        6,
+        4
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 15,
-        "energy": 49.0,
-        "company": 36.0
+        "hunger": 20,
+        "energy": 43.0,
+        "company": 35.0
       },
-      "task": "gather_food",
-      "carry": {
-        "food": 2
-      },
+      "task": "deliver",
+      "carry": {},
       "say": "Berries for everyone.",
-      "delivered": 24,
+      "delivered": 26,
       "shells": 8,
       "temperament": 0.503,
-      "disposition": 0.4907,
+      "disposition": 0.4937,
       "disposition_week": 0.4907,
       "admires": "npc-1",
       "choices": {
-        "group": 1,
+        "group": 0,
         "self": 0
       },
       "fire_day": 8,
@@ -376,6 +380,10 @@
         [
           0,
           1
+        ],
+        [
+          1,
+          0
         ]
       ],
       "portion_day": 6
@@ -383,27 +391,19 @@
   ],
   "pot": 6,
   "today": {
-    "delivered": 10,
-    "at_fire": [
-      "npc-3",
-      "npc-2"
-    ],
+    "delivered": 5,
+    "at_fire": [],
     "ledger": {
       "stores_in": {
         "food": 5
       },
       "stores_out": {
-        "food": 5.04
+        "food": 0.03
       },
-      "project": {
-        "wood": 5
-      },
-      "pot_in": 1,
-      "pot_out": 2
-    },
-    "left_fire": [
-      "npc-1"
-    ]
+      "project": {},
+      "pot_in": 0,
+      "pot_out": 0
+    }
   },
   "fires": 8,
   "ledgers": [
@@ -545,6 +545,26 @@
         "Bram": 3,
         "Sélie": 1,
         "Nilo": 7
+      }
+    },
+    {
+      "stores_in": {
+        "food": 5
+      },
+      "stores_out": {
+        "food": 5.04
+      },
+      "project": {
+        "wood": 5
+      },
+      "pot_in": 1,
+      "pot_out": 2,
+      "day": 8,
+      "pot": 6,
+      "shells": {
+        "Bram": 4,
+        "Sélie": 1,
+        "Nilo": 8
       }
     }
   ],
