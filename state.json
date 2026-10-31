@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 203,
+  "tick": 204,
   "day": 9,
-  "time": "2026-11-03T03:00:00Z",
+  "time": "2026-11-03T04:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 16.75,
+      "stock": 17.0,
       "pos": [
         15,
         -7
@@ -192,22 +192,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        7.83,
-        7.05
+        9,
+        8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 75,
-        "energy": 33,
-        "company": 98
+        "hunger": 80,
+        "energy": 45,
+        "company": 97
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "wood": 3
       },
-      "say": "Wood for the raft.",
+      "say": "Good night.",
       "delivered": 14,
       "shells": 4,
       "temperament": 0.643,
@@ -261,8 +261,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.12,
-        2.51
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -270,13 +270,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 21,
-        "company": 62.0
+        "hunger": 60,
+        "energy": 33,
+        "company": 60.0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {},
-      "say": "A meal from the stores.",
+      "say": "Good night.",
       "delivered": 26,
       "shells": 1,
       "stone_day": 8,
@@ -338,9 +338,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 75,
-        "energy": 91.0,
-        "company": 36.5
+        "hunger": 80,
+        "energy": 100,
+        "company": 35.5
       },
       "task": "sleep",
       "carry": {
