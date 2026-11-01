@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 224,
+  "tick": 225,
   "day": 10,
-  "time": "2026-11-04T00:00:00Z",
+  "time": "2026-11-04T01:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10.2,
+      "stock": 10.6,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.0,
+      "stock": 10.4,
       "pos": [
         -8,
         9
@@ -192,20 +192,20 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -3.69,
-        -4.83
+        0.53,
+        -0.56
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
+        "hunger": 35,
         "energy": 25,
-        "company": 79.0
+        "company": 78.0
       },
-      "task": "sleep",
+      "task": "go_home",
       "carry": {},
-      "say": "Good night, all. I need my bed.",
+      "say": "You don't talk about a raft. You build it.",
       "delivered": 17,
       "shells": 5,
       "temperament": 0.643,
@@ -262,8 +262,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -1.18,
-        0.18
+        -1.5,
+        -0.5
       ],
       "talent": "food",
       "likes": "food",
@@ -271,9 +271,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 20,
-        "energy": 25,
-        "company": 23.0
+        "hunger": 25,
+        "energy": 21,
+        "company": 46.0
       },
       "task": "fire",
       "carry": {
@@ -345,9 +345,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 30,
-        "energy": 28.0,
-        "company": 19.0
+        "hunger": 35,
+        "energy": 40.0,
+        "company": 18.0
       },
       "task": "sleep",
       "carry": {},
@@ -426,7 +426,7 @@
       "npc-1"
     ]
   },
-  "fires": 9,
+  "fires": 10,
   "ledgers": [
     {
       "stores_in": {},
