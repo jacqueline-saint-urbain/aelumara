@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 251,
+  "tick": 252,
   "day": 11,
-  "time": "2026-11-05T03:00:00Z",
+  "time": "2026-11-05T04:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.0,
+      "stock": 18.25,
       "pos": [
         15,
         -7
@@ -192,20 +192,20 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        7.83,
-        7.05
+        9,
+        8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 35,
-        "energy": 33,
-        "company": 98
+        "hunger": 40,
+        "energy": 45,
+        "company": 97
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {},
-      "say": "You don't talk about a raft. You build it.",
+      "say": "Good night.",
       "delivered": 21,
       "shells": 5,
       "temperament": 0.643,
@@ -267,8 +267,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.12,
-        2.51
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -276,15 +276,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 65,
-        "energy": 21,
-        "company": 55.0
+        "hunger": 70,
+        "energy": 33,
+        "company": 53.0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "wood": 2
       },
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "say": "Good night.",
       "delivered": 32,
       "shells": 1,
       "stone_day": 10,
@@ -354,9 +354,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 64.0,
-        "company": 8
+        "hunger": 40,
+        "energy": 76.0,
+        "company": 7
       },
       "task": "sleep",
       "carry": {},
