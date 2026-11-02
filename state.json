@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 257,
+  "tick": 258,
   "day": 11,
-  "time": "2026-11-05T09:00:00Z",
+  "time": "2026-11-05T10:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 2.04
+    "food": 1.04
   },
   "nodes": [
     {
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 19.5,
+      "stock": 19.75,
       "pos": [
         15,
         -7
@@ -199,13 +199,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 65,
-        "energy": 85,
-        "company": 92
+        "hunger": 20,
+        "energy": 81,
+        "company": 91
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "You don't talk about a raft. You build it.",
+      "say": "A meal from the stores.",
       "delivered": 21,
       "shells": 5,
       "temperament": 0.643,
@@ -257,8 +257,7 @@
           1
         ]
       ],
-      "portion_day": 4,
-      "short_night": true
+      "portion_day": 4
     },
     {
       "id": "npc-2",
@@ -267,8 +266,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        12,
-        3
+        6.28,
+        1.18
       ],
       "talent": "food",
       "likes": "food",
@@ -276,11 +275,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 95,
-        "energy": 85,
-        "company": 43.0
+        "hunger": 100,
+        "energy": 81,
+        "company": 41.0
       },
-      "task": "sleep",
+      "task": "stone",
       "carry": {
         "wood": 2
       },
@@ -336,8 +335,7 @@
           1,
           0
         ]
-      ],
-      "short_night": true
+      ]
     },
     {
       "id": "npc-3",
@@ -346,21 +344,21 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -0.5
+        -6.58,
+        6.93
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 65,
-        "energy": 100,
-        "company": 2
+        "hunger": 70,
+        "energy": 94.0,
+        "company": 1
       },
-      "task": "sleep",
+      "task": "forage",
       "carry": {},
-      "say": "Good night.",
+      "say": "Keep it for Sélie.",
       "delivered": 36,
       "shells": 10,
       "temperament": 0.503,
@@ -368,7 +366,7 @@
       "disposition_week": 0.4907,
       "admires": "npc-1",
       "choices": {
-        "group": 1,
+        "group": 2,
         "self": 1
       },
       "fire_day": 11,
@@ -412,7 +410,7 @@
           1
         ]
       ],
-      "portion_day": 6,
+      "portion_day": 11,
       "tired_day": 11
     }
   ],
@@ -429,7 +427,7 @@
         "food": 9
       },
       "stores_out": {
-        "food": 9.23
+        "food": 10.23
       },
       "project": {
         "wood": 2
