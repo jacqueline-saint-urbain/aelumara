@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 248,
+  "tick": 249,
   "day": 11,
-  "time": "2026-11-05T00:00:00Z",
+  "time": "2026-11-05T01:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 8.04
+    "food": 2.04
   },
   "nodes": [
     {
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 17.25,
+      "stock": 17.5,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.0,
+      "stock": 11.4,
       "pos": [
         4,
         11
@@ -199,9 +199,9 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 20,
-        "energy": 37,
-        "company": 80.0
+        "hunger": 25,
+        "energy": 33,
+        "company": 100
       },
       "task": "fire",
       "carry": {},
@@ -276,9 +276,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 25,
-        "company": 26.0
+        "hunger": 55,
+        "energy": 21,
+        "company": 59.0
       },
       "task": "fire",
       "carry": {
@@ -354,9 +354,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 20,
-        "energy": 28.0,
-        "company": 0
+        "hunger": 25,
+        "energy": 40.0,
+        "company": 10
       },
       "task": "sleep",
       "carry": {},
@@ -429,7 +429,7 @@
         "food": 9
       },
       "stores_out": {
-        "food": 3.23
+        "food": 9.23
       },
       "project": {
         "wood": 2
@@ -438,7 +438,7 @@
       "pot_out": 1
     }
   },
-  "fires": 10,
+  "fires": 11,
   "ledgers": [
     {
       "stores_in": {},
