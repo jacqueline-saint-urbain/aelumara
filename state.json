@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 245,
+  "tick": 246,
   "day": 11,
-  "time": "2026-11-04T21:00:00Z",
+  "time": "2026-11-04T22:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 10.04
+    "food": 8.04
   },
   "nodes": [
     {
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 16.5,
+      "stock": 16.75,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 9.8,
+      "stock": 10.2,
       "pos": [
         4,
         11
@@ -199,13 +199,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 49,
-        "company": 58.0
+        "hunger": 10,
+        "energy": 45,
+        "company": 57.0
       },
-      "task": "gather_wood",
+      "task": "eat",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "A meal from the stores.",
       "delivered": 21,
       "shells": 5,
       "temperament": 0.643,
@@ -266,8 +266,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        15,
-        -7
+        9.42,
+        -4.8
       ],
       "talent": "food",
       "likes": "food",
@@ -275,11 +275,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 37,
-        "company": 7.0
+        "hunger": 40,
+        "energy": 33,
+        "company": 5.0
       },
-      "task": "gather_wood",
+      "task": "fire",
       "carry": {
         "wood": 2
       },
@@ -352,13 +352,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 28.0,
+        "hunger": 10,
+        "energy": 22.0,
         "company": 0
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {},
-      "say": "Wood for the raft.",
+      "say": "A meal from the stores.",
       "delivered": 36,
       "shells": 10,
       "temperament": 0.503,
@@ -423,7 +423,7 @@
         "food": 9
       },
       "stores_out": {
-        "food": 1.23
+        "food": 3.23
       },
       "project": {
         "wood": 2
