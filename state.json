@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 258,
+  "tick": 259,
   "day": 11,
-  "time": "2026-11-05T10:00:00Z",
+  "time": "2026-11-05T11:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 1.04
+    "food": 0.04
   },
   "nodes": [
     {
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 19.75,
+      "stock": 20,
       "pos": [
         15,
         -7
@@ -137,7 +137,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 10,
       "pos": [
         13,
         12
@@ -192,20 +192,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        13,
+        12
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 20,
-        "energy": 81,
-        "company": 91
+        "hunger": 25,
+        "energy": 77,
+        "company": 90
       },
-      "task": "eat",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "task": "gather_food",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 21,
       "shells": 5,
       "temperament": 0.643,
@@ -266,8 +268,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -276,8 +278,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 81,
-        "company": 41.0
+        "energy": 77,
+        "company": 39.0
       },
       "task": "stone",
       "carry": {
@@ -352,13 +354,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 70,
-        "energy": 94.0,
-        "company": 1
+        "hunger": 25,
+        "energy": 88.0,
+        "company": 0
       },
-      "task": "forage",
+      "task": "eat",
       "carry": {},
-      "say": "Keep it for Sélie.",
+      "say": "A meal from the stores.",
       "delivered": 36,
       "shells": 10,
       "temperament": 0.503,
@@ -427,7 +429,7 @@
         "food": 9
       },
       "stores_out": {
-        "food": 10.23
+        "food": 11.23
       },
       "project": {
         "wood": 2
