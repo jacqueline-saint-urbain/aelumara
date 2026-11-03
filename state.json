@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 289,
+  "tick": 290,
   "day": 13,
-  "time": "2026-11-06T17:00:00Z",
+  "time": "2026-11-06T18:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10.0,
+      "stock": 10.4,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 9.4,
+      "stock": 9.8,
       "pos": [
         -8,
         9
@@ -208,16 +208,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -0.15,
-        -11.4
+        -2.3,
+        -5.8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 25,
-        "energy": 53,
-        "company": 84.5
+        "hunger": 30,
+        "energy": 49,
+        "company": 83.5
       },
       "task": "gather_food",
       "carry": {},
@@ -290,8 +290,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -2.35,
-        6.98
+        3.3,
+        4.96
       ],
       "talent": "food",
       "likes": "food",
@@ -299,9 +299,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 20,
-        "energy": 68,
-        "company": 4.0
+        "hunger": 25,
+        "energy": 64,
+        "company": 3.0
       },
       "task": "deliver",
       "carry": {
@@ -376,16 +376,16 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -2.96,
-        4.81
+        -11.92,
+        5.63
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 25,
-        "energy": 37.0,
+        "hunger": 30,
+        "energy": 31.0,
         "company": 0
       },
       "task": "gather_fiber",
