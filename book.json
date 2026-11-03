@@ -169,6 +169,22 @@
       "by": "sim",
       "kind": "summary",
       "text": "The evening fire gathers Bram, Nilo. Today: 8 resources delivered, raft at 93%. Shells in the pot: 4. Left early: Sélie. Ledger: stores in 6 food, out 2.2 food; to the project 2 wood; pot +0 -1; shells: Bram 5, Sélie 2, Nilo 10."
+    },
+    {
+      "tick": 288,
+      "day": 13,
+      "at": "2026-11-06T16:00:00Z",
+      "by": "sim",
+      "kind": "launching",
+      "text": "First step. The raft is finished and slides into the water in front of Bram, Sélie, Nilo. It waits on the north beach, ready to sail for the island on the horizon."
+    },
+    {
+      "tick": 288,
+      "day": 13,
+      "at": "2026-11-06T16:00:00Z",
+      "by": "sim",
+      "kind": "event",
+      "text": "With the raft built, the residents start a shelter by the fire: dry wood for the crossing, and work paid from the pot again."
     }
   ]
 }
