@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 296,
+  "tick": 297,
   "day": 13,
-  "time": "2026-11-07T00:00:00Z",
+  "time": "2026-11-07T01:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 8.46
+    "food": 2.46
   },
   "nodes": [
     {
@@ -87,7 +87,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 18.0,
+      "stock": 18.25,
       "pos": [
         -9,
         -13
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.5,
+      "stock": 11.8,
       "pos": [
         -16,
         6
@@ -215,8 +215,8 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 60,
-        "energy": 25,
+        "hunger": 65,
+        "energy": 21,
         "company": 100
       },
       "task": "fire",
@@ -302,9 +302,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 40,
-        "company": 25
+        "hunger": 60,
+        "energy": 36,
+        "company": 58
       },
       "task": "fire",
       "carry": {},
@@ -386,15 +386,15 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 60,
-        "energy": 67.0,
-        "company": 0
+        "hunger": 65,
+        "energy": 79.0,
+        "company": 10
       },
       "task": "sleep",
       "carry": {
         "fiber": 2
       },
-      "say": "Good night.",
+      "say": "What's that, over there?",
       "delivered": 50,
       "shells": 10,
       "temperament": 0.503,
@@ -471,7 +471,7 @@
         "food": 5
       },
       "stores_out": {
-        "food": 0.38
+        "food": 6.38
       },
       "project": {
         "wood": 3
@@ -480,7 +480,7 @@
       "pot_out": 1
     }
   },
-  "fires": 12,
+  "fires": 13,
   "ledgers": [
     {
       "stores_in": {},
