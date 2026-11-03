@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 285,
+  "tick": 286,
   "day": 12,
-  "time": "2026-11-06T13:00:00Z",
+  "time": "2026-11-06T14:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 6.84
+    "food": 4.84
   },
   "nodes": [
     {
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10.4,
+      "stock": 10.8,
       "pos": [
         4,
         11
@@ -199,11 +199,11 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 69,
-        "company": 88.5
+        "hunger": 10,
+        "energy": 65,
+        "company": 87.5
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {
         "wood": 3
       },
@@ -272,8 +272,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -2.8,
-        -1.7
+        -5.42,
+        3.7
       ],
       "talent": "food",
       "likes": "food",
@@ -281,11 +281,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 84,
-        "company": 12.0
+        "hunger": 55,
+        "energy": 80,
+        "company": 10.0
       },
-      "task": "eat",
+      "task": "gather_food",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 34,
@@ -360,13 +360,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 61.0,
+        "hunger": 10,
+        "energy": 55.0,
         "company": 0
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "A meal from the stores.",
       "delivered": 48,
       "shells": 10,
       "temperament": 0.503,
@@ -438,7 +438,7 @@
         "food": 10
       },
       "stores_out": {
-        "food": 5.2
+        "food": 7.2
       },
       "project": {
         "wood": 2
