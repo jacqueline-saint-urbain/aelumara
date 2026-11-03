@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 295,
+  "tick": 296,
   "day": 13,
-  "time": "2026-11-06T23:00:00Z",
+  "time": "2026-11-07T00:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -87,7 +87,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 17.75,
+      "stock": 18.0,
       "pos": [
         -9,
         -13
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -8,
         9
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.2,
+      "stock": 11.5,
       "pos": [
         -16,
         6
@@ -215,8 +215,8 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 29,
+        "hunger": 60,
+        "energy": 25,
         "company": 100
       },
       "task": "fire",
@@ -293,8 +293,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        2.16,
-        -1.66
+        -1.5,
+        -0.5
       ],
       "talent": "food",
       "likes": "food",
@@ -302,13 +302,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 44,
-        "company": 0
+        "hunger": 55,
+        "energy": 40,
+        "company": 25
       },
       "task": "fire",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "The tide always brings something back. You have to be there when it goes out.",
       "delivered": 37,
       "shells": 2,
       "stone_day": 12,
@@ -386,8 +386,8 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 55.0,
+        "hunger": 60,
+        "energy": 67.0,
         "company": 0
       },
       "task": "sleep",
@@ -463,7 +463,8 @@
     "delivered": 8,
     "at_fire": [
       "npc-1",
-      "npc-3"
+      "npc-3",
+      "npc-2"
     ],
     "ledger": {
       "stores_in": {
