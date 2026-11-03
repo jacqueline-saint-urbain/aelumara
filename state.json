@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 283,
+  "tick": 284,
   "day": 12,
-  "time": "2026-11-06T11:00:00Z",
+  "time": "2026-11-06T12:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 10,
       "pos": [
         4,
         11
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        7.38,
-        2.22
+        5.76,
+        -3.56
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 77,
-        "company": 90
+        "hunger": 50,
+        "energy": 73,
+        "company": 89.5
       },
       "task": "deliver",
       "carry": {
@@ -272,8 +272,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        0.56,
-        -0.63
+        -2.8,
+        -1.7
       ],
       "talent": "food",
       "likes": "food",
@@ -282,15 +282,15 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 92,
-        "company": 16.0
+        "energy": 88,
+        "company": 14.0
       },
       "task": "stone",
       "carry": {},
-      "say": "Good night.",
+      "say": "A shell on the stone.",
       "delivered": 34,
       "shells": 2,
-      "stone_day": 11,
+      "stone_day": 12,
       "temperament": 0.722,
       "disposition": 0.7116,
       "disposition_week": 0.7154,
@@ -352,21 +352,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        4,
+        11
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 45,
-        "energy": 73.0,
+        "hunger": 50,
+        "energy": 67.0,
         "company": 0
       },
-      "task": "deliver",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "task": "gather_food",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 46,
       "shells": 10,
       "temperament": 0.503,
@@ -426,7 +428,7 @@
       "tired_day": 11
     }
   ],
-  "pot": 4,
+  "pot": 5,
   "today": {
     "delivered": 10,
     "at_fire": [
@@ -443,7 +445,7 @@
       "project": {
         "wood": 2
       },
-      "pot_in": 0,
+      "pot_in": 1,
       "pot_out": 1
     },
     "left_fire": [
