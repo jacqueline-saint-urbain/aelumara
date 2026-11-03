@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 293,
+  "tick": 294,
   "day": 13,
-  "time": "2026-11-06T21:00:00Z",
+  "time": "2026-11-06T22:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -87,7 +87,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 17.25,
+      "stock": 17.5,
       "pos": [
         -9,
         -13
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.6,
+      "stock": 12,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.0,
+      "stock": 11.4,
       "pos": [
         -8,
         9
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.6,
+      "stock": 10.9,
       "pos": [
         -16,
         6
@@ -208,18 +208,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -7.31,
-        -7.24
+        -3.39,
+        -2.7
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 37,
-        "company": 80.5
+        "hunger": 50,
+        "energy": 33,
+        "company": 79.5
       },
-      "task": "deliver",
+      "task": "fire",
       "carry": {
         "wood": 3
       },
@@ -292,8 +292,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        13.6,
-        -5.29
+        7.88,
+        -3.48
       ],
       "talent": "food",
       "likes": "food",
@@ -301,11 +301,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 40,
-        "energy": 52,
+        "hunger": 45,
+        "energy": 48,
         "company": 0
       },
-      "task": "gather_wood",
+      "task": "fire",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 37,
@@ -384,8 +384,8 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 45,
-        "energy": 31.0,
+        "hunger": 50,
+        "energy": 43.0,
         "company": 0
       },
       "task": "sleep",
