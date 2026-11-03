@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 282,
+  "tick": 283,
   "day": 12,
-  "time": "2026-11-06T10:00:00Z",
+  "time": "2026-11-06T11:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 3.84
+    "food": 5.84
   },
   "nodes": [
     {
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.6,
+      "stock": 12,
       "pos": [
         4,
         11
@@ -192,18 +192,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        7.38,
+        2.22
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 81,
-        "company": 91
+        "hunger": 45,
+        "energy": 77,
+        "company": 90
       },
-      "task": "eat",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -272,8 +272,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -282,8 +282,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 96,
-        "company": 18.0
+        "energy": 92,
+        "company": 16.0
       },
       "task": "stone",
       "carry": {},
@@ -352,24 +352,22 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -0.5
+        6,
+        4
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 79.0,
+        "hunger": 45,
+        "energy": 73.0,
         "company": 0
       },
-      "task": "eat",
-      "carry": {
-        "food": 2
-      },
+      "task": "deliver",
+      "carry": {},
       "say": "A meal from the stores.",
-      "delivered": 44,
+      "delivered": 46,
       "shells": 10,
       "temperament": 0.503,
       "disposition": 0.5012,
@@ -430,14 +428,14 @@
   ],
   "pot": 4,
   "today": {
-    "delivered": 8,
+    "delivered": 10,
     "at_fire": [
       "npc-1",
       "npc-3"
     ],
     "ledger": {
       "stores_in": {
-        "food": 6
+        "food": 8
       },
       "stores_out": {
         "food": 4.2
