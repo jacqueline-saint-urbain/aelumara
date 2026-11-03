@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 292,
+  "tick": 293,
   "day": 13,
-  "time": "2026-11-06T20:00:00Z",
+  "time": "2026-11-06T21:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -87,7 +87,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 17,
+      "stock": 17.25,
       "pos": [
         -9,
         -13
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.2,
+      "stock": 11.6,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.6,
+      "stock": 11.0,
       "pos": [
         -8,
         9
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 10.3,
+      "stock": 10.6,
       "pos": [
         -16,
         6
@@ -208,18 +208,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -9,
-        -13
+        -7.31,
+        -7.24
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 41,
-        "company": 81.5
+        "hunger": 45,
+        "energy": 37,
+        "company": 80.5
       },
-      "task": "gather_wood",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -292,8 +292,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        9.8,
-        -0.64
+        13.6,
+        -5.29
       ],
       "talent": "food",
       "likes": "food",
@@ -301,8 +301,8 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 56,
+        "hunger": 40,
+        "energy": 52,
         "company": 0
       },
       "task": "gather_wood",
@@ -376,23 +376,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -7.12,
-        4.52
+        -1.5,
+        -0.5
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 19.0,
+        "hunger": 45,
+        "energy": 31.0,
         "company": 0
       },
-      "task": "deliver",
+      "task": "sleep",
       "carry": {
         "fiber": 2
       },
-      "say": "Fiber for the ropes.",
+      "say": "Good night.",
       "delivered": 50,
       "shells": 10,
       "temperament": 0.503,
