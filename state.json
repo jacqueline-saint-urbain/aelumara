@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 284,
+  "tick": 285,
   "day": 12,
-  "time": "2026-11-06T12:00:00Z",
+  "time": "2026-11-06T13:00:00Z",
   "flags": {
     "raft_ready": false
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 5.84
+    "food": 6.84
   },
   "nodes": [
     {
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10,
+      "stock": 10.4,
       "pos": [
         4,
         11
@@ -192,16 +192,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        5.76,
-        -3.56
+        4.14,
+        -9.34
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 73,
-        "company": 89.5
+        "hunger": 55,
+        "energy": 69,
+        "company": 88.5
       },
       "task": "deliver",
       "carry": {
@@ -281,13 +281,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 100,
-        "energy": 88,
-        "company": 14.0
+        "hunger": 50,
+        "energy": 84,
+        "company": 12.0
       },
-      "task": "stone",
+      "task": "eat",
       "carry": {},
-      "say": "A shell on the stone.",
+      "say": "A meal from the stores.",
       "delivered": 34,
       "shells": 2,
       "stone_day": 12,
@@ -352,24 +352,22 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        4,
-        11
+        6,
+        4
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 67.0,
+        "hunger": 55,
+        "energy": 61.0,
         "company": 0
       },
-      "task": "gather_food",
-      "carry": {
-        "food": 2
-      },
+      "task": "deliver",
+      "carry": {},
       "say": "Berries for everyone.",
-      "delivered": 46,
+      "delivered": 48,
       "shells": 10,
       "temperament": 0.503,
       "disposition": 0.5012,
@@ -430,17 +428,17 @@
   ],
   "pot": 5,
   "today": {
-    "delivered": 10,
+    "delivered": 12,
     "at_fire": [
       "npc-1",
       "npc-3"
     ],
     "ledger": {
       "stores_in": {
-        "food": 8
+        "food": 10
       },
       "stores_out": {
-        "food": 4.2
+        "food": 5.2
       },
       "project": {
         "wood": 2
