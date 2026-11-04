@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 297,
+  "tick": 298,
   "day": 13,
-  "time": "2026-11-07T01:00:00Z",
+  "time": "2026-11-07T02:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -87,7 +87,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 18.25,
+      "stock": 18.5,
       "pos": [
         -9,
         -13
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -16,
         6
@@ -208,18 +208,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -1.5,
-        -0.5
+        3.16,
+        3.28
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 65,
+        "hunger": 70,
         "energy": 21,
-        "company": 100
+        "company": 99
       },
-      "task": "fire",
+      "task": "go_home",
       "carry": {
         "wood": 3
       },
@@ -293,8 +293,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -1.5,
-        -0.5
+        4.31,
+        1.01
       ],
       "talent": "food",
       "likes": "food",
@@ -302,11 +302,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
+        "hunger": 65,
         "energy": 36,
-        "company": 58
+        "company": 56
       },
-      "task": "fire",
+      "task": "go_home",
       "carry": {},
       "say": "The tide always brings something back. You have to be there when it goes out.",
       "delivered": 37,
@@ -386,9 +386,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 65,
-        "energy": 79.0,
-        "company": 10
+        "hunger": 70,
+        "energy": 91.0,
+        "company": 9
       },
       "task": "sleep",
       "carry": {
