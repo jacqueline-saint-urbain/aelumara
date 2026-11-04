@@ -193,6 +193,14 @@
       "by": "sim",
       "kind": "summary",
       "text": "The evening fire gathers Bram, Sélie, Nilo. Today: 8 resources delivered, raft at 0%. Shells in the pot: 4. A shared meal was cooked from the stores. Ledger: stores in 5 food, out 6.38 food; to the project 3 wood; pot +0 -1; shells: Bram 6, Sélie 2, Nilo 10."
+    },
+    {
+      "tick": 310,
+      "day": 13,
+      "at": "2026-11-07T14:00:00Z",
+      "by": "sim",
+      "kind": "progress",
+      "text": "The shelter is 25% built."
     }
   ]
 }
