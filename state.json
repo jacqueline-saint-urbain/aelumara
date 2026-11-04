@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 299,
+  "tick": 300,
   "day": 13,
-  "time": "2026-11-07T03:00:00Z",
+  "time": "2026-11-07T04:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -87,7 +87,7 @@
       "id": "wood-3",
       "type": "pine",
       "resource": "wood",
-      "stock": 18.75,
+      "stock": 19.0,
       "pos": [
         -9,
         -13
@@ -208,22 +208,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        7.83,
-        7.05
+        9,
+        8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 75,
-        "energy": 21,
-        "company": 98
+        "hunger": 80,
+        "energy": 33,
+        "company": 97
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "wood": 3
       },
-      "say": "Wood for the raft.",
+      "say": "Good night.",
       "delivered": 26,
       "shells": 6,
       "temperament": 0.643,
@@ -293,8 +293,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.12,
-        2.51
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -302,13 +302,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 70,
-        "energy": 36,
-        "company": 54
+        "hunger": 75,
+        "energy": 48,
+        "company": 52
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {},
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "say": "Good night.",
       "delivered": 37,
       "shells": 2,
       "stone_day": 12,
@@ -386,9 +386,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 75,
+        "hunger": 80,
         "energy": 100,
-        "company": 8
+        "company": 7
       },
       "task": "sleep",
       "carry": {
