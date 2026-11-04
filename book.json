@@ -201,6 +201,14 @@
       "by": "sim",
       "kind": "progress",
       "text": "The shelter is 25% built."
+    },
+    {
+      "tick": 317,
+      "day": 14,
+      "at": "2026-11-07T21:00:00Z",
+      "by": "sim",
+      "kind": "progress",
+      "text": "The shelter is 50% built."
     }
   ]
 }
