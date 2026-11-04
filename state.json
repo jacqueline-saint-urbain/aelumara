@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 306,
+  "tick": 307,
   "day": 13,
-  "time": "2026-11-07T10:00:00Z",
+  "time": "2026-11-07T11:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -197,7 +197,9 @@
         "wood": 12,
         "fiber": 6
       },
-      "have": {}
+      "have": {
+        "fiber": 2
+      }
     }
   ],
   "npcs": [
@@ -208,18 +210,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        3.27,
+        6.24
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 81,
-        "company": 91
+        "hunger": 55,
+        "energy": 77,
+        "company": 90
       },
-      "task": "eat",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -292,8 +294,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -302,8 +304,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 81,
-        "company": 40
+        "energy": 77,
+        "company": 38
       },
       "task": "stone",
       "carry": {},
@@ -376,25 +378,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -0.5
+        -4,
+        4
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 94.0,
-        "company": 1
+        "hunger": 55,
+        "energy": 88.0,
+        "company": 0
       },
-      "task": "eat",
-      "carry": {
-        "fiber": 2
-      },
+      "task": "deliver",
+      "carry": {},
       "say": "A meal from the stores.",
-      "delivered": 50,
-      "shells": 10,
+      "delivered": 52,
+      "shells": 11,
       "temperament": 0.503,
       "disposition": 0.5051,
       "disposition_week": 0.4907,
@@ -456,9 +456,9 @@
       "tired_day": 13
     }
   ],
-  "pot": 4,
+  "pot": 3,
   "today": {
-    "delivered": 8,
+    "delivered": 10,
     "at_fire": [
       "npc-1",
       "npc-3",
@@ -472,10 +472,11 @@
         "food": 8.38
       },
       "project": {
-        "wood": 3
+        "wood": 3,
+        "fiber": 2
       },
       "pot_in": 0,
-      "pot_out": 1
+      "pot_out": 2
     }
   },
   "fires": 13,
