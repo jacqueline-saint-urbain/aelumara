@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 329,
+  "tick": 330,
   "day": 14,
-  "time": "2026-11-08T09:00:00Z",
+  "time": "2026-11-08T10:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 2.41
+    "food": 0.41
   },
   "nodes": [
     {
@@ -218,13 +218,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 75,
-        "energy": 85,
-        "company": 92
+        "hunger": 30,
+        "energy": 81,
+        "company": 91
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "You don't talk about a raft. You build it.",
+      "say": "A meal from the stores.",
       "delivered": 32,
       "shells": 8,
       "temperament": 0.643,
@@ -288,8 +288,7 @@
           0
         ]
       ],
-      "portion_day": 4,
-      "short_night": true
+      "portion_day": 4
     },
     {
       "id": "npc-2",
@@ -298,8 +297,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        12,
-        3
+        6.28,
+        1.18
       ],
       "talent": "food",
       "likes": "food",
@@ -307,11 +306,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 65,
-        "energy": 85,
-        "company": 21.0
+        "hunger": 70,
+        "energy": 81,
+        "company": 19.0
       },
-      "task": "sleep",
+      "task": "stone",
       "carry": {
         "food": 3
       },
@@ -379,8 +378,7 @@
           1,
           0
         ]
-      ],
-      "short_night": true
+      ]
     },
     {
       "id": "npc-3",
@@ -397,13 +395,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 75,
-        "energy": 85,
+        "hunger": 30,
+        "energy": 79.0,
         "company": 0
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 56,
       "shells": 12,
       "temperament": 0.503,
@@ -468,8 +466,7 @@
         ]
       ],
       "portion_day": 11,
-      "tired_day": 13,
-      "short_night": true
+      "tired_day": 13
     }
   ],
   "pot": 1,
@@ -485,7 +482,7 @@
         "food": 5
       },
       "stores_out": {
-        "food": 3.05
+        "food": 5.05
       },
       "project": {
         "wood": 3
