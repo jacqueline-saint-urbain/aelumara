@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 340,
+  "tick": 341,
   "day": 15,
-  "time": "2026-11-08T20:00:00Z",
+  "time": "2026-11-08T21:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.75,
+      "stock": 19.0,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 9.4,
+      "stock": 9.8,
       "pos": [
         -8,
         9
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -16,
         6
@@ -211,18 +211,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -4,
-        4
+        -9.27,
+        1.13
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 41,
-        "company": 81.5
+        "hunger": 45,
+        "energy": 37,
+        "company": 80.5
       },
-      "task": "deliver",
+      "task": "gather_wood",
       "carry": {},
       "say": "You don't talk about a raft. You build it.",
       "delivered": 35,
@@ -301,8 +301,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6,
-        4
+        4.35,
+        9.77
       ],
       "talent": "food",
       "likes": "food",
@@ -310,11 +310,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 40,
-        "energy": 41,
-        "company": 2.0
+        "hunger": 45,
+        "energy": 37,
+        "company": 1.0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries!",
       "delivered": 43,
@@ -393,21 +393,21 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        -1.5,
+        -0.5
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 19.0,
+        "hunger": 45,
+        "energy": 31.0,
         "company": 0
       },
-      "task": "deliver",
+      "task": "sleep",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "Good night.",
       "delivered": 60,
       "shells": 13,
       "temperament": 0.503,
