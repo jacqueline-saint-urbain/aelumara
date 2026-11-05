@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 331,
+  "tick": 332,
   "day": 14,
-  "time": "2026-11-08T11:00:00Z",
+  "time": "2026-11-08T12:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -211,16 +211,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        11.23,
-        2.43
+        13.46,
+        -3.14
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 35,
-        "energy": 77,
-        "company": 90
+        "hunger": 40,
+        "energy": 73,
+        "company": 89
       },
       "task": "gather_wood",
       "carry": {},
@@ -297,8 +297,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        0.56,
-        -0.63
+        -2.8,
+        -1.7
       ],
       "talent": "food",
       "likes": "food",
@@ -306,18 +306,18 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 75,
-        "energy": 77,
-        "company": 17.0
+        "hunger": 80,
+        "energy": 73,
+        "company": 15.0
       },
       "task": "stone",
       "carry": {
         "food": 3
       },
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "say": "A shell on the stone.",
       "delivered": 40,
       "shells": 2,
-      "stone_day": 13,
+      "stone_day": 14,
       "temperament": 0.722,
       "disposition": 0.7106,
       "disposition_week": 0.7154,
@@ -387,19 +387,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -2.93,
-        -9.39
+        -5.32,
+        -0.71
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 73.0,
+        "hunger": 40,
+        "energy": 67.0,
         "company": 0
       },
-      "task": "gather_fiber",
+      "task": "gather_food",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 56,
@@ -469,7 +469,7 @@
       "tired_day": 13
     }
   ],
-  "pot": 1,
+  "pot": 2,
   "today": {
     "delivered": 8,
     "at_fire": [
@@ -487,7 +487,7 @@
       "project": {
         "wood": 3
       },
-      "pot_in": 0,
+      "pot_in": 1,
       "pot_out": 1
     }
   },
