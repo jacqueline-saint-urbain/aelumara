@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 341,
+  "tick": 342,
   "day": 15,
-  "time": "2026-11-08T21:00:00Z",
+  "time": "2026-11-08T22:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 19.0,
+      "stock": 19.25,
       "pos": [
         15,
         -7
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 9.8,
+      "stock": 10.2,
       "pos": [
         -8,
         9
@@ -211,18 +211,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -9.27,
-        1.13
+        -3.4,
+        -0.1
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 37,
-        "company": 80.5
+        "hunger": 50,
+        "energy": 33,
+        "company": 79.5
       },
-      "task": "gather_wood",
+      "task": "fire",
       "carry": {},
       "say": "You don't talk about a raft. You build it.",
       "delivered": 35,
@@ -301,8 +301,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        4.35,
-        9.77
+        1.38,
+        4.56
       ],
       "talent": "food",
       "likes": "food",
@@ -310,11 +310,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 45,
-        "energy": 37,
-        "company": 1.0
+        "hunger": 50,
+        "energy": 33,
+        "company": 0
       },
-      "task": "gather_food",
+      "task": "fire",
       "carry": {},
       "say": "Berries!",
       "delivered": 43,
@@ -401,8 +401,8 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 45,
-        "energy": 31.0,
+        "hunger": 50,
+        "energy": 43.0,
         "company": 0
       },
       "task": "sleep",
