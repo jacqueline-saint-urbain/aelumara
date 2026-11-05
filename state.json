@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 344,
+  "tick": 345,
   "day": 15,
-  "time": "2026-11-09T00:00:00Z",
+  "time": "2026-11-09T01:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 19.75,
+      "stock": 20,
       "pos": [
         15,
         -7
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.0,
+      "stock": 11.4,
       "pos": [
         -8,
         9
@@ -211,18 +211,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -1.5,
-        -0.5
+        3.16,
+        3.28
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 60,
+        "hunger": 65,
         "energy": 25,
-        "company": 99
+        "company": 98
       },
-      "task": "sleep",
+      "task": "go_home",
       "carry": {},
       "say": "Good night, all. I need my bed.",
       "delivered": 35,
@@ -310,13 +310,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
-        "energy": 25,
-        "company": 48
+        "hunger": 65,
+        "energy": 21,
+        "company": 71
       },
       "task": "fire",
       "carry": {},
-      "say": "Berries!",
+      "say": "The tide always brings something back. You have to be there when it goes out.",
       "delivered": 43,
       "shells": 2,
       "stone_day": 14,
@@ -402,8 +402,8 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 60,
-        "energy": 67.0,
+        "hunger": 65,
+        "energy": 79.0,
         "company": 0
       },
       "task": "sleep",
@@ -505,7 +505,7 @@
       "npc-1"
     ]
   },
-  "fires": 14,
+  "fires": 15,
   "ledgers": [
     {
       "stores_in": {},
