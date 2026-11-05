@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 339,
+  "tick": 340,
   "day": 15,
-  "time": "2026-11-08T19:00:00Z",
+  "time": "2026-11-08T20:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 0.37
+    "food": 5.37
   },
   "nodes": [
     {
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.5,
+      "stock": 18.75,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.4,
+      "stock": 11.8,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 9.0,
+      "stock": 9.4,
       "pos": [
         -8,
         9
@@ -147,7 +147,7 @@
       "id": "fiber-1",
       "type": "reeds",
       "resource": "fiber",
-      "stock": 11.5,
+      "stock": 11.8,
       "pos": [
         -16,
         6
@@ -199,7 +199,7 @@
       },
       "have": {
         "fiber": 6,
-        "wood": 6
+        "wood": 9
       }
     }
   ],
@@ -211,24 +211,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -0.52,
-        7.05
+        -4,
+        4
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 35,
-        "energy": 45,
-        "company": 82
+        "hunger": 40,
+        "energy": 41,
+        "company": 81.5
       },
       "task": "deliver",
-      "carry": {
-        "wood": 3
-      },
+      "carry": {},
       "say": "You don't talk about a raft. You build it.",
-      "delivered": 32,
-      "shells": 8,
+      "delivered": 35,
+      "shells": 9,
       "temperament": 0.643,
       "disposition": 0.6748,
       "disposition_week": 0.6748,
@@ -303,8 +301,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        3.3,
-        4.96
+        6,
+        4
       ],
       "talent": "food",
       "likes": "food",
@@ -312,16 +310,14 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 45,
-        "company": 3.0
+        "hunger": 40,
+        "energy": 41,
+        "company": 2.0
       },
       "task": "deliver",
-      "carry": {
-        "food": 3
-      },
+      "carry": {},
       "say": "Berries!",
-      "delivered": 40,
+      "delivered": 43,
       "shells": 2,
       "stone_day": 14,
       "temperament": 0.722,
@@ -397,24 +393,22 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        0.48,
-        5.97
+        6,
+        4
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 25.0,
+        "hunger": 40,
+        "energy": 19.0,
         "company": 0
       },
       "task": "deliver",
-      "carry": {
-        "food": 2
-      },
+      "carry": {},
       "say": "Berries for everyone.",
-      "delivered": 58,
+      "delivered": 60,
       "shells": 13,
       "temperament": 0.503,
       "disposition": 0.5155,
@@ -485,20 +479,23 @@
       "tired_day": 13
     }
   ],
-  "pot": 1,
+  "pot": 0,
   "today": {
-    "delivered": 2,
+    "delivered": 10,
     "at_fire": [],
     "ledger": {
-      "stores_in": {},
+      "stores_in": {
+        "food": 5
+      },
       "stores_out": {
         "food": 0.04
       },
       "project": {
-        "fiber": 2
+        "fiber": 2,
+        "wood": 3
       },
       "pot_in": 0,
-      "pot_out": 1
+      "pot_out": 2
     }
   },
   "fires": 14,
