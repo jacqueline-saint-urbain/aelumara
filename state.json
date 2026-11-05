@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 330,
+  "tick": 331,
   "day": 14,
-  "time": "2026-11-08T10:00:00Z",
+  "time": "2026-11-08T11:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -211,18 +211,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        11.23,
+        2.43
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
-        "energy": 81,
-        "company": 91
+        "hunger": 35,
+        "energy": 77,
+        "company": 90
       },
-      "task": "eat",
+      "task": "gather_wood",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 32,
@@ -297,8 +297,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -306,15 +306,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 70,
-        "energy": 81,
-        "company": 19.0
+        "hunger": 75,
+        "energy": 77,
+        "company": 17.0
       },
       "task": "stone",
       "carry": {
         "food": 3
       },
-      "say": "Good night.",
+      "say": "The tide always brings something back. You have to be there when it goes out.",
       "delivered": 40,
       "shells": 2,
       "stone_day": 13,
@@ -387,19 +387,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -0.5
+        -2.93,
+        -9.39
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 30,
-        "energy": 79.0,
+        "hunger": 35,
+        "energy": 73.0,
         "company": 0
       },
-      "task": "eat",
+      "task": "gather_fiber",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 56,
