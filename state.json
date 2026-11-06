@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 353,
+  "tick": 354,
   "day": 15,
-  "time": "2026-11-09T09:00:00Z",
+  "time": "2026-11-09T10:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 5.37
+    "food": 3.37
   },
   "nodes": [
     {
@@ -218,13 +218,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 100,
-        "energy": 100,
-        "company": 90
+        "hunger": 50,
+        "energy": 96,
+        "company": 89
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 35,
       "shells": 9,
       "temperament": 0.643,
@@ -301,8 +301,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        12,
-        3
+        6.28,
+        1.18
       ],
       "talent": "food",
       "likes": "food",
@@ -311,10 +311,10 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 85,
-        "company": 55
+        "energy": 81,
+        "company": 53
       },
-      "task": "sleep",
+      "task": "stone",
       "carry": {},
       "say": "Good night.",
       "delivered": 43,
@@ -384,8 +384,7 @@
           1,
           0
         ]
-      ],
-      "short_night": true
+      ]
     },
     {
       "id": "npc-3",
@@ -402,13 +401,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 100,
-        "energy": 100,
+        "hunger": 50,
+        "energy": 94.0,
         "company": 0
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 60,
       "shells": 13,
       "temperament": 0.503,
@@ -492,7 +491,7 @@
         "food": 5
       },
       "stores_out": {
-        "food": 0.04
+        "food": 2.04
       },
       "project": {
         "fiber": 2,
