@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 368,
+  "tick": 369,
   "day": 16,
-  "time": "2026-11-10T00:00:00Z",
+  "time": "2026-11-10T01:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 8.03
+    "food": 2.03
   },
   "nodes": [
     {
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 15.75,
+      "stock": 16.0,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.2,
+      "stock": 11.6,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.4,
+      "stock": 11.8,
       "pos": [
         -8,
         9
@@ -211,18 +211,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9.42,
-        -4.8
+        9.22,
+        1.2
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 20,
+        "hunger": 25,
         "energy": 40,
-        "company": 75.5
+        "company": 74.5
       },
-      "task": "sleep",
+      "task": "go_home",
       "carry": {
         "wood": 3
       },
@@ -316,9 +316,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 25,
-        "company": 53.0
+        "hunger": 60,
+        "energy": 21,
+        "company": 86.0
       },
       "task": "fire",
       "carry": {},
@@ -412,9 +412,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 20,
-        "energy": 28.0,
-        "company": 0
+        "hunger": 25,
+        "energy": 40.0,
+        "company": 10
       },
       "task": "sleep",
       "carry": {
@@ -509,7 +509,7 @@
         "food": 7
       },
       "stores_out": {
-        "food": 2.34
+        "food": 8.34
       },
       "project": {},
       "pot_in": 0,
@@ -519,7 +519,7 @@
       "npc-1"
     ]
   },
-  "fires": 15,
+  "fires": 16,
   "ledgers": [
     {
       "stores_in": {
