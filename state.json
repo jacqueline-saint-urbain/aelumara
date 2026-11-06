@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 354,
+  "tick": 355,
   "day": 15,
-  "time": "2026-11-09T10:00:00Z",
+  "time": "2026-11-09T11:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -137,7 +137,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 10,
       "pos": [
         13,
         12
@@ -211,20 +211,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        13,
+        12
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 96,
-        "company": 89
+        "hunger": 55,
+        "energy": 92,
+        "company": 88
       },
-      "task": "eat",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "task": "gather_food",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 35,
       "shells": 9,
       "temperament": 0.643,
@@ -301,8 +303,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -311,8 +313,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 81,
-        "company": 53
+        "energy": 77,
+        "company": 51
       },
       "task": "stone",
       "carry": {},
@@ -393,21 +395,21 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -1.5,
-        -0.5
+        -6.58,
+        6.93
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 94.0,
+        "hunger": 55,
+        "energy": 88.0,
         "company": 0
       },
-      "task": "eat",
+      "task": "gather_food",
       "carry": {},
-      "say": "A meal from the stores.",
+      "say": "What's that, over there?",
       "delivered": 60,
       "shells": 13,
       "temperament": 0.503,
