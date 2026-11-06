@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 369,
+  "tick": 370,
   "day": 16,
-  "time": "2026-11-10T01:00:00Z",
+  "time": "2026-11-10T02:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 16.0,
+      "stock": 16.25,
       "pos": [
         15,
         -7
@@ -117,7 +117,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 11.6,
+      "stock": 12,
       "pos": [
         4,
         11
@@ -127,7 +127,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -8,
         9
@@ -211,16 +211,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9.22,
-        1.2
+        9.03,
+        7.2
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 25,
+        "hunger": 30,
         "energy": 40,
-        "company": 74.5
+        "company": 73.5
       },
       "task": "go_home",
       "carry": {
@@ -307,8 +307,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -1.5,
-        -0.5
+        4.31,
+        1.01
       ],
       "talent": "food",
       "likes": "food",
@@ -316,11 +316,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 60,
+        "hunger": 65,
         "energy": 21,
-        "company": 86.0
+        "company": 84.0
       },
-      "task": "fire",
+      "task": "go_home",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 46,
@@ -412,9 +412,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 25,
-        "energy": 40.0,
-        "company": 10
+        "hunger": 30,
+        "energy": 52.0,
+        "company": 9
       },
       "task": "sleep",
       "carry": {
