@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 378,
+  "tick": 379,
   "day": 16,
-  "time": "2026-11-10T10:00:00Z",
+  "time": "2026-11-10T11:00:00Z",
   "flags": {
     "raft_ready": true
   },
@@ -33,7 +33,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 1.03
+    "food": 0.03
   },
   "nodes": [
     {
@@ -107,7 +107,7 @@
       "id": "wood-5",
       "type": "palm",
       "resource": "wood",
-      "stock": 18.25,
+      "stock": 18.5,
       "pos": [
         15,
         -7
@@ -211,18 +211,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9,
-        8
+        3.27,
+        6.24
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 20,
-        "energy": 96,
-        "company": 65.5
+        "hunger": 25,
+        "energy": 92,
+        "company": 64.5
       },
-      "task": "eat",
+      "task": "deliver",
       "carry": {
         "wood": 3
       },
@@ -307,8 +307,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6.28,
-        1.18
+        0.56,
+        -0.63
       ],
       "talent": "food",
       "likes": "food",
@@ -317,8 +317,8 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 81,
-        "company": 68.0
+        "energy": 77,
+        "company": 66.0
       },
       "task": "stone",
       "carry": {},
@@ -411,15 +411,15 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 70,
-        "energy": 79.0,
-        "company": 1
+        "hunger": 25,
+        "energy": 73.0,
+        "company": 0
       },
-      "task": "forage",
+      "task": "eat",
       "carry": {
         "wood": 2
       },
-      "say": "Keep it for Sélie.",
+      "say": "A meal from the stores.",
       "delivered": 66,
       "shells": 13,
       "temperament": 0.503,
@@ -507,7 +507,7 @@
         "food": 7
       },
       "stores_out": {
-        "food": 9.34
+        "food": 10.34
       },
       "project": {},
       "pot_in": 0,
