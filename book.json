@@ -241,6 +241,14 @@
       "by": "sim",
       "kind": "summary",
       "text": "The evening fire gathers Sélie, Nilo. Today: 7 resources delivered, raft at 83%. Shells in the pot: 1. A shared meal was cooked from the stores. Left early: Bram. Ledger: stores in 7 food, out 8.34 food; to the project nothing; pot +0 -0; shells: Bram 9, Sélie 2, Nilo 13."
+    },
+    {
+      "tick": 381,
+      "day": 16,
+      "at": "2026-11-10T13:00:00Z",
+      "by": "sim",
+      "kind": "launching",
+      "text": "First step. The shelter stands by the fire, roofed with fiber, and Bram, Sélie, Nilo stack the first dry wood under it."
     }
   ]
 }
