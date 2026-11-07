@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 385,
+  "tick": 386,
   "day": 17,
-  "time": "2026-11-10T17:00:00Z",
+  "time": "2026-11-10T18:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 3.83
+    "food": 1.83
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 10.4,
+      "stock": 10.8,
       "pos": [
         4,
         11
@@ -128,7 +128,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 4.6,
+      "stock": 5.0,
       "pos": [
         -8,
         9
@@ -220,15 +220,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 68,
-        "company": 60.5
+        "hunger": 10,
+        "energy": 64,
+        "company": 60.0
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {
         "food": 2
       },
-      "say": "Berries for everyone.",
+      "say": "A meal from the stores.",
       "delivered": 40,
       "shells": 10,
       "temperament": 0.643,
@@ -309,8 +309,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        -2.35,
-        6.98
+        3.3,
+        4.96
       ],
       "talent": "food",
       "likes": "food",
@@ -318,9 +318,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 53,
-        "company": 57.0
+        "hunger": 40,
+        "energy": 49,
+        "company": 55.0
       },
       "task": "deliver",
       "carry": {
@@ -415,13 +415,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 37.0,
+        "hunger": 10,
+        "energy": 31.0,
         "company": 0
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "A meal from the stores.",
       "delivered": 72,
       "shells": 14,
       "temperament": 0.503,
@@ -506,7 +506,7 @@
         "food": 2
       },
       "stores_out": {
-        "food": 0.2
+        "food": 2.2
       },
       "project": {},
       "pot_in": 0,
