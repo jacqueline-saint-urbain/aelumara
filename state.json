@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 415,
+  "tick": 416,
   "day": 18,
-  "time": "2026-11-11T23:00:00Z",
+  "time": "2026-11-12T00:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 1.4,
+      "stock": 1.8,
       "pos": [
         4,
         11
@@ -213,16 +213,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        5.24,
-        4.81
+        0.53,
+        1.1
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 15,
-        "energy": 44,
-        "company": 36.5
+        "hunger": 20,
+        "energy": 40,
+        "company": 35.5
       },
       "task": "fire",
       "carry": {},
@@ -308,8 +308,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        0.53,
-        1.1
+        -1.5,
+        -0.5
       ],
       "talent": "food",
       "likes": "food",
@@ -317,9 +317,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 29,
-        "company": 43.0
+        "hunger": 40,
+        "energy": 25,
+        "company": 66.0
       },
       "task": "fire",
       "carry": {},
@@ -413,13 +413,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 15,
-        "energy": 16.0,
-        "company": 25
+        "hunger": 20,
+        "energy": 28.0,
+        "company": 24
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {},
-      "say": "A meal from the stores.",
+      "say": "Good night.",
       "delivered": 81,
       "shells": 14,
       "temperament": 0.503,
@@ -499,7 +499,8 @@
   "today": {
     "delivered": 12,
     "at_fire": [
-      "npc-3"
+      "npc-3",
+      "npc-2"
     ],
     "ledger": {
       "stores_in": {
