@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 419,
+  "tick": 420,
   "day": 18,
-  "time": "2026-11-12T03:00:00Z",
+  "time": "2026-11-12T04:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 3.0,
+      "stock": 3.4,
       "pos": [
         4,
         11
@@ -213,20 +213,20 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        7.83,
-        7.05
+        9,
+        8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 35,
-        "energy": 36,
-        "company": 67.5
+        "hunger": 40,
+        "energy": 48,
+        "company": 66.5
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {},
-      "say": "A meal from the stores.",
+      "say": "Good night.",
       "delivered": 48,
       "shells": 10,
       "temperament": 0.643,
@@ -308,8 +308,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.12,
-        2.51
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -317,13 +317,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 21,
-        "company": 95.0
+        "hunger": 60,
+        "energy": 33,
+        "company": 93.0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {},
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "say": "Good night.",
       "delivered": 55,
       "shells": 2,
       "stone_day": 17,
@@ -413,9 +413,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 64.0,
-        "company": 31
+        "hunger": 40,
+        "energy": 76.0,
+        "company": 30
       },
       "task": "sleep",
       "carry": {},
