@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 414,
+  "tick": 415,
   "day": 18,
-  "time": "2026-11-11T22:00:00Z",
+  "time": "2026-11-11T23:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 1.0,
+      "stock": 1.4,
       "pos": [
         4,
         11
@@ -213,18 +213,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9.95,
-        8.52
+        5.24,
+        4.81
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 10,
-        "energy": 48,
-        "company": 37.5
+        "hunger": 15,
+        "energy": 44,
+        "company": 36.5
       },
-      "task": "eat",
+      "task": "fire",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 48,
@@ -234,11 +234,11 @@
       "disposition_week": 0.6748,
       "admires": "npc-2",
       "choices": {
-        "group": 0,
+        "group": 1,
         "self": 0
       },
-      "fire_day": 17,
-      "fire_choice": false,
+      "fire_day": 18,
+      "fire_choice": true,
       "fire_hour": 19,
       "acts": [
         [
@@ -298,7 +298,8 @@
           1
         ]
       ],
-      "portion_day": 4
+      "portion_day": 4,
+      "short_night": true
     },
     {
       "id": "npc-2",
@@ -307,8 +308,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        5.24,
-        4.81
+        0.53,
+        1.1
       ],
       "talent": "food",
       "likes": "food",
@@ -316,9 +317,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 30,
-        "energy": 33,
-        "company": 45.0
+        "hunger": 35,
+        "energy": 29,
+        "company": 43.0
       },
       "task": "fire",
       "carry": {},
@@ -331,10 +332,10 @@
       "disposition_week": 0.7114,
       "admires": "npc-3",
       "choices": {
-        "group": 0,
+        "group": 1,
         "self": 0
       },
-      "fire_day": 17,
+      "fire_day": 18,
       "fire_choice": true,
       "fire_hour": 19,
       "acts": [
@@ -394,7 +395,8 @@
           1,
           0
         ]
-      ]
+      ],
+      "short_night": true
     },
     {
       "id": "npc-3",
@@ -403,19 +405,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        -1.5,
+        -0.5
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 10,
-        "energy": 22.0,
-        "company": 0
+        "hunger": 15,
+        "energy": 16.0,
+        "company": 25
       },
-      "task": "eat",
+      "task": "fire",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 81,
@@ -426,10 +428,10 @@
       "admires": "npc-1",
       "choices": {
         "group": 0,
-        "self": 0
+        "self": 1
       },
-      "fire_day": 16,
-      "fire_choice": true,
+      "fire_day": 18,
+      "fire_choice": false,
       "fire_hour": 19,
       "acts": [
         [
@@ -496,7 +498,9 @@
   "pot": 1,
   "today": {
     "delivered": 12,
-    "at_fire": [],
+    "at_fire": [
+      "npc-3"
+    ],
     "ledger": {
       "stores_in": {
         "food": 12
