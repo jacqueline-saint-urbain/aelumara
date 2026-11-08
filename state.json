@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 425,
+  "tick": 426,
   "day": 18,
-  "time": "2026-11-12T09:00:00Z",
+  "time": "2026-11-12T10:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 8.25
+    "food": 6.25
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 5.4,
+      "stock": 5.8,
       "pos": [
         4,
         11
@@ -220,13 +220,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 65,
-        "energy": 85,
-        "company": 61.5
+        "hunger": 20,
+        "energy": 81,
+        "company": 60.5
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 48,
       "shells": 10,
       "temperament": 0.643,
@@ -298,8 +298,7 @@
           1
         ]
       ],
-      "portion_day": 4,
-      "short_night": true
+      "portion_day": 4
     },
     {
       "id": "npc-2",
@@ -308,8 +307,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        12,
-        3
+        6.28,
+        1.18
       ],
       "talent": "food",
       "likes": "food",
@@ -317,11 +316,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 85,
-        "energy": 85,
-        "company": 83.0
+        "hunger": 90,
+        "energy": 81,
+        "company": 81.0
       },
-      "task": "sleep",
+      "task": "stone",
       "carry": {},
       "say": "Good night.",
       "delivered": 55,
@@ -395,8 +394,7 @@
           1,
           0
         ]
-      ],
-      "short_night": true
+      ]
     },
     {
       "id": "npc-3",
@@ -413,13 +411,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 65,
-        "energy": 100,
-        "company": 25
+        "hunger": 20,
+        "energy": 94.0,
+        "company": 24
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "What's that, over there?",
+      "say": "A meal from the stores.",
       "delivered": 81,
       "shells": 14,
       "temperament": 0.503,
@@ -508,7 +506,7 @@
         "food": 12
       },
       "stores_out": {
-        "food": 9.58
+        "food": 11.58
       },
       "project": {},
       "pot_in": 0,
