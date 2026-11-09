@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 442,
+  "tick": 443,
   "day": 19,
-  "time": "2026-11-13T02:00:00Z",
+  "time": "2026-11-13T03:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 2.2,
+      "stock": 2.6,
       "pos": [
         4,
         11
@@ -213,16 +213,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        3.16,
-        3.28
+        7.83,
+        7.05
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
+        "hunger": 55,
         "energy": 21,
-        "company": 99
+        "company": 98
       },
       "task": "go_home",
       "carry": {
@@ -310,8 +310,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.56,
-        2.69
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -319,15 +319,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 65,
-        "energy": 25,
-        "company": 52.0
+        "hunger": 70,
+        "energy": 37,
+        "company": 50.0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "food": 1
       },
-      "say": "Good night, all. I need my bed.",
+      "say": "Good night.",
       "delivered": 58,
       "shells": 2,
       "stone_day": 18,
@@ -416,13 +416,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 52.0,
-        "company": 20.5
+        "hunger": 55,
+        "energy": 64.0,
+        "company": 19.5
       },
       "task": "sleep",
       "carry": {},
-      "say": "Good night.",
+      "say": "What's that, over there?",
       "delivered": 88,
       "shells": 14,
       "temperament": 0.503,
