@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 439,
+  "tick": 440,
   "day": 19,
-  "time": "2026-11-12T23:00:00Z",
+  "time": "2026-11-13T00:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 1.0,
+      "stock": 1.4,
       "pos": [
         4,
         11
@@ -128,7 +128,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.4,
+      "stock": 11.8,
       "pos": [
         -8,
         9
@@ -220,9 +220,9 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 35,
-        "energy": 29,
-        "company": 75.0
+        "hunger": 40,
+        "energy": 25,
+        "company": 99.0
       },
       "task": "fire",
       "carry": {
@@ -319,15 +319,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 29,
-        "company": 58.0
+        "hunger": 55,
+        "energy": 25,
+        "company": 56.0
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {
         "food": 1
       },
-      "say": "Berries for everyone.",
+      "say": "Good night, all. I need my bed.",
       "delivered": 58,
       "shells": 2,
       "stone_day": 18,
@@ -408,21 +408,21 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        5.04,
-        4.98
+        -1.5,
+        -0.5
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 16.0,
-        "company": 13.5
+        "hunger": 40,
+        "energy": 28.0,
+        "company": 12.5
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "Good night.",
       "delivered": 88,
       "shells": 14,
       "temperament": 0.503,
@@ -503,7 +503,7 @@
     "delivered": 10,
     "at_fire": [
       "npc-1",
-      "npc-2"
+      "npc-3"
     ],
     "ledger": {
       "stores_in": {
@@ -515,7 +515,10 @@
       "project": {},
       "pot_in": 0,
       "pot_out": 0
-    }
+    },
+    "left_fire": [
+      "npc-2"
+    ]
   },
   "fires": 18,
   "ledgers": [
