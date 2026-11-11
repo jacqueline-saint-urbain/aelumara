@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 505,
+  "tick": 506,
   "day": 22,
-  "time": "2026-11-15T17:00:00Z",
+  "time": "2026-11-15T18:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 16.26
+    "food": 14.26
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 0.4,
+      "stock": 0.8,
       "pos": [
         4,
         11
@@ -220,15 +220,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 53,
-        "company": 84.5
+        "hunger": 10,
+        "energy": 49,
+        "company": 84.0
       },
-      "task": "gather_food",
+      "task": "eat",
       "carry": {
         "food": 2
       },
-      "say": "Berries for everyone.",
+      "say": "A meal from the stores.",
       "delivered": 65,
       "shells": 10,
       "temperament": 0.643,
@@ -309,8 +309,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        4.35,
-        9.77
+        10.16,
+        11.27
       ],
       "talent": "food",
       "likes": "food",
@@ -318,9 +318,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 20,
-        "energy": 53,
-        "company": 4.0
+        "hunger": 25,
+        "energy": 49,
+        "company": 3.0
       },
       "task": "gather_food",
       "carry": {},
@@ -413,15 +413,15 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 37.0,
+        "hunger": 10,
+        "energy": 31.0,
         "company": 0
       },
-      "task": "gather_food",
+      "task": "eat",
       "carry": {
         "food": 2
       },
-      "say": "Berries for everyone.",
+      "say": "A meal from the stores.",
       "delivered": 106,
       "shells": 14,
       "temperament": 0.503,
@@ -506,7 +506,7 @@
         "food": 5
       },
       "stores_out": {
-        "food": 1.25
+        "food": 3.25
       },
       "project": {},
       "pot_in": 0,
