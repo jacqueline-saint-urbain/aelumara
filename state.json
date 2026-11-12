@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 535,
+  "tick": 536,
   "day": 23,
-  "time": "2026-11-16T23:00:00Z",
+  "time": "2026-11-17T00:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 1.4,
+      "stock": 1.8,
       "pos": [
         4,
         11
@@ -128,7 +128,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -8,
         9
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 9.8,
+      "stock": 10.2,
       "pos": [
         13,
         12
@@ -220,15 +220,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 29,
-        "company": 100
+        "hunger": 60,
+        "energy": 25,
+        "company": 99
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {
         "food": 1
       },
-      "say": "You don't talk about a raft. You build it.",
+      "say": "Good night, all. I need my bed.",
       "delivered": 71,
       "shells": 10,
       "temperament": 0.643,
@@ -318,15 +318,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 29,
-        "company": 39.0
+        "hunger": 55,
+        "energy": 25,
+        "company": 37.0
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {
         "food": 3
       },
-      "say": "Berries for everyone.",
+      "say": "Good night, all. I need my bed.",
       "delivered": 73,
       "shells": 2,
       "stone_day": 22,
@@ -415,13 +415,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 16.0,
-        "company": 25
+        "hunger": 60,
+        "energy": 28.0,
+        "company": 24
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "Good night.",
       "delivered": 116,
       "shells": 14,
       "temperament": 0.503,
@@ -502,7 +502,6 @@
   "today": {
     "delivered": 10,
     "at_fire": [
-      "npc-1",
       "npc-3"
     ],
     "ledger": {
@@ -515,7 +514,11 @@
       "project": {},
       "pot_in": 0,
       "pot_out": 0
-    }
+    },
+    "left_fire": [
+      "npc-1",
+      "npc-2"
+    ]
   },
   "fires": 22,
   "ledgers": [
