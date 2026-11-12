@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 536,
+  "tick": 537,
   "day": 23,
-  "time": "2026-11-17T00:00:00Z",
+  "time": "2026-11-17T01:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 1.8,
+      "stock": 2.2,
       "pos": [
         4,
         11
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 10.2,
+      "stock": 10.6,
       "pos": [
         13,
         12
@@ -213,22 +213,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        -1.5,
-        -0.5
+        3.16,
+        3.28
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 60,
+        "hunger": 65,
         "energy": 25,
-        "company": 99
+        "company": 98
       },
-      "task": "sleep",
+      "task": "go_home",
       "carry": {
         "food": 1
       },
-      "say": "Good night, all. I need my bed.",
+      "say": "You don't talk about a raft. You build it.",
       "delivered": 71,
       "shells": 10,
       "temperament": 0.643,
@@ -309,8 +309,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        3.91,
-        4.16
+        9.85,
+        3.31
       ],
       "talent": "food",
       "likes": "food",
@@ -318,11 +318,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
+        "hunger": 60,
         "energy": 25,
-        "company": 37.0
+        "company": 35.0
       },
-      "task": "sleep",
+      "task": "go_home",
       "carry": {
         "food": 3
       },
@@ -415,9 +415,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 60,
-        "energy": 28.0,
-        "company": 24
+        "hunger": 65,
+        "energy": 40.0,
+        "company": 23
       },
       "task": "sleep",
       "carry": {},
@@ -520,7 +520,7 @@
       "npc-2"
     ]
   },
-  "fires": 22,
+  "fires": 23,
   "ledgers": [
     {
       "stores_in": {
