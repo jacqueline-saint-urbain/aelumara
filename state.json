@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 532,
+  "tick": 533,
   "day": 23,
-  "time": "2026-11-16T20:00:00Z",
+  "time": "2026-11-16T21:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 0.2,
+      "stock": 0.6,
       "pos": [
         4,
         11
@@ -128,7 +128,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.6,
+      "stock": 11.0,
       "pos": [
         -8,
         9
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 9,
       "pos": [
         13,
         12
@@ -213,18 +213,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        4,
-        11
+        5.65,
+        5.23
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 41,
-        "company": 83.5
+        "hunger": 45,
+        "energy": 37,
+        "company": 82.5
       },
-      "task": "gather_food",
+      "task": "deliver",
       "carry": {
         "food": 1
       },
@@ -309,8 +309,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        9.95,
-        8.52
+        13,
+        12
       ],
       "talent": "food",
       "likes": "food",
@@ -318,12 +318,14 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 41,
-        "company": 44.0
+        "hunger": 40,
+        "energy": 37,
+        "company": 42.0
       },
       "task": "gather_food",
-      "carry": {},
+      "carry": {
+        "food": 3
+      },
       "say": "Berries for everyone.",
       "delivered": 73,
       "shells": 2,
@@ -405,19 +407,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        11.93,
+        10.77
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 34.0,
+        "hunger": 45,
+        "energy": 28.0,
         "company": 0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 116,
