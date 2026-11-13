@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 556,
+  "tick": 557,
   "day": 24,
-  "time": "2026-11-17T20:00:00Z",
+  "time": "2026-11-17T21:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 0.8,
+      "stock": 1.2,
       "pos": [
         4,
         11
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 10.4,
+      "stock": 10.8,
       "pos": [
         13,
         12
@@ -213,18 +213,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        6,
-        4
+        4.35,
+        9.77
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 50,
-        "energy": 56,
-        "company": 81.5
+        "hunger": 55,
+        "energy": 52,
+        "company": 81.0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "You don't talk about a raft. You build it.",
       "delivered": 76,
@@ -307,8 +307,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6,
-        4
+        4.35,
+        9.77
       ],
       "talent": "food",
       "likes": "food",
@@ -316,11 +316,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 56,
-        "company": 1.0
+        "hunger": 40,
+        "energy": 52,
+        "company": 0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 79,
@@ -403,19 +403,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        7.07,
-        5.23
+        -0.41,
+        0.23
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
+        "hunger": 55,
         "energy": 19.0,
-        "company": 4.5
+        "company": 4.0
       },
-      "task": "deliver",
+      "task": "go_home",
       "carry": {
         "food": 2
       },
