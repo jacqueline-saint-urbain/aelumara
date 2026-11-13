@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 548,
+  "tick": 549,
   "day": 23,
-  "time": "2026-11-17T12:00:00Z",
+  "time": "2026-11-17T13:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 19.83
+    "food": 18.83
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 6.6,
+      "stock": 7.0,
       "pos": [
         4,
         11
@@ -128,7 +128,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 10,
       "pos": [
         -8,
         9
@@ -213,18 +213,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        6,
-        4
+        4.35,
+        9.77
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 10,
-        "energy": 88,
-        "company": 87
+        "hunger": 15,
+        "energy": 84,
+        "company": 86
       },
-      "task": "eat",
+      "task": "gather_food",
       "carry": {},
       "say": "A meal from the stores.",
       "delivered": 72,
@@ -316,15 +316,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 100,
-        "energy": 88,
-        "company": 13.0
+        "hunger": 50,
+        "energy": 84,
+        "company": 11.0
       },
-      "task": "stone",
+      "task": "eat",
       "carry": {
         "food": 3
       },
-      "say": "A shell on the stone.",
+      "say": "A meal from the stores.",
       "delivered": 73,
       "shells": 2,
       "stone_day": 23,
@@ -405,21 +405,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        -6.58,
-        6.93
+        -8,
+        9
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 10,
-        "energy": 67.0,
-        "company": 12
+        "hunger": 15,
+        "energy": 61.0,
+        "company": 11
       },
-      "task": "eat",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "task": "gather_food",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 116,
       "shells": 14,
       "temperament": 0.503,
@@ -506,7 +508,7 @@
         "food": 11
       },
       "stores_out": {
-        "food": 5.43
+        "food": 6.43
       },
       "project": {},
       "pot_in": 1,
