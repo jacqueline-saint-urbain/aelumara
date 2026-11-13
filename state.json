@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 559,
+  "tick": 560,
   "day": 24,
-  "time": "2026-11-17T23:00:00Z",
+  "time": "2026-11-18T00:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 2.0,
+      "stock": 2.4,
       "pos": [
         4,
         11
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 11.6,
+      "stock": 12,
       "pos": [
         13,
         12
@@ -220,13 +220,13 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 15,
-        "energy": 44,
-        "company": 79.5
+        "hunger": 20,
+        "energy": 40,
+        "company": 78.5
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {},
-      "say": "A meal from the stores.",
+      "say": "Good night, all. I need my bed.",
       "delivered": 76,
       "shells": 10,
       "temperament": 0.643,
@@ -316,13 +316,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 44,
-        "company": 25
+        "hunger": 55,
+        "energy": 40,
+        "company": 48
       },
       "task": "fire",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "The tide always brings something back. You have to be there when it goes out.",
       "delivered": 79,
       "shells": 2,
       "stone_day": 23,
@@ -412,9 +412,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 65,
-        "energy": 43.0,
-        "company": 2.0
+        "hunger": 70,
+        "energy": 55.0,
+        "company": 1.0
       },
       "task": "sleep",
       "carry": {
@@ -513,7 +513,10 @@
       "project": {},
       "pot_in": 0,
       "pot_out": 0
-    }
+    },
+    "left_fire": [
+      "npc-1"
+    ]
   },
   "fires": 23,
   "ledgers": [
