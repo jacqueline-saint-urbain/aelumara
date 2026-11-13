@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 545,
+  "tick": 546,
   "day": 23,
-  "time": "2026-11-17T09:00:00Z",
+  "time": "2026-11-17T10:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 22.83
+    "food": 20.83
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 5.4,
+      "stock": 5.8,
       "pos": [
         4,
         11
@@ -220,15 +220,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 100,
-        "energy": 100,
-        "company": 90
+        "hunger": 50,
+        "energy": 96,
+        "company": 89
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {
         "food": 1
       },
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 71,
       "shells": 10,
       "temperament": 0.643,
@@ -309,8 +309,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        12,
-        3
+        6.28,
+        1.18
       ],
       "talent": "food",
       "likes": "food",
@@ -319,10 +319,10 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 100,
-        "company": 19.0
+        "energy": 96,
+        "company": 17.0
       },
-      "task": "sleep",
+      "task": "stone",
       "carry": {
         "food": 3
       },
@@ -415,13 +415,13 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 100,
-        "energy": 85,
-        "company": 15
+        "hunger": 50,
+        "energy": 79.0,
+        "company": 14
       },
-      "task": "sleep",
+      "task": "eat",
       "carry": {},
-      "say": "Good night.",
+      "say": "A meal from the stores.",
       "delivered": 116,
       "shells": 14,
       "temperament": 0.503,
@@ -494,8 +494,7 @@
         ]
       ],
       "portion_day": 16,
-      "tired_day": 13,
-      "short_night": true
+      "tired_day": 13
     }
   ],
   "pot": 6,
@@ -509,7 +508,7 @@
         "food": 10
       },
       "stores_out": {
-        "food": 1.43
+        "food": 3.43
       },
       "project": {},
       "pot_in": 0,
