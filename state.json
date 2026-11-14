@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 580,
+  "tick": 581,
   "day": 25,
-  "time": "2026-11-18T20:00:00Z",
+  "time": "2026-11-18T21:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 0.4,
+      "stock": 0.8,
       "pos": [
         4,
         11
@@ -128,7 +128,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 10.6,
+      "stock": 11.0,
       "pos": [
         -8,
         9
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 12,
+      "stock": 7,
       "pos": [
         13,
         12
@@ -214,20 +214,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        10.16,
-        11.27
+        13,
+        12
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 20,
-        "energy": 56,
-        "company": 60.5
+        "hunger": 25,
+        "energy": 52,
+        "company": 60.0
       },
       "task": "gather_food",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 80,
       "shells": 10,
       "temperament": 0.643,
@@ -308,8 +310,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        9.95,
-        8.52
+        13,
+        12
       ],
       "talent": "food",
       "likes": "food",
@@ -317,13 +319,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 41,
-        "company": 44.0
+        "hunger": 40,
+        "energy": 37,
+        "company": 43.0
       },
       "task": "gather_food",
-      "carry": {},
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "carry": {
+        "food": 3
+      },
+      "say": "Berries for everyone.",
       "delivered": 82,
       "shells": 2,
       "stone_day": 24,
@@ -404,19 +408,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        11.93,
+        10.77
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 50,
-        "energy": 34.0,
+        "hunger": 55,
+        "energy": 28.0,
         "company": 0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 130,
