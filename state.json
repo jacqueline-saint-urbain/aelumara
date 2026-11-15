@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 607,
+  "tick": 608,
   "day": 26,
-  "time": "2026-11-19T23:00:00Z",
+  "time": "2026-11-20T00:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 1.2,
+      "stock": 1.6,
       "pos": [
         4,
         11
@@ -214,16 +214,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        0.53,
-        1.1
+        -1.5,
+        -0.5
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 29,
-        "company": 72.5
+        "hunger": 60,
+        "energy": 25,
+        "company": 96.5
       },
       "task": "fire",
       "carry": {},
@@ -318,13 +318,13 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 29,
-        "company": 33.0
+        "hunger": 55,
+        "energy": 25,
+        "company": 31.0
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {},
-      "say": "Berries for everyone.",
+      "say": "Good night, all. I need my bed.",
       "delivered": 86,
       "shells": 2,
       "stone_day": 25,
@@ -413,8 +413,8 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 35,
-        "energy": 43.0,
+        "hunger": 40,
+        "energy": 55.0,
         "company": 0
       },
       "task": "sleep",
@@ -501,7 +501,8 @@
   "today": {
     "delivered": 12,
     "at_fire": [
-      "npc-3"
+      "npc-3",
+      "npc-1"
     ],
     "ledger": {
       "stores_in": {
@@ -513,7 +514,10 @@
       "project": {},
       "pot_in": 0,
       "pot_out": 0
-    }
+    },
+    "left_fire": [
+      "npc-2"
+    ]
   },
   "fires": 25,
   "ledgers": [
