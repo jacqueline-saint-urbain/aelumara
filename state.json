@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 608,
+  "tick": 609,
   "day": 26,
-  "time": "2026-11-20T00:00:00Z",
+  "time": "2026-11-20T01:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 30.0
+    "food": 24.0
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 1.6,
+      "stock": 2.0,
       "pos": [
         4,
         11
@@ -221,9 +221,9 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 60,
-        "energy": 25,
-        "company": 96.5
+        "hunger": 65,
+        "energy": 21,
+        "company": 100
       },
       "task": "fire",
       "carry": {},
@@ -309,8 +309,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        0.53,
-        1.1
+        6.45,
+        2.08
       ],
       "talent": "food",
       "likes": "food",
@@ -318,11 +318,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
+        "hunger": 60,
         "energy": 25,
-        "company": 31.0
+        "company": 29.0
       },
-      "task": "sleep",
+      "task": "go_home",
       "carry": {},
       "say": "Good night, all. I need my bed.",
       "delivered": 86,
@@ -413,9 +413,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 40,
-        "energy": 55.0,
-        "company": 0
+        "hunger": 45,
+        "energy": 67.0,
+        "company": 20
       },
       "task": "sleep",
       "carry": {
@@ -497,7 +497,7 @@
       "tired_day": 13
     }
   ],
-  "pot": 7,
+  "pot": 6,
   "today": {
     "delivered": 12,
     "at_fire": [
@@ -509,17 +509,17 @@
         "food": 12
       },
       "stores_out": {
-        "food": 4.0
+        "food": 10.0
       },
       "project": {},
       "pot_in": 0,
-      "pot_out": 0
+      "pot_out": 1
     },
     "left_fire": [
       "npc-2"
     ]
   },
-  "fires": 25,
+  "fires": 26,
   "ledgers": [
     {
       "stores_in": {
