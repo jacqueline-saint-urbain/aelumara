@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 604,
+  "tick": 605,
   "day": 26,
-  "time": "2026-11-19T20:00:00Z",
+  "time": "2026-11-19T21:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 0.0,
+      "stock": 0.4,
       "pos": [
         4,
         11
@@ -214,18 +214,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        6,
-        4
+        9.95,
+        8.52
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 41,
-        "company": 74.5
+        "hunger": 45,
+        "energy": 37,
+        "company": 74.0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 86,
@@ -308,8 +308,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        6,
-        4
+        9.95,
+        8.52
       ],
       "talent": "food",
       "likes": "food",
@@ -317,11 +317,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 35,
-        "energy": 41,
-        "company": 37.0
+        "hunger": 40,
+        "energy": 37,
+        "company": 36.0
       },
-      "task": "deliver",
+      "task": "gather_food",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 86,
@@ -404,19 +404,19 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        4,
-        11
+        0.12,
+        2.88
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 20,
+        "hunger": 25,
         "energy": 19.0,
         "company": 0
       },
-      "task": "gather_food",
+      "task": "go_home",
       "carry": {
         "food": 1
       },
