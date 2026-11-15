@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 605,
+  "tick": 606,
   "day": 26,
-  "time": "2026-11-19T21:00:00Z",
+  "time": "2026-11-19T22:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 0.4,
+      "stock": 0.8,
       "pos": [
         4,
         11
@@ -214,18 +214,18 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        9.95,
-        8.52
+        5.24,
+        4.81
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 37,
-        "company": 74.0
+        "hunger": 50,
+        "energy": 33,
+        "company": 73.5
       },
-      "task": "gather_food",
+      "task": "fire",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 86,
@@ -308,8 +308,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        9.95,
-        8.52
+        5.24,
+        4.81
       ],
       "talent": "food",
       "likes": "food",
@@ -317,11 +317,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 40,
-        "energy": 37,
-        "company": 36.0
+        "hunger": 45,
+        "energy": 33,
+        "company": 35.0
       },
-      "task": "gather_food",
+      "task": "fire",
       "carry": {},
       "say": "Berries for everyone.",
       "delivered": 86,
@@ -404,23 +404,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        0.12,
-        2.88
+        -1.5,
+        -0.5
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 25,
-        "energy": 19.0,
+        "hunger": 30,
+        "energy": 31.0,
         "company": 0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "food": 1
       },
-      "say": "Berries for everyone.",
+      "say": "Good night.",
       "delivered": 136,
       "shells": 14,
       "temperament": 0.503,
