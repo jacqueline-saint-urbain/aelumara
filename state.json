@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 619,
+  "tick": 620,
   "day": 26,
-  "time": "2026-11-20T11:00:00Z",
+  "time": "2026-11-20T12:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 23.0
+    "food": 22.0
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 6.0,
+      "stock": 4.4,
       "pos": [
         4,
         11
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 10,
+      "stock": 10.4,
       "pos": [
         13,
         12
@@ -221,15 +221,15 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 55,
-        "energy": 77,
-        "company": 90
+        "hunger": 10,
+        "energy": 73,
+        "company": 89
       },
-      "task": "gather_food",
+      "task": "eat",
       "carry": {
         "food": 2
       },
-      "say": "Berries for everyone.",
+      "say": "A meal from the stores.",
       "delivered": 86,
       "shells": 10,
       "temperament": 0.643,
@@ -310,8 +310,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        0.56,
-        -0.63
+        -2.8,
+        -1.7
       ],
       "talent": "food",
       "likes": "food",
@@ -320,15 +320,15 @@
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
         "hunger": 100,
-        "energy": 92,
-        "company": 9.0
+        "energy": 88,
+        "company": 7.0
       },
       "task": "stone",
       "carry": {},
-      "say": "The tide always brings something back. You have to be there when it goes out.",
+      "say": "A shell on the stone.",
       "delivered": 86,
       "shells": 2,
-      "stone_day": 25,
+      "stone_day": 26,
       "temperament": 0.722,
       "disposition": 0.714,
       "disposition_week": 0.7155,
@@ -406,21 +406,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        4,
+        11
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 45,
-        "energy": 88.0,
-        "company": 10
+        "hunger": 50,
+        "energy": 82.0,
+        "company": 9
       },
-      "task": "deliver",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "task": "gather_food",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 137,
       "shells": 14,
       "temperament": 0.503,
@@ -496,7 +498,7 @@
       "tired_day": 13
     }
   ],
-  "pot": 6,
+  "pot": 7,
   "today": {
     "delivered": 13,
     "at_fire": [
@@ -508,10 +510,10 @@
         "food": 13
       },
       "stores_out": {
-        "food": 12.0
+        "food": 13.0
       },
       "project": {},
-      "pot_in": 0,
+      "pot_in": 1,
       "pot_out": 1
     },
     "left_fire": [
