@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 637,
+  "tick": 638,
   "day": 27,
-  "time": "2026-11-21T05:00:00Z",
+  "time": "2026-11-21T06:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 3.2,
+      "stock": 3.6,
       "pos": [
         4,
         11
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 10.2,
+      "stock": 10.6,
       "pos": [
         13,
         12
@@ -221,9 +221,9 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 45,
-        "energy": 45,
-        "company": 75.0
+        "hunger": 50,
+        "energy": 57,
+        "company": 74.0
       },
       "task": "sleep",
       "carry": {
@@ -320,9 +320,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 80,
-        "energy": 60,
-        "company": 27
+        "hunger": 85,
+        "energy": 72,
+        "company": 25
       },
       "task": "sleep",
       "carry": {
@@ -418,9 +418,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 85,
+        "hunger": 90,
         "energy": 85,
-        "company": 29
+        "company": 28
       },
       "task": "sleep",
       "carry": {
