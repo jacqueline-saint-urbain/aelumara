@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 631,
+  "tick": 632,
   "day": 27,
-  "time": "2026-11-20T23:00:00Z",
+  "time": "2026-11-21T00:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 0.8,
+      "stock": 1.2,
       "pos": [
         4,
         11
@@ -128,7 +128,7 @@
       "id": "food-2",
       "type": "bush",
       "resource": "food",
-      "stock": 11.8,
+      "stock": 12,
       "pos": [
         -8,
         9
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 7.8,
+      "stock": 8.2,
       "pos": [
         13,
         12
@@ -214,16 +214,16 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        8.46,
-        8.08
+        3.91,
+        4.16
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 15,
-        "energy": 29,
-        "company": 81.0
+        "hunger": 20,
+        "energy": 25,
+        "company": 80.0
       },
       "task": "fire",
       "carry": {
@@ -311,8 +311,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        3.91,
-        4.16
+        -0.64,
+        0.24
       ],
       "talent": "food",
       "likes": "food",
@@ -320,8 +320,8 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 50,
-        "energy": 44,
+        "hunger": 55,
+        "energy": 40,
         "company": 0
       },
       "task": "fire",
@@ -418,15 +418,15 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 55,
-        "energy": 16.0,
-        "company": 25
+        "hunger": 60,
+        "energy": 28.0,
+        "company": 24
       },
-      "task": "fire",
+      "task": "sleep",
       "carry": {
         "food": 1
       },
-      "say": "Berries for everyone.",
+      "say": "Good night.",
       "delivered": 144,
       "shells": 14,
       "temperament": 0.503,
