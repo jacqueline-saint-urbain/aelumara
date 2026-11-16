@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 635,
+  "tick": 636,
   "day": 27,
-  "time": "2026-11-21T03:00:00Z",
+  "time": "2026-11-21T04:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 2.4,
+      "stock": 2.8,
       "pos": [
         4,
         11
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 9.4,
+      "stock": 9.8,
       "pos": [
         13,
         12
@@ -214,22 +214,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        8.7,
-        7.76
+        9,
+        8
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 35,
-        "energy": 21,
-        "company": 77.0
+        "hunger": 40,
+        "energy": 33,
+        "company": 76.0
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "food": 2
       },
-      "say": "A meal from the stores.",
+      "say": "Good night.",
       "delivered": 90,
       "shells": 10,
       "temperament": 0.643,
@@ -311,8 +311,8 @@
       "color": "#56cfe1",
       "home": "hut-2",
       "pos": [
-        10.12,
-        2.51
+        12,
+        3
       ],
       "talent": "food",
       "likes": "food",
@@ -320,15 +320,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 70,
-        "energy": 36,
-        "company": 31
+        "hunger": 75,
+        "energy": 48,
+        "company": 29
       },
-      "task": "go_home",
+      "task": "sleep",
       "carry": {
         "food": 3
       },
-      "say": "Berries for everyone.",
+      "say": "Good night.",
       "delivered": 89,
       "shells": 2,
       "stone_day": 26,
@@ -418,9 +418,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 75,
-        "energy": 64.0,
-        "company": 31
+        "hunger": 80,
+        "energy": 76.0,
+        "company": 30
       },
       "task": "sleep",
       "carry": {
