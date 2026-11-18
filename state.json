@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 644,
+  "tick": 645,
   "day": 27,
-  "time": "2026-11-21T12:00:00Z",
+  "time": "2026-11-21T13:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 23.0
+    "food": 22.0
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 6.0,
+      "stock": 2.4,
       "pos": [
         4,
         11
@@ -214,20 +214,22 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        4.35,
-        9.77
+        4,
+        11
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 30,
-        "energy": 73,
-        "company": 68.5
+        "hunger": 35,
+        "energy": 69,
+        "company": 67.5
       },
       "task": "gather_food",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 92,
       "shells": 10,
       "temperament": 0.643,
@@ -317,15 +319,15 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 100,
-        "energy": 73,
-        "company": 13
+        "hunger": 50,
+        "energy": 69,
+        "company": 11
       },
-      "task": "stone",
+      "task": "eat",
       "carry": {
         "food": 3
       },
-      "say": "A shell on the stone.",
+      "say": "A meal from the stores.",
       "delivered": 89,
       "shells": 2,
       "stone_day": 27,
@@ -406,21 +408,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        4,
+        11
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 10,
-        "energy": 67.0,
-        "company": 22.5
+        "hunger": 15,
+        "energy": 61.0,
+        "company": 21.5
       },
-      "task": "eat",
-      "carry": {},
-      "say": "A meal from the stores.",
+      "task": "gather_food",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 145,
       "shells": 14,
       "temperament": 0.503,
@@ -508,7 +512,7 @@
         "food": 13
       },
       "stores_out": {
-        "food": 13.0
+        "food": 14.0
       },
       "project": {},
       "pot_in": 1,
