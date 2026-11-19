@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 646,
+  "tick": 647,
   "day": 27,
-  "time": "2026-11-21T14:00:00Z",
+  "time": "2026-11-21T15:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 24.0
+    "food": 25.0
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 2.8,
+      "stock": 1.2,
       "pos": [
         4,
         11
@@ -214,23 +214,21 @@
       "color": "#ef6f6c",
       "home": "hut-1",
       "pos": [
-        5.65,
-        5.23
+        6,
+        4
       ],
       "talent": "wood",
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 65,
-        "company": 67.0
+        "hunger": 45,
+        "energy": 61,
+        "company": 66.5
       },
       "task": "deliver",
-      "carry": {
-        "food": 2
-      },
+      "carry": {},
       "say": "Berries for everyone.",
-      "delivered": 92,
+      "delivered": 94,
       "shells": 10,
       "temperament": 0.643,
       "disposition": 0.6824,
@@ -319,11 +317,11 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 65,
-        "company": 9
+        "hunger": 10,
+        "energy": 61,
+        "company": 7
       },
-      "task": "deliver",
+      "task": "eat",
       "carry": {
         "food": 3
       },
@@ -408,21 +406,23 @@
       "color": "#80ed99",
       "home": "fire",
       "pos": [
-        6,
-        4
+        4,
+        11
       ],
       "speed_bonus": 3,
       "rest_rate": 1.5,
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 20,
-        "energy": 55.0,
-        "company": 21.0
+        "hunger": 25,
+        "energy": 49.0,
+        "company": 20.5
       },
-      "task": "deliver",
-      "carry": {},
-      "say": "What's that, over there?",
+      "task": "gather_food",
+      "carry": {
+        "food": 2
+      },
+      "say": "Berries for everyone.",
       "delivered": 147,
       "shells": 14,
       "temperament": 0.503,
@@ -500,17 +500,17 @@
   ],
   "pot": 7,
   "today": {
-    "delivered": 15,
+    "delivered": 17,
     "at_fire": [
       "npc-3",
       "npc-2"
     ],
     "ledger": {
       "stores_in": {
-        "food": 15
+        "food": 17
       },
       "stores_out": {
-        "food": 14.0
+        "food": 15.0
       },
       "project": {},
       "pot_in": 1,
