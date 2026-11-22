@@ -1,9 +1,9 @@
 {
   "v": 2,
   "seed": 2026,
-  "tick": 656,
+  "tick": 657,
   "day": 28,
-  "time": "2026-11-22T00:00:00Z",
+  "time": "2026-11-22T01:00:00Z",
   "flags": {
     "raft_ready": true,
     "shelter_ready": true
@@ -34,7 +34,7 @@
   "stores": {
     "wood": 0,
     "fiber": 0,
-    "food": 30.0
+    "food": 24.0
   },
   "nodes": [
     {
@@ -118,7 +118,7 @@
       "id": "food-1",
       "type": "bush",
       "resource": "food",
-      "stock": 2.8,
+      "stock": 3.2,
       "pos": [
         4,
         11
@@ -138,7 +138,7 @@
       "id": "food-3",
       "type": "bush",
       "resource": "food",
-      "stock": 9.4,
+      "stock": 9.8,
       "pos": [
         13,
         12
@@ -221,8 +221,8 @@
       "likes": "wood",
       "line": "You don't talk about a raft. You build it.",
       "needs": {
-        "hunger": 40,
-        "energy": 25,
+        "hunger": 45,
+        "energy": 21,
         "company": 100
       },
       "task": "fire",
@@ -318,9 +318,9 @@
       "company_rate": 2,
       "line": "The tide always brings something back. You have to be there when it goes out.",
       "needs": {
-        "hunger": 55,
-        "energy": 25,
-        "company": 48
+        "hunger": 60,
+        "energy": 21,
+        "company": 91
       },
       "task": "fire",
       "carry": {},
@@ -414,9 +414,9 @@
       "likes": "fiber",
       "line": "What's that, over there?",
       "needs": {
-        "hunger": 70,
-        "energy": 67.0,
-        "company": 14.0
+        "hunger": 75,
+        "energy": 79.0,
+        "company": 33.0
       },
       "task": "sleep",
       "carry": {},
@@ -496,7 +496,7 @@
       "tired_day": 13
     }
   ],
-  "pot": 7,
+  "pot": 6,
   "today": {
     "delivered": 12,
     "at_fire": [
@@ -509,14 +509,14 @@
         "food": 12
       },
       "stores_out": {
-        "food": 7.0
+        "food": 13.0
       },
       "project": {},
       "pot_in": 0,
-      "pot_out": 0
+      "pot_out": 1
     }
   },
-  "fires": 27,
+  "fires": 28,
   "ledgers": [
     {
       "stores_in": {
